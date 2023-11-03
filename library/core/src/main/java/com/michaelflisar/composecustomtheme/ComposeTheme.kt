@@ -54,7 +54,7 @@ object ComposeTheme {
         data object Default : SystemUIColor()
         data object Primary : SystemUIColor()
         data object Surface : SystemUIColor()
-        class Manual(val color: Color, val lightForeground: Boolean) : SystemUIColor()
+        class Manual(val color: Color, val isDark: Boolean) : SystemUIColor()
     }
 
     class State(

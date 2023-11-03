@@ -11,10 +11,32 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-internal object SystemUIUtil {
+object SystemUIUtil {
 
     @Composable
-    fun UpdateStatusbar(
+    fun updateStatusbar(
+        color: Color,
+        isDark: Boolean = color.luminance() < .5f
+    ) {
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            setStatusbarTheme(view, color, isDark)
+        }
+    }
+
+    @Composable
+    fun updateNavigation(
+        color: Color,
+        isDark: Boolean = color.luminance() < .5f
+    ) {
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            setNavigationTheme(view, color, isDark)
+        }
+    }
+
+    @Composable
+    internal fun UpdateStatusbar(
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
@@ -22,7 +44,7 @@ internal object SystemUIUtil {
     }
 
     @Composable
-    fun UpdateNavigation(
+    internal fun UpdateNavigation(
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
@@ -38,30 +60,32 @@ internal object SystemUIUtil {
         val view = LocalView.current
 
         var color: Color? = null
-        var lightForeground = false
+        var isDark = false
 
         when (systemUIColor) {
             ComposeTheme.SystemUIColor.Primary -> {
                 color = colorScheme.primary
-                lightForeground = color.luminance() > .5f
+                isDark = color.luminance() < .5f
             }
+
             ComposeTheme.SystemUIColor.Surface -> {
                 color = colorScheme.surface
-                lightForeground = color.luminance() > .5f
+                isDark = color.luminance() < .5f
             }
+
             ComposeTheme.SystemUIColor.Default -> {
                 // TODO: reset?? how??
             }
 
             is ComposeTheme.SystemUIColor.Manual -> {
                 color = systemUIColor.color
-                lightForeground = systemUIColor.lightForeground
+                isDark = systemUIColor.isDark
             }
         }
 
         if (color != null) {
             SideEffect {
-                function(view, color, lightForeground)
+                function(view, color, isDark)
             }
         }
     }
@@ -69,22 +93,20 @@ internal object SystemUIUtil {
     private fun setStatusbarTheme(
         view: View,
         color: Color,
-        lightForeground: Boolean
+        isDark: Boolean
     ) {
         val activity = view.context as Activity
         activity.window.statusBarColor = color.toArgb()
-        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars =
-            lightForeground
+        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars = !isDark
     }
 
     private fun setNavigationTheme(
         view: View,
         color: Color,
-        lightForeground: Boolean
+        isDark: Boolean
     ) {
         val activity = view.context as Activity
         activity.window.navigationBarColor = color.toArgb()
-        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightNavigationBars =
-            lightForeground
+        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightNavigationBars = !isDark
     }
 }
