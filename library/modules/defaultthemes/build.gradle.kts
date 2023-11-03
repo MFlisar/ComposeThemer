@@ -69,7 +69,7 @@ project.afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("maven") {
-                artifactId = "default-themes"
+                artifactId = "defaultthemes"
                 from(components["release"])
             }
         }

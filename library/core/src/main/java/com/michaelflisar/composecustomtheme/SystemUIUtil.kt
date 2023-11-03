@@ -11,10 +11,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-object SystemUIUtil {
+internal object SystemUIUtil {
 
     @Composable
-    internal fun UpdateStatusbar(
+    fun UpdateStatusbar(
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
@@ -22,7 +22,7 @@ object SystemUIUtil {
     }
 
     @Composable
-    internal fun UpdateNavigation(
+    fun UpdateNavigation(
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
@@ -45,7 +45,10 @@ object SystemUIUtil {
                 color = colorScheme.primary
                 lightForeground = color.luminance() > .5f
             }
-
+            ComposeTheme.SystemUIColor.Surface -> {
+                color = colorScheme.surface
+                lightForeground = color.luminance() > .5f
+            }
             ComposeTheme.SystemUIColor.Default -> {
                 // TODO: reset?? how??
             }

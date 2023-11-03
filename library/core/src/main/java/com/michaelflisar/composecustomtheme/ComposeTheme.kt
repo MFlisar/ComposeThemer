@@ -53,6 +53,7 @@ object ComposeTheme {
     sealed class SystemUIColor {
         data object Default : SystemUIColor()
         data object Primary : SystemUIColor()
+        data object Surface : SystemUIColor()
         class Manual(val color: Color, val lightForeground: Boolean) : SystemUIColor()
     }
 

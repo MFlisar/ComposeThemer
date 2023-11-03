@@ -247,76 +247,79 @@ object ComposeThemeDefaults {
         surface = Color.White
     )
 
-    val AllDefaultThemes = listOf(
+    fun getAllDefaultThemes(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
+    ) = listOf(
         ComposeTheme.Theme(
             key = "green",
             colorSchemeLight = LightGreenColorPalette,
             colorSchemeDark = DarkGreenColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "blue",
             colorSchemeLight = LightBlueColorPalette,
             colorSchemeDark = DarkBlueColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "red",
             colorSchemeLight = LightRedColorPalette,
             colorSchemeDark = DarkRedColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "grey",
             colorSchemeLight = LightGreyColorPalette,
             colorSchemeDark = DarkGreyColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "brown",
             colorSchemeLight = LightBrownColorPalette,
             colorSchemeDark = DarkBrownColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "indigo",
             colorSchemeLight = LightIndigoColorPalette,
             colorSchemeDark = DarkIndigoColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "orange",
             colorSchemeLight = LightOrangeColorPalette,
             colorSchemeDark = DarkOrangeColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "pink",
             colorSchemeLight = LightPinkColorPalette,
             colorSchemeDark = DarkPinkColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "purple",
             colorSchemeLight = LightPurpleColorPalette,
             colorSchemeDark = DarkPurpleColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "yellow",
             colorSchemeLight = LightYellowColorPalette,
             colorSchemeDark = DarkYellowColorPalette,
-            statusBarColor = ComposeTheme.SystemUIColor.Primary,
-            navigationBarColor = ComposeTheme.SystemUIColor.Default
+            statusBarColor = statusBarColor,
+            navigationBarColor = navigationBarColor
         )
     )
 }
