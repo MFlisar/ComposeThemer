@@ -10,6 +10,6 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        ComposeTheme.register(*ComposeThemeDefaults.AllDefaultThemes.toTypedArray())
+        ComposeTheme.register(*ComposeThemeDefaults.getDefaultThemes().toTypedArray())
     }
 }

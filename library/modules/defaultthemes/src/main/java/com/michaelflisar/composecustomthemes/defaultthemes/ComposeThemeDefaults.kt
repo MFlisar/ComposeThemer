@@ -247,7 +247,7 @@ object ComposeThemeDefaults {
         surface = Color.White
     )
 
-    fun getAllDefaultThemes(
+    fun getDefaultThemes(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = listOf(
