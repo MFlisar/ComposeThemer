@@ -19,22 +19,22 @@ object ComposeThemeDefaults {
         ),
         ComposeTheme.Theme(
             key = "green",
-            colorSchemeLight = Color1.LightColors,
-            colorSchemeDark = Color1.DarkColors,
+            colorSchemeLight = ColorGreenGreenOrange.LightColors,
+            colorSchemeDark = ColorGreenGreenOrange.DarkColors,
             statusBarColor = statusBarColor,
             navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "blue",
-            colorSchemeLight = Color2.LightColors,
-            colorSchemeDark = Color2.DarkColors,
+            colorSchemeLight = ColorBlueBlueRed.LightColors,
+            colorSchemeDark = ColorBlueBlueRed.DarkColors,
             statusBarColor = statusBarColor,
             navigationBarColor = navigationBarColor
         ),
         ComposeTheme.Theme(
             key = "red",
-            colorSchemeLight = Color3.LightColors,
-            colorSchemeDark = Color3.DarkColors,
+            colorSchemeLight = ColorRedRedBlue.LightColors,
+            colorSchemeDark = ColorRedRedBlue.DarkColors,
             statusBarColor = statusBarColor,
             navigationBarColor = navigationBarColor
         )
