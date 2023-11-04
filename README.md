@@ -3,9 +3,7 @@
 [![Release](https://jitpack.io/v/MFlisar/ComposeCustomTheme.svg)](https://jitpack.io/#MFlisar/ComposeCustomTheme)
 ![License](https://img.shields.io/github/license/MFlisar/ComposeCustomTheme)
 
-## About
-
-<i>This is a **full compose theme engine** that handles applying a theme as well as updating the system ui elements. Extendible and allows to simply apply user selected themes inside your app.</i>
+This is a **full compose theme engine** that handles applying a theme as well as updating the system ui elements. Extendible and allows to simply apply user selected themes inside your app.
 
 ## :camera: Screenshots
 
