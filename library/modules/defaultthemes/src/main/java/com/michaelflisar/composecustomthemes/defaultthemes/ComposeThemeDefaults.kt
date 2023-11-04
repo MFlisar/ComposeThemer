@@ -29,6 +29,7 @@ object ComposeThemeDefaults {
     ) = listOf(
         defaultTheme(statusBarColor, navigationBarColor),
         amberTheme(statusBarColor, navigationBarColor),
+        blueTheme(statusBarColor, navigationBarColor),
         brownTheme(statusBarColor, navigationBarColor),
         cyanTheme(statusBarColor, navigationBarColor),
         deepOrangeTheme(statusBarColor, navigationBarColor),
