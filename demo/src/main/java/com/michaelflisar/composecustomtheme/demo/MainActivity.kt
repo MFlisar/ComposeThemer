@@ -10,16 +10,28 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -140,6 +152,39 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             )
+
+            Divider(modifier = Modifier.padding(vertical = 16.dp))
+
+            Text("Example UI", style = MaterialTheme.typography.titleMedium)
+
+            var tabIndex by remember { mutableIntStateOf(0) }
+            val tabs = listOf("Home", "About", "Settings")
+            Column {
+                Text("Hello World")
+                TabRow(selectedTabIndex = tabIndex) {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(
+                            text = { Text(title) },
+                            selected = tabIndex == index,
+                            onClick = { tabIndex = index }
+                        )
+                    }
+                }
+                NavigationBar {
+                    tabs.forEachIndexed { index, title ->
+                        NavigationBarItem(
+                            label = {
+                                Text(text = title)
+                            },
+                            selected = tabIndex == index,
+                            icon = {
+                                Icon(imageVector = Icons.Default.Home, contentDescription = null)
+                            },
+                            onClick = { tabIndex = index }
+                        )
+                    }
+                }
+            }
         }
     }
 }

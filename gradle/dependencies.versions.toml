@@ -1,11 +1,11 @@
 [versions]
 
 # mflisar
-lumberjack = 				"6.0.0"
+lumberjack = 				"6.0.1"
 kotpreferences = 		    "0.3"
 composedemobaseactivity =   "0.4"
 
-desugar =                   "2.0.3"
+materialcolors =            "1.0.0"
 
 # ---------
 # libraries
@@ -24,9 +24,9 @@ kotpreferences-core =               		    { module = "com.github.MFlisar.KotPref
 kotpreferences-compose =               		    { module = "com.github.MFlisar.KotPreferences:compose", 					   version.ref = "kotpreferences" }
 kotpreferences-datastore =     		            { module = "com.github.MFlisar.KotPreferences:datastore",      				   version.ref = "kotpreferences" }
 kotpreferences-encryption-aes =     	        { module = "com.github.MFlisar.KotPreferences:encryption-aes",      		   version.ref = "kotpreferences" }
-composedemobaseactivity =                       { module = "com.github.MFlisar:ComposeDemoBaseActivity", 			            version.ref = "composedemobaseactivity" }
+composedemobaseactivity =                       { module = "com.github.MFlisar:ComposeDemoBaseActivity", 			           version.ref = "composedemobaseactivity" }
 
-desugar =			        			        { module = "com.android.tools:desugar_jdk_libs", 								version.ref = "desugar" }
+materialcolors =                                { module = "com.composables:materialcolors", 			                        version.ref = "materialcolors" }
 
 # -------
 # bundles

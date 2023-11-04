@@ -63,6 +63,8 @@ dependencies {
     // ------------------------
 
     implementation(project(":ComposeCustomTheme:Core"))
+
+    implementation(deps.materialcolors)
 }
 
 project.afterEvaluate {

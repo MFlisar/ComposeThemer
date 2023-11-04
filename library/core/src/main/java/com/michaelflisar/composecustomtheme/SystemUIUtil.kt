@@ -11,8 +11,17 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+/**
+ * a collection of useful functions
+ */
 object SystemUIUtil {
 
+    /**
+     * updates the statusbar color
+     *
+     * @param color the color for the statusbar
+     * @param isDark defined if the color is a dark color (and needs a light foreground) or not
+     */
     @Composable
     fun updateStatusbar(
         color: Color,
@@ -24,6 +33,12 @@ object SystemUIUtil {
         }
     }
 
+    /**
+     * updates the navigation bar color
+     *
+     * @param color the color for the navigation bar
+     * @param isDark defined if the color is a dark color (and needs a light foreground) or not
+     */
     @Composable
     fun updateNavigation(
         color: Color,
@@ -97,7 +112,8 @@ object SystemUIUtil {
     ) {
         val activity = view.context as Activity
         activity.window.statusBarColor = color.toArgb()
-        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars = !isDark
+        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightStatusBars =
+            !isDark
     }
 
     private fun setNavigationTheme(
@@ -107,6 +123,7 @@ object SystemUIUtil {
     ) {
         val activity = view.context as Activity
         activity.window.navigationBarColor = color.toArgb()
-        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightNavigationBars = !isDark
+        WindowCompat.getInsetsController(activity.window, view).isAppearanceLightNavigationBars =
+            !isDark
     }
 }
