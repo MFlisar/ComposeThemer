@@ -10,16 +10,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -159,7 +163,10 @@ class MainActivity : ComponentActivity() {
 
             var tabIndex by remember { mutableIntStateOf(0) }
             val tabs = listOf("Home", "About", "Settings")
-            Column {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 Text("Hello World")
                 TabRow(selectedTabIndex = tabIndex) {
                     tabs.forEachIndexed { index, title ->
@@ -183,6 +190,15 @@ class MainActivity : ComponentActivity() {
                             onClick = { tabIndex = index }
                         )
                     }
+                }
+                Card {
+                    Text("Card", modifier = Modifier.padding(16.dp))
+                }
+                OutlinedCard {
+                    Text("Card", modifier = Modifier.padding(16.dp))
+                }
+                ElevatedCard {
+                    Text("Card", modifier = Modifier.padding(16.dp))
                 }
             }
         }

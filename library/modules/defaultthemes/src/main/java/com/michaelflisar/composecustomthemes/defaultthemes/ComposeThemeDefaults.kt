@@ -2,176 +2,263 @@ package com.michaelflisar.composecustomthemes.defaultthemes
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import com.composables.materialcolors.MaterialColors
 import com.michaelflisar.composecustomtheme.ComposeTheme
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeAmber
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeBlue
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeBrown
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeCyan
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeDeepOrange
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeDeepPurple
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeGreen
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeIndigo
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeLightBlue
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeLightGreen
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeLime
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeOrange
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemePink
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemePurple
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeRed
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeTeal
+import com.michaelflisar.composecustomthemes.defaultthemes.themes.ComposeThemeYellow
 
 object ComposeThemeDefaults {
 
-    fun getDefaultThemes(
+    fun getAllThemes(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = listOf(
-        ComposeTheme.Theme(
-            key = "default",
-            colorSchemeLight = lightColorScheme(),
-            colorSchemeDark = darkColorScheme(),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "red",
-            colorSchemeLight = redColorScheme(false),
-            colorSchemeDark = redColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "pink",
-            colorSchemeLight = pinkColorScheme(false),
-            colorSchemeDark = pinkColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "purple",
-            colorSchemeLight = purpleColorScheme(false),
-            colorSchemeDark = purpleColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "indigo",
-            colorSchemeLight = indigoColorScheme(false),
-            colorSchemeDark = indigoColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "blue",
-            colorSchemeLight = blueColorScheme(false),
-            colorSchemeDark = blueColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "cyan",
-            colorSchemeLight = cyanColorScheme(false),
-            colorSchemeDark = cyanColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "teal",
-            colorSchemeLight = tealColorScheme(false),
-            colorSchemeDark = tealColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "green",
-            colorSchemeLight = greenColorScheme(false),
-            colorSchemeDark = greenColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "lime",
-            colorSchemeLight = limeColorScheme(false),
-            colorSchemeDark = limeColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "yellow",
-            colorSchemeLight = yellowColorScheme(false),
-            colorSchemeDark = yellowColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "amber",
-            colorSchemeLight = amberColorScheme(false),
-            colorSchemeDark = amberColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "orange",
-            colorSchemeLight = orangeColorScheme(false),
-            colorSchemeDark = orangeColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "brown",
-            colorSchemeLight = brownColorScheme(false),
-            colorSchemeDark = brownColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        ),
-        ComposeTheme.Theme(
-            key = "gray",
-            colorSchemeLight = grayColorScheme(false),
-            colorSchemeDark = grayColorScheme(true),
-            statusBarColor = statusBarColor,
-            navigationBarColor = navigationBarColor
-        )
+        defaultTheme(statusBarColor, navigationBarColor),
+        amberTheme(statusBarColor, navigationBarColor),
+        brownTheme(statusBarColor, navigationBarColor),
+        cyanTheme(statusBarColor, navigationBarColor),
+        deepOrangeTheme(statusBarColor, navigationBarColor),
+        deepPurpleTheme(statusBarColor, navigationBarColor),
+        greenTheme(statusBarColor, navigationBarColor),
+        indigoTheme(statusBarColor, navigationBarColor),
+        lightBlueTheme(statusBarColor, navigationBarColor),
+        lightGreenTheme(statusBarColor, navigationBarColor),
+        limeTheme(statusBarColor, navigationBarColor),
+        orangeTheme(statusBarColor, navigationBarColor),
+        pinkTheme(statusBarColor, navigationBarColor),
+        purpleTheme(statusBarColor, navigationBarColor),
+        redTheme(statusBarColor, navigationBarColor),
+        tealTheme(statusBarColor, navigationBarColor),
+        yellowTheme(statusBarColor, navigationBarColor)
     )
 
-    private fun redColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Red, MaterialColors.Red, MaterialColors.Green
+    fun defaultTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "default"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = lightColorScheme(),
+        colorSchemeDark = darkColorScheme(),
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun pinkColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Pink, MaterialColors.Pink, MaterialColors.Green
+    fun amberTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "amber"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeAmber.LightColors,
+        colorSchemeDark = ComposeThemeAmber.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun purpleColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Purple, MaterialColors.DeepPurple, MaterialColors.Green
+    fun blueTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "blue"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeBlue.LightColors,
+        colorSchemeDark = ComposeThemeBlue.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun indigoColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Indigo, MaterialColors.Indigo, MaterialColors.Green
+    fun brownTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "brown"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeBrown.LightColors,
+        colorSchemeDark = ComposeThemeBrown.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun blueColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Blue, MaterialColors.LightBlue, MaterialColors.Orange
+    fun cyanTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "cyan"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeCyan.LightColors,
+        colorSchemeDark = ComposeThemeCyan.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun cyanColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Cyan, MaterialColors.Cyan, MaterialColors.Orange
+    fun deepOrangeTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "deepOrange"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeDeepOrange.LightColors,
+        colorSchemeDark = ComposeThemeDeepOrange.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun tealColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Teal, MaterialColors.Cyan, MaterialColors.Orange
+    fun deepPurpleTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "deepPurple"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeDeepPurple.LightColors,
+        colorSchemeDark = ComposeThemeDeepPurple.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun greenColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Green, MaterialColors.LightGreen, MaterialColors.Orange
+    fun greenTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "green"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeGreen.LightColors,
+        colorSchemeDark = ComposeThemeGreen.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun limeColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Lime, MaterialColors.Lime, MaterialColors.Orange
+    fun indigoTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "indigo"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeIndigo.LightColors,
+        colorSchemeDark = ComposeThemeIndigo.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun yellowColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Yellow, MaterialColors.Yellow, MaterialColors.Orange
+    fun lightBlueTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "lightBlue"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeLightBlue.LightColors,
+        colorSchemeDark = ComposeThemeLightBlue.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun amberColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Amber, MaterialColors.Amber, MaterialColors.Red
+    fun lightGreenTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "lightGreen"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeLightGreen.LightColors,
+        colorSchemeDark = ComposeThemeLightGreen.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun orangeColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Orange, MaterialColors.DeepOrange, MaterialColors.Red
+    fun limeTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "lime"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeLime.LightColors,
+        colorSchemeDark = ComposeThemeLime.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun brownColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Brown, MaterialColors.Brown, MaterialColors.Yellow
+    fun orangeTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "orange"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeOrange.LightColors,
+        colorSchemeDark = ComposeThemeOrange.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
-    private fun grayColorScheme(dark: Boolean) = MaterialThemeUtil.colorScheme(
-        dark, MaterialColors.Gray, MaterialColors.Gray, MaterialColors.BlueGrey
+    fun pinkTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "pink"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemePink.LightColors,
+        colorSchemeDark = ComposeThemePink.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
     )
 
+    fun purpleTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "purple"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemePurple.LightColors,
+        colorSchemeDark = ComposeThemePurple.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
+    )
+
+    fun redTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "red"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeRed.LightColors,
+        colorSchemeDark = ComposeThemeRed.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
+    )
+
+    fun tealTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "teal"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeTeal.LightColors,
+        colorSchemeDark = ComposeThemeTeal.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
+    )
+
+    fun yellowTheme(
+        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
+        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
+        key: String = "yellow"
+    ) = ComposeTheme.Theme(
+        key = key,
+        colorSchemeLight = ComposeThemeYellow.LightColors,
+        colorSchemeDark = ComposeThemeYellow.DarkColors,
+        statusBarColor = statusBarColor,
+        navigationBarColor = navigationBarColor
+    )
 }
