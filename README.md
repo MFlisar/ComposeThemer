@@ -16,7 +16,7 @@ This library offers you simple theming engine for compose.
 
 Or watch the demo as mp4 here:
 
-![Demo](screenshots/demo.mp4)
+https://github.com/MFlisar/ComposeCustomTheme/assets/2437726/28e4555b-d559-4529-8781-bf188d572b6f
 
 ## :book: Documentation
 
