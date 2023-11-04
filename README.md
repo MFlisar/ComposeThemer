@@ -14,7 +14,9 @@ This library offers you simple theming engine for compose.
 | ![Demo](screenshots/demo.gif?raw=true "Demo") |
 | :-: |
 
-Or watch the demo as mp4 ![here](screenshots/demo.mp4?raw=true)
+Or watch the demo as mp4 here:
+
+https://github.com/MFlisar/ComposeCustomTheme/blame/main/screenshots/demo.mp4
 
 ## :book: Documentation
 
