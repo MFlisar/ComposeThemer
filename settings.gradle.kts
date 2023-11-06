@@ -49,7 +49,7 @@ dependencyResolutionManagement {
 
 include(":ComposeCustomTheme:Core")
 project(":ComposeCustomTheme:Core").projectDir = file("library/core")
-include(":ComposeCustomTheme:Modules:Defaultthemes")
-project(":ComposeCustomTheme:Modules:Defaultthemes").projectDir = file("library/modules/defaultthemes")
+include(":ComposeCustomTheme:Modules:Themes")
+project(":ComposeCustomTheme:Modules:Themes").projectDir = file("library/modules/themes")
 include(":demo")
 project(":demo").projectDir = file("demo")

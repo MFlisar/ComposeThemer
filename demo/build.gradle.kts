@@ -84,7 +84,7 @@ dependencies {
     // ------------------------
 
     implementation(project(":ComposeCustomTheme:Core"))
-    implementation(project(":ComposeCustomTheme:Modules:Defaultthemes"))
+    implementation(project(":ComposeCustomTheme:Modules:Themes"))
 
     // KotPreferences
     implementation(deps.kotpreferences.core)
