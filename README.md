@@ -16,7 +16,7 @@ Or watch the demo as mp4 [here](https://github.com/MFlisar/ComposeCustomTheme/as
 
 The readme for this library with **code samples**, **screenshots** and more can be found on following *github page*:
 
-[![Static Badge](https://img.shields.io/badge/Open%20Documentation-lightgreen?style=for-the-badge&logo=github&logoColor=black)](https://mflisar.github.io/github-docs/libraries/composecustomtheme/)
+[![Static Badge](https://img.shields.io/badge/Open%20Documentation-lightgreen?style=for-the-badge&logo=github&logoColor=black)](https://mflisar.github.io/github-docs/pages/compose/composecustomtheme/)
 
 Additionally there is also a full working [demo app](demo) inside the *demo module*.
 
