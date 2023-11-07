@@ -11,7 +11,7 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        ComposeTheme.register(*ComposeThemes.list(
+        ComposeTheme.register(*ComposeThemes.getAll(
             // optional - default value is Primary for statusbar and Default for navigation
             // statusBarColor = ComposeTheme.SystemUIColor.Surface,
             // navigationBarColor = ComposeTheme.SystemUIColor.Surface
