@@ -6,7 +6,7 @@ plugins {
 
 android {
 
-    namespace = "com.michaelflisar.composecustomtheme.demo"
+    namespace = "com.michaelflisar.composethemer.demo"
 
     compileSdk = app.versions.compileSdk.get().toInt()
 
@@ -83,8 +83,8 @@ dependencies {
     // Libraries
     // ------------------------
 
-    implementation(project(":ComposeCustomTheme:Core"))
-    implementation(project(":ComposeCustomTheme:Modules:Themes"))
+    implementation(project(":ComposeThemer:Core"))
+    implementation(project(":ComposeThemer:Modules:Themes"))
 
     // KotPreferences
     implementation(deps.kotpreferences.core)

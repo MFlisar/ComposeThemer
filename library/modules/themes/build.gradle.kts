@@ -7,7 +7,7 @@ plugins {
 
 android {
 
-    namespace = "com.michaelflisar.composecustomthemes.themes"
+    namespace = "com.michaelflisar.composethemer.themes"
 
     compileSdk = app.versions.compileSdk.get().toInt()
 
@@ -62,7 +62,7 @@ dependencies {
     // Library
     // ------------------------
 
-    implementation(project(":ComposeCustomTheme:Core"))
+    implementation(project(":ComposeThemer:Core"))
 }
 
 project.afterEvaluate {

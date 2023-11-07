@@ -1,4 +1,4 @@
-package com.michaelflisar.composecustomtheme.demo
+package com.michaelflisar.composethemer.demo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -49,8 +49,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.michaelflisar.composecustomtheme.ComposeTheme
-import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
+import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.demo.classes.DemoPrefs
 import com.michaelflisar.composedemobaseactivity.classes.listSaverKeepEntryStateList
 import com.michaelflisar.composedemobaseactivity.composables.DemoCollapsibleRegion
 import com.michaelflisar.composedemobaseactivity.composables.DemoSegmentedButtons

@@ -7,7 +7,7 @@ plugins {
 
 android {
 
-    namespace = "com.michaelflisar.composecustomthemes"
+    namespace = "com.michaelflisar.composethemer"
 
     compileSdk = app.versions.compileSdk.get().toInt()
 

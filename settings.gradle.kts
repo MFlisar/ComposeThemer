@@ -47,9 +47,9 @@ dependencyResolutionManagement {
 // App
 // --------------
 
-include(":ComposeCustomTheme:Core")
-project(":ComposeCustomTheme:Core").projectDir = file("library/core")
-include(":ComposeCustomTheme:Modules:Themes")
-project(":ComposeCustomTheme:Modules:Themes").projectDir = file("library/modules/themes")
+include(":ComposeThemer:Core")
+project(":ComposeThemer:Core").projectDir = file("library/core")
+include(":ComposeThemer:Modules:Themes")
+project(":ComposeThemer:Modules:Themes").projectDir = file("library/modules/themes")
 include(":demo")
 project(":demo").projectDir = file("demo")
