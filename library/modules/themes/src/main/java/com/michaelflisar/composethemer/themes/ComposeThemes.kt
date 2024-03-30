@@ -58,6 +58,7 @@ import com.michaelflisar.composethemer.themes.themes.ThemeVesuviusBurned
 import com.michaelflisar.composethemer.themes.themes.ThemeWillowAndWasabi
 import com.michaelflisar.composethemer.themes.themes.ThemeYukonGoldYellow
 import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.themes.themes.ThemeDefault
 
 object ComposeThemes {
 
@@ -66,7 +67,7 @@ object ComposeThemes {
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = listOf(
         // default m3 theme
-        defaultTheme(statusBarColor, navigationBarColor),
+        ThemeDefault.get(statusBarColor, navigationBarColor),
         // custom themes
         ThemeAmberBlue.get(statusBarColor, navigationBarColor),
         ThemeAquaBlue.get(statusBarColor, navigationBarColor),
@@ -123,17 +124,5 @@ object ComposeThemes {
         ThemeVesuviusBurned.get(statusBarColor, navigationBarColor),
         ThemeWillowAndWasabi.get(statusBarColor, navigationBarColor),
         ThemeYukonGoldYellow.get(statusBarColor, navigationBarColor),
-    )
-
-    fun defaultTheme(
-        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
-        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default,
-        key: String = "Default"
-    ) = ComposeTheme.Theme(
-        key = key,
-        colorSchemeLight = lightColorScheme(),
-        colorSchemeDark = darkColorScheme(),
-        statusBarColor = statusBarColor,
-        navigationBarColor = navigationBarColor
     )
 }

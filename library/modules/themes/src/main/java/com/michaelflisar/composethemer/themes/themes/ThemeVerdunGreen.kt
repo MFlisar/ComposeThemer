@@ -12,11 +12,13 @@ import com.michaelflisar.composethemer.ComposeTheme
  */
 object ThemeVerdunGreen {
 
+    const val KEY = "Verdun Green"
+    
     fun get(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = ComposeTheme.Theme(
-        key = "Verdun Green",
+        key = KEY,
         colorSchemeLight = Light,
         colorSchemeDark = Dark,
         statusBarColor = statusBarColor,

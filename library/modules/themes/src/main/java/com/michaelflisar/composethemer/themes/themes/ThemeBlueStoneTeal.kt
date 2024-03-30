@@ -12,11 +12,13 @@ import com.michaelflisar.composethemer.ComposeTheme
  */
 object ThemeBlueStoneTeal {
 
+    const val KEY = "Blue Stone Teal"
+    
     fun get(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = ComposeTheme.Theme(
-        key = "Blue Stone Teal",
+        key = KEY,
         colorSchemeLight = Light,
         colorSchemeDark = Dark,
         statusBarColor = statusBarColor,

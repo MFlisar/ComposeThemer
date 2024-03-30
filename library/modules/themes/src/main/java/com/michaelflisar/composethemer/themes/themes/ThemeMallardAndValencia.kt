@@ -12,11 +12,13 @@ import com.michaelflisar.composethemer.ComposeTheme
  */
 object ThemeMallardAndValencia {
 
+    const val KEY = "Mallard And Valencia"
+    
     fun get(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = ComposeTheme.Theme(
-        key = "Mallard And Valencia",
+        key = KEY,
         colorSchemeLight = Light,
         colorSchemeDark = Dark,
         statusBarColor = statusBarColor,

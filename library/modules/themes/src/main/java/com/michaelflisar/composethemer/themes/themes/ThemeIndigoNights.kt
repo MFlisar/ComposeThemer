@@ -12,11 +12,13 @@ import com.michaelflisar.composethemer.ComposeTheme
  */
 object ThemeIndigoNights {
 
+    const val KEY = "Indigo Nights"
+    
     fun get(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
     ) = ComposeTheme.Theme(
-        key = "Indigo Nights",
+        key = KEY,
         colorSchemeLight = Light,
         colorSchemeDark = Dark,
         statusBarColor = statusBarColor,

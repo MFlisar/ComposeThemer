@@ -12,6 +12,8 @@ import com.michaelflisar.composethemer.ComposeTheme
  */
 object ThemeSharkAndOrange {
 
+    const val KEY = "Shark And Orange"
+
     fun get(
         statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
         navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
