@@ -2,6 +2,9 @@ package com.michaelflisar.composethemer
 
 import android.app.Activity
 import android.view.View
+import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -15,6 +18,34 @@ import androidx.core.view.WindowCompat
  * a collection of useful functions
  */
 object SystemUIUtil {
+
+    /**
+     * updates the statusbar to be transparent and enables edge to edge
+     * preparation so that the theme can apply its colors correctly
+     */
+    internal fun enableEdgeToEdge(
+        activity: ComponentActivity,
+        themeState: ComposeTheme.State,
+        colorScheme: ColorScheme
+    ) {
+        val composeTheme = themeState.composeTheme
+        val darkStatusBar = getColor(composeTheme.statusBarColor, colorScheme, colorScheme.primary).luminance() < .5f
+        val darkNavigationBar = getColor(composeTheme.navigationBarColor, colorScheme, Color.Transparent).luminance() < .5f
+        activity.enableEdgeToEdge(
+            statusBarStyle = if (darkStatusBar) {
+                SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+            } else SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
+            ),
+            navigationBarStyle = if (darkNavigationBar) {
+                SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+            } else SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
+            )
+        )
+    }
 
     /**
      * updates the statusbar color
@@ -55,7 +86,7 @@ object SystemUIUtil {
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
-        UpdateColors(systemUIColor, colorScheme, SystemUIUtil::setStatusbarTheme)
+        UpdateColors(systemUIColor, colorScheme, colorScheme.primary, SystemUIUtil::setStatusbarTheme)
     }
 
     @Composable
@@ -63,45 +94,34 @@ object SystemUIUtil {
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
-        UpdateColors(systemUIColor, colorScheme, SystemUIUtil::setNavigationTheme)
+        UpdateColors(systemUIColor, colorScheme, Color.Transparent, SystemUIUtil::setNavigationTheme)
     }
 
     @Composable
     private fun UpdateColors(
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme,
+        defaultColor: Color,
         function: (view: View, color: Color, lightForeground: Boolean) -> Unit
     ) {
         val view = LocalView.current
-
-        var color: Color? = null
-        var isDark = false
-
-        when (systemUIColor) {
-            ComposeTheme.SystemUIColor.Primary -> {
-                color = colorScheme.primary
-                isDark = color.luminance() < .5f
-            }
-
-            ComposeTheme.SystemUIColor.Surface -> {
-                color = colorScheme.surface
-                isDark = color.luminance() < .5f
-            }
-
-            ComposeTheme.SystemUIColor.Default -> {
-                // TODO: reset?? how??
-            }
-
-            is ComposeTheme.SystemUIColor.Manual -> {
-                color = systemUIColor.color
-                isDark = systemUIColor.isDark
-            }
+        val color = getColor(systemUIColor, colorScheme, defaultColor)
+        val isDark = color.luminance() < .5f
+        SideEffect {
+            function(view, color, isDark)
         }
+    }
 
-        if (color != null) {
-            SideEffect {
-                function(view, color, isDark)
-            }
+    private fun getColor(
+        systemUIColor: ComposeTheme.SystemUIColor,
+        colorScheme: ColorScheme,
+        defaultColor: Color
+    ): Color {
+        return when (systemUIColor) {
+            ComposeTheme.SystemUIColor.Primary -> colorScheme.primary
+            ComposeTheme.SystemUIColor.Surface -> colorScheme.surface
+            ComposeTheme.SystemUIColor.Default -> defaultColor
+            is ComposeTheme.SystemUIColor.Manual -> systemUIColor.color
         }
     }
 

@@ -1,6 +1,7 @@
 package com.michaelflisar.composethemer
 
 import android.os.Build
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -105,7 +106,10 @@ object ComposeTheme {
         val base: androidx.compose.runtime.State<BaseTheme>,
         val dynamic: androidx.compose.runtime.State<Boolean>,
         val theme: androidx.compose.runtime.State<String>
-    )
+    ) {
+        val composeTheme: Theme
+            get() = find(theme.value)
+    }
 
     /**
      * base theme to define if the dark/light or system derived color theme should be used
@@ -121,6 +125,18 @@ object ComposeTheme {
             Light -> false
             System -> isSystemInDarkTheme()
         }
+    }
+
+    /**
+     * enabled edgeToEdge and makes the system bars transparent so that the theme can apply its color correctly
+     */
+    @Composable
+    fun enableEdgeToEdge(activity: ComponentActivity, themeState: State, colorScheme: ColorScheme) {
+        SystemUIUtil.enableEdgeToEdge(
+            activity,
+            themeState,
+            colorScheme
+        )
     }
 }
 

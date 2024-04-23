@@ -77,6 +77,9 @@ class MainActivity : ComponentActivity() {
 
             val state = ComposeTheme.State(baseTheme, dynamic, theme)
             ComposeTheme(state = state) {
+                // enable edge-to-edge so that theming works fine on newest APIs as well
+                // this makes the sustem areas transparent so that the theme can correctly apply its colors
+                ComposeTheme.enableEdgeToEdge(this, state, MaterialTheme.colorScheme)
                 Scaffold(
                     topBar = {
                         TopAppBar(
