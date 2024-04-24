@@ -1,9 +1,8 @@
-package com.michaelflisar.composethemer.demo
+package com.michaelflisar.composecustomtheme.demo
 
 import android.app.Application
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.themes.ComposeThemes
-import com.michaelflisar.composethemer.themes.themes.ThemeAmberBlue
 
 class DemoApp : Application() {
 
