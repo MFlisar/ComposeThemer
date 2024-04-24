@@ -135,7 +135,8 @@ object ComposeTheme {
         SystemUIUtil.enableEdgeToEdge(
             activity,
             themeState,
-            colorScheme
+            colorScheme,
+            themeState.base.value.isDark()
         )
     }
 }
@@ -160,11 +161,8 @@ fun ComposeTheme(
     val colorScheme = when {
         state.dynamic.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(
-                context
-            )
+            if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         state.base.value.isDark() -> theme.colorSchemeDark
         else -> theme.colorSchemeLight
     }

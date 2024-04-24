@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -26,11 +27,14 @@ object SystemUIUtil {
     internal fun enableEdgeToEdge(
         activity: ComponentActivity,
         themeState: ComposeTheme.State,
-        colorScheme: ColorScheme
+        colorScheme: ColorScheme,
+        isSystemInDarkTheme: Boolean
     ) {
         val composeTheme = themeState.composeTheme
+
         val darkStatusBar = getColor(composeTheme.statusBarColor, colorScheme, colorScheme.primary).luminance() < .5f
-        val darkNavigationBar = getColor(composeTheme.navigationBarColor, colorScheme, Color.Transparent).luminance() < .5f
+        val darkNavigationBar = getColor(composeTheme.navigationBarColor, colorScheme, colorScheme.background).luminance() < .5f
+
         activity.enableEdgeToEdge(
             statusBarStyle = if (darkStatusBar) {
                 SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
@@ -39,7 +43,7 @@ object SystemUIUtil {
                 android.graphics.Color.TRANSPARENT
             ),
             navigationBarStyle = if (darkNavigationBar) {
-                SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+                SystemBarStyle.dark( android.graphics.Color.TRANSPARENT)
             } else SystemBarStyle.light(
                 android.graphics.Color.TRANSPARENT,
                 android.graphics.Color.TRANSPARENT
@@ -94,7 +98,7 @@ object SystemUIUtil {
         systemUIColor: ComposeTheme.SystemUIColor,
         colorScheme: ColorScheme
     ) {
-        UpdateColors(systemUIColor, colorScheme, Color.Transparent, SystemUIUtil::setNavigationTheme)
+        UpdateColors(systemUIColor, colorScheme, colorScheme.background, SystemUIUtil::setNavigationTheme)
     }
 
     @Composable
