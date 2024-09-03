@@ -1,7 +1,6 @@
 package com.michaelflisar.composethemer.themes
 
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
+import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.themes.themes.ThemeAmberBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeAquaBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeBahamaAndTrinidad
@@ -17,6 +16,7 @@ import com.michaelflisar.composethemer.themes.themes.ThemeCamaroneGreen
 import com.michaelflisar.composethemer.themes.themes.ThemeDamaskAndLunar
 import com.michaelflisar.composethemer.themes.themes.ThemeDeepBlueSea
 import com.michaelflisar.composethemer.themes.themes.ThemeDeepPurple
+import com.michaelflisar.composethemer.themes.themes.ThemeDefault
 import com.michaelflisar.composethemer.themes.themes.ThemeDellGenoaGreen
 import com.michaelflisar.composethemer.themes.themes.ThemeEbonyClay
 import com.michaelflisar.composethemer.themes.themes.ThemeEggplantPurple
@@ -24,10 +24,10 @@ import com.michaelflisar.composethemer.themes.themes.ThemeEndeavourBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeEspressoAndCrema
 import com.michaelflisar.composethemer.themes.themes.ThemeFlutterDash
 import com.michaelflisar.composethemer.themes.themes.ThemeGoldSunset
-import com.michaelflisar.composethemer.themes.themes.ThemeGreens
 import com.michaelflisar.composethemer.themes.themes.ThemeGreenForest
 import com.michaelflisar.composethemer.themes.themes.ThemeGreenJungle
 import com.michaelflisar.composethemer.themes.themes.ThemeGreenMoney
+import com.michaelflisar.composethemer.themes.themes.ThemeGreens
 import com.michaelflisar.composethemer.themes.themes.ThemeGreyLaw
 import com.michaelflisar.composethemer.themes.themes.ThemeHippieBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeIndigoNights
@@ -57,72 +57,68 @@ import com.michaelflisar.composethemer.themes.themes.ThemeVerdunLime
 import com.michaelflisar.composethemer.themes.themes.ThemeVesuviusBurned
 import com.michaelflisar.composethemer.themes.themes.ThemeWillowAndWasabi
 import com.michaelflisar.composethemer.themes.themes.ThemeYukonGoldYellow
-import com.michaelflisar.composethemer.ComposeTheme
-import com.michaelflisar.composethemer.themes.themes.ThemeDefault
 
 object ComposeThemes {
 
-    fun getAll(
-        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
-        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
-    ) = listOf(
-        // default m3 theme
-        ThemeDefault.get(statusBarColor, navigationBarColor),
-        // custom themes
-        ThemeAmberBlue.get(statusBarColor, navigationBarColor),
-        ThemeAquaBlue.get(statusBarColor, navigationBarColor),
-        ThemeBahamaAndTrinidad.get(statusBarColor, navigationBarColor),
-        ThemeBarossa.get(statusBarColor, navigationBarColor),
-        ThemeBigStoneTulip.get(statusBarColor, navigationBarColor),
-        ThemeBlueDelight.get(statusBarColor, navigationBarColor),
-        ThemeBlueStoneTeal.get(statusBarColor, navigationBarColor),
-        ThemeBlueWhale.get(statusBarColor, navigationBarColor),
-        ThemeBlumine.get(statusBarColor, navigationBarColor),
-        ThemeBrandBlues.get(statusBarColor, navigationBarColor),
-        ThemeBrownOrange.get(statusBarColor, navigationBarColor),
-        ThemeCamaroneGreen.get(statusBarColor, navigationBarColor),
-        ThemeDamaskAndLunar.get(statusBarColor, navigationBarColor),
-        ThemeDeepBlueSea.get(statusBarColor, navigationBarColor),
-        ThemeDeepPurple.get(statusBarColor, navigationBarColor),
-        ThemeDellGenoaGreen.get(statusBarColor, navigationBarColor),
-        ThemeEbonyClay.get(statusBarColor, navigationBarColor),
-        ThemeEggplantPurple.get(statusBarColor, navigationBarColor),
-        ThemeEndeavourBlue.get(statusBarColor, navigationBarColor),
-        ThemeEspressoAndCrema.get(statusBarColor, navigationBarColor),
-        ThemeFlutterDash.get(statusBarColor, navigationBarColor),
-        ThemeGoldSunset.get(statusBarColor, navigationBarColor),
-        ThemeGreens.get(statusBarColor, navigationBarColor),
-        ThemeGreenForest.get(statusBarColor, navigationBarColor),
-        ThemeGreenJungle.get(statusBarColor, navigationBarColor),
-        ThemeGreenMoney.get(statusBarColor, navigationBarColor),
-        ThemeGreyLaw.get(statusBarColor, navigationBarColor),
-        ThemeHippieBlue.get(statusBarColor, navigationBarColor),
-        ThemeIndigoNights.get(statusBarColor, navigationBarColor),
-        ThemeIndigoSanMarino.get(statusBarColor, navigationBarColor),
-        ThemeLipstickPink.get(statusBarColor, navigationBarColor),
-        ThemeMallardAndValencia.get(statusBarColor, navigationBarColor),
-        ThemeMangoMojito.get(statusBarColor, navigationBarColor),
-        ThemeMaterial3Purple.get(statusBarColor, navigationBarColor),
-        ThemeMaterialDefault.get(statusBarColor, navigationBarColor),
-        ThemeMaterialHighContrast.get(statusBarColor, navigationBarColor),
-        ThemeMidnight.get(statusBarColor, navigationBarColor),
-        ThemeMosqueCyan.get(statusBarColor, navigationBarColor),
-        ThemeOhMandyRed.get(statusBarColor, navigationBarColor),
-        ThemeOuterSpaceStage.get(statusBarColor, navigationBarColor),
-        ThemePinkSakura.get(statusBarColor, navigationBarColor),
-        ThemePurpleBrown.get(statusBarColor, navigationBarColor),
-        ThemeRedAndBlue.get(statusBarColor, navigationBarColor),
-        ThemeRedRedWine.get(statusBarColor, navigationBarColor),
-        ThemeRedTornado.get(statusBarColor, navigationBarColor),
-        ThemeRosewood.get(statusBarColor, navigationBarColor),
-        ThemeRustDeepOrange.get(statusBarColor, navigationBarColor),
-        ThemeSanJuanBlue.get(statusBarColor, navigationBarColor),
-        ThemeSharkAndOrange.get(statusBarColor, navigationBarColor),
-        ThemeThunderbirdRed.get(statusBarColor, navigationBarColor),
-        ThemeVerdunGreen.get(statusBarColor, navigationBarColor),
-        ThemeVerdunLime.get(statusBarColor, navigationBarColor),
-        ThemeVesuviusBurned.get(statusBarColor, navigationBarColor),
-        ThemeWillowAndWasabi.get(statusBarColor, navigationBarColor),
-        ThemeYukonGoldYellow.get(statusBarColor, navigationBarColor),
-    )
+    val ALL: List<ComposeTheme.Theme>
+        get() = listOf(
+            // default m3 theme
+            ThemeDefault.get(),
+            // custom themes
+            ThemeAmberBlue.get(),
+            ThemeAquaBlue.get(),
+            ThemeBahamaAndTrinidad.get(),
+            ThemeBarossa.get(),
+            ThemeBigStoneTulip.get(),
+            ThemeBlueDelight.get(),
+            ThemeBlueStoneTeal.get(),
+            ThemeBlueWhale.get(),
+            ThemeBlumine.get(),
+            ThemeBrandBlues.get(),
+            ThemeBrownOrange.get(),
+            ThemeCamaroneGreen.get(),
+            ThemeDamaskAndLunar.get(),
+            ThemeDeepBlueSea.get(),
+            ThemeDeepPurple.get(),
+            ThemeDellGenoaGreen.get(),
+            ThemeEbonyClay.get(),
+            ThemeEggplantPurple.get(),
+            ThemeEndeavourBlue.get(),
+            ThemeEspressoAndCrema.get(),
+            ThemeFlutterDash.get(),
+            ThemeGoldSunset.get(),
+            ThemeGreens.get(),
+            ThemeGreenForest.get(),
+            ThemeGreenJungle.get(),
+            ThemeGreenMoney.get(),
+            ThemeGreyLaw.get(),
+            ThemeHippieBlue.get(),
+            ThemeIndigoNights.get(),
+            ThemeIndigoSanMarino.get(),
+            ThemeLipstickPink.get(),
+            ThemeMallardAndValencia.get(),
+            ThemeMangoMojito.get(),
+            ThemeMaterial3Purple.get(),
+            ThemeMaterialDefault.get(),
+            ThemeMaterialHighContrast.get(),
+            ThemeMidnight.get(),
+            ThemeMosqueCyan.get(),
+            ThemeOhMandyRed.get(),
+            ThemeOuterSpaceStage.get(),
+            ThemePinkSakura.get(),
+            ThemePurpleBrown.get(),
+            ThemeRedAndBlue.get(),
+            ThemeRedRedWine.get(),
+            ThemeRedTornado.get(),
+            ThemeRosewood.get(),
+            ThemeRustDeepOrange.get(),
+            ThemeSanJuanBlue.get(),
+            ThemeSharkAndOrange.get(),
+            ThemeThunderbirdRed.get(),
+            ThemeVerdunGreen.get(),
+            ThemeVerdunLime.get(),
+            ThemeVesuviusBurned.get(),
+            ThemeWillowAndWasabi.get(),
+            ThemeYukonGoldYellow.get(),
+        )
 }

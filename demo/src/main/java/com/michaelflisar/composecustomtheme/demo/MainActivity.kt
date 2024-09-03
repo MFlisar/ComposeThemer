@@ -1,7 +1,9 @@
 package com.michaelflisar.composecustomtheme.demo
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,12 +22,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -35,7 +40,10 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -47,14 +55,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
 import com.michaelflisar.composedemobaseactivity.classes.listSaverKeepEntryStateList
 import com.michaelflisar.composedemobaseactivity.composables.DemoCollapsibleRegion
 import com.michaelflisar.composedemobaseactivity.composables.DemoSegmentedButtons
+import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
+import com.michaelflisar.composethemer.navigationBar
+import com.michaelflisar.composethemer.statusBar
 import com.michaelflisar.kotpreferences.compose.collectAsState
 import com.michaelflisar.kotpreferences.compose.collectAsStateNotNull
 import kotlinx.coroutines.launch
@@ -64,6 +77,10 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val edgeToEdge = true
+        val variant = 1
+
         setContent {
 
             // those states are persisted and retrieved via my kotpreferences library
@@ -71,16 +88,77 @@ class MainActivity : ComponentActivity() {
             val baseTheme = DemoPrefs.baseTheme.collectAsStateNotNull()
             val dynamic = DemoPrefs.dynamic.collectAsStateNotNull()
             val theme = DemoPrefs.themeKey.collectAsStateNotNull()
+
             // simple runtime saved states would look like following:
             // val baseTheme = rememberSaveable { mutableStateOf(ComposeTheme.BaseTheme.System) }
             // val dynamic = rememberSaveable { mutableStateOf(false) }
-            // val theme = rememberSaveable { mutableStateOf("Default") } // key of the current theme
+            // val theme = rememberSaveable { mutableStateOf(ThemeGreenForest.KEY) } // key of the current theme
+            // val edgeToEdge = rememberSaveable { mutableStateOf(false) }
 
             val state = ComposeTheme.State(baseTheme, dynamic, theme)
+
+            // in a live app you may have screens with different colors behind the status and navigation bar =>
+            // following states emulate such a behaviour and show how those cases can be handled
+            val statusBarColorPrimary = rememberSaveable { mutableStateOf(true) }
+            val navigationBarColorPrimary = rememberSaveable { mutableStateOf(true) }
+
             ComposeTheme(state = state) {
-                // enable edge-to-edge so that theming works fine on newest APIs as well
-                // this makes the sustem areas transparent so that the theme can correctly apply its colors
-                ComposeTheme.enableEdgeToEdge(this, state, MaterialTheme.colorScheme)
+
+                val primary = MaterialTheme.colorScheme.primary
+                val background = MaterialTheme.colorScheme.background
+
+                val statusBarColor = remember(statusBarColorPrimary.value, primary, background) {
+                    derivedStateOf { if (statusBarColorPrimary.value) primary else background }
+                }
+                val navigationBarColor =
+                    remember(navigationBarColorPrimary.value, primary, background) {
+                        derivedStateOf { if (navigationBarColorPrimary.value) primary else background }
+                    }
+
+                // Statusbar and Navigation Bar is drawn in primary color -> we use this to detect the dark mode for the system bars
+                if (edgeToEdge) {
+
+                    // ComposeTheme.enableEdgeToEdge...helper function to easily enable edgeToEdge
+                    // SystemBarStyle also offers some extensions (statusBar, navigationBar, transparent) that can be used
+
+                    // this app draws a bottom navigation behind the navigation bar in portrait only, in landscape mode it doesn't
+                    // => landscape may
+                    val landscape =
+                        LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+                    if (variant == 1) {
+
+                        // Variant 1
+                        ComposeTheme.enableEdgeToEdge(
+                            this,
+                            statusBarColor = statusBarColor.value,
+                            navigationBarColor = if (landscape) {
+                                SystemBarStyle.defaultScrim(resources)
+                            } else navigationBarColor.value,
+                            isNavigationBarContrastEnforced = landscape
+                        )
+                    } else {
+
+                        // Variant 2
+                        val isDarkStatusBar = remember(statusBarColor.value) {
+                            derivedStateOf { statusBarColor.value.luminance() < .5f }
+                        }
+                        val isDarkNavigationBar = remember(navigationBarColor.value, landscape, resources) {
+                            derivedStateOf {
+                                (if (landscape) {
+                                    SystemBarStyle.defaultScrim(resources)
+                                } else navigationBarColor.value).luminance() < .5f
+                            }
+                        }
+                        ComposeTheme.enableEdgeToEdge(
+                            this,
+                            statusBarStyle = SystemBarStyle.statusBar { isDarkStatusBar.value },
+                            navigationBarStyle = SystemBarStyle.navigationBar { isDarkNavigationBar.value },
+                            isNavigationBarContrastEnforced = landscape
+                        )
+                    }
+                }
+
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -88,20 +166,35 @@ class MainActivity : ComponentActivity() {
                                 Text(text = stringResource(R.string.app_name))
                             },
                             colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                                actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+                                containerColor = statusBarColor.value,
+                                titleContentColor = contentColorFor(statusBarColor.value),
+                                actionIconContentColor = contentColorFor(statusBarColor.value)
                             )
                         )
                     },
-                    content = {
+                    bottomBar = {
+                        BottomAppBar(
+                            containerColor = navigationBarColor.value,
+                            tonalElevation = 0.dp,
+                            actions = {
+                                IconButton(onClick = { }) {
+                                    Icon(Icons.Filled.Home, contentDescription = "Home")
+                                }
+                            }
+                        )
+                    },
+                    content = { padding ->
                         Content(
                             Modifier
                                 .fillMaxSize()
-                                .padding(it)
+                                // consume insets as scaffold doesn't do it by default
+                                .consumeWindowInsets(padding)
+                                .padding(padding)
                                 .padding(16.dp),
                             baseTheme.value,
-                            dynamic.value
+                            dynamic.value,
+                            statusBarColorPrimary,
+                            navigationBarColorPrimary
                         )
                     }
                 )
@@ -113,19 +206,17 @@ class MainActivity : ComponentActivity() {
     // UI - Content
     // ----------------
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Content(
         modifier: Modifier,
         baseTheme: ComposeTheme.BaseTheme,
-        dynamic: Boolean
+        dynamic: Boolean,
+        statusBarColorPrimary: MutableState<Boolean>,
+        navigationBarColorPrimary: MutableState<Boolean>
     ) {
-        val showLabels = rememberSaveable {
-            mutableStateOf(false)
-        }
-        val expandedRootRegions = rememberSaveable(Unit, saver = listSaverKeepEntryStateList()) {
-            mutableStateListOf(1)
-        }
+        val showLabels = rememberSaveable { mutableStateOf(true) }
+        val expandedRootRegions =
+            rememberSaveable(Unit, saver = listSaverKeepEntryStateList()) { mutableStateListOf(1) }
         val scope = rememberCoroutineScope()
 
         Column(
@@ -233,8 +324,40 @@ class MainActivity : ComponentActivity() {
                 )
             }
             DemoCollapsibleRegion(
-                title = "Example UI",
+                title = "System Bar Styles",
                 id = 2,
+                expandedIds = expandedRootRegions
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Status Bar Primary", style = MaterialTheme.typography.titleMedium)
+                        Checkbox(
+                            checked = statusBarColorPrimary.value,
+                            onCheckedChange = {
+                                statusBarColorPrimary.value = it
+                            }
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Navigation Bar Primary", style = MaterialTheme.typography.titleMedium)
+                        Checkbox(
+                            checked = navigationBarColorPrimary.value,
+                            onCheckedChange = {
+                                navigationBarColorPrimary.value = it
+                            }
+                        )
+                    }
+                }
+            }
+            DemoCollapsibleRegion(
+                title = "Example UI",
+                id = 3,
                 expandedIds = expandedRootRegions
             ) {
                 var tabIndex by remember { mutableIntStateOf(0) }

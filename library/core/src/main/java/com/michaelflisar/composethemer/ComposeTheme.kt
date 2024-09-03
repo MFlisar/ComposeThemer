@@ -2,6 +2,8 @@ package com.michaelflisar.composethemer
 
 import android.os.Build
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -12,20 +14,24 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import com.michaelflisar.composethemer.ComposeTheme.enableEdgeToEdge
 
 object ComposeTheme {
 
-    private val themes = mutableMapOf<String, ComposeTheme.Theme>()
+    private val themes = mutableMapOf<String, Theme>()
 
-    private val DEFAULT_THEME = ComposeTheme.Theme("")
+    private val DEFAULT_THEME = Theme("")
 
     /**
      * register a theme so that [ComposeThemer] can find it by its key
      */
-    fun register(vararg theme: ComposeTheme.Theme) {
+    fun register(vararg theme: Theme) {
         theme.forEach { it ->
             if (themes.containsKey(it.key))
                 throw RuntimeException("Key '${it.key}' was provided multiple times! Please provide unique keys for your themes!")
@@ -39,7 +45,7 @@ object ComposeTheme {
      */
     fun getRegisteredThemes() = themes.map { it.value }
 
-    internal fun find(key: String): ComposeTheme.Theme {
+    internal fun find(key: String): Theme {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             themes.getOrDefault(key, DEFAULT_THEME)
         } else {
@@ -55,45 +61,12 @@ object ComposeTheme {
      * @param key a unique key to identify this theme
      * @param colorSchemeLight the light color scheme
      * @param colorSchemeDark the dark color scheme
-     * @param statusBarColor the [SystemUIColor] for the status bar
-     * @param navigationBarColor the [SystemUIColor] for the navigation bar
      */
     data class Theme(
         val key: String,
         val colorSchemeLight: ColorScheme = lightColorScheme(),
-        val colorSchemeDark: ColorScheme = darkColorScheme(),
-        val statusBarColor: SystemUIColor = SystemUIColor.Default,
-        val navigationBarColor: SystemUIColor = SystemUIColor.Default
+        val colorSchemeDark: ColorScheme = darkColorScheme()
     )
-
-    /**
-     * the class for system ui color modes
-     */
-    sealed class SystemUIColor {
-
-        /**
-         * this mode won't change the system ui in any way
-         */
-        data object Default : SystemUIColor()
-
-        /**
-         * this mode will set the system ui to the themes primary color
-         */
-        data object Primary : SystemUIColor()
-
-        /**
-         * this mode will set the system ui to the themes surface color
-         */
-        data object Surface : SystemUIColor()
-
-        /**
-         * this mode will set the system ui to a user defined color
-         *
-         * @param color the color
-         * @param isDark defined if the color is dark (and needs a light foreground color) or not
-         */
-        class Manual(val color: Color, val isDark: Boolean) : SystemUIColor()
-    }
 
     /**
      * the current state of the theme
@@ -130,15 +103,80 @@ object ComposeTheme {
     /**
      * enabled edgeToEdge and makes the system bars transparent so that the theme can apply its color correctly
      */
-    @Composable
-    fun enableEdgeToEdge(activity: ComponentActivity, themeState: State, colorScheme: ColorScheme) {
-        SystemUIUtil.enableEdgeToEdge(
-            activity,
-            themeState,
-            colorScheme,
-            themeState.base.value.isDark()
+    fun enableEdgeToEdge(
+        activity: ComponentActivity,
+        statusBarColor: Color,
+        navigationBarColor: Color,
+        isStatusBarContrastEnforced: Boolean? = null,
+        isNavigationBarContrastEnforced: Boolean? = null
+    ) {
+        enableEdgeToEdge(
+            activity = activity,
+            statusBarStyle = SystemBarStyle.statusBar { statusBarColor.luminance() < .5f },
+            navigationBarStyle = SystemBarStyle.navigationBar { navigationBarColor.luminance() < .5f },
+            isStatusBarContrastEnforced,
+            isNavigationBarContrastEnforced
         )
     }
+
+    /**
+     * enabled edgeToEdge and makes the system bars transparent so that the theme can apply its color correctly
+     */
+    fun enableEdgeToEdge(
+        activity: ComponentActivity,
+        statusBarStyle: SystemBarStyle = SystemBarStyle.statusBar(),
+        navigationBarStyle: SystemBarStyle = SystemBarStyle.navigationBar(),
+        isStatusBarContrastEnforced: Boolean? = null,
+        isNavigationBarContrastEnforced: Boolean? = null
+    ) {
+        activity.enableEdgeToEdge(
+            statusBarStyle,
+            navigationBarStyle
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (isStatusBarContrastEnforced != null)
+                activity.window.isStatusBarContrastEnforced = isStatusBarContrastEnforced
+            if (isNavigationBarContrastEnforced != null)
+                activity.window.isNavigationBarContrastEnforced = isNavigationBarContrastEnforced
+        }
+    }
+/*
+    /**
+     * updates the statusbar color
+     *
+     * @param color the color for the statusbar
+     * @param isDark defined if the color is a dark color (and needs a light foreground) or not
+     */
+    @Composable
+    fun UpdateStatusbar(
+        color: Color,
+        isStatusBarContrastEnforced: Boolean = true,
+        isDark: Boolean = color.luminance() < .5f
+    ) {
+        val view = LocalView.current
+        SideEffect {
+            SystemUIUtil.setStatusbarTheme(view, color, isDark, isStatusBarContrastEnforced)
+        }
+    }
+
+    /**
+     * updates the navigation bar color
+     *
+     * @param color the color for the navigation bar
+     * @param isNavigationBarContrastEnforced defined if the contrast is enforced or not
+     * @param isDark defined if the color is a dark color (and needs a light foreground) or not
+     */
+    @Composable
+    fun UpdateNavigation(
+        color: Color,
+        isNavigationBarContrastEnforced: Boolean = true,
+        isDark: Boolean = color.luminance() < .5f
+    ) {
+        val view = LocalView.current
+        SideEffect {
+            SystemUIUtil.setNavigationTheme(view, color, isDark, isNavigationBarContrastEnforced)
+        }
+    }*/
 }
 
 /**
@@ -163,20 +201,9 @@ fun ComposeTheme(
             val context = LocalContext.current
             if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         state.base.value.isDark() -> theme.colorSchemeDark
         else -> theme.colorSchemeLight
-    }
-
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SystemUIUtil.UpdateStatusbar(
-            systemUIColor = theme.statusBarColor,
-            colorScheme = colorScheme
-        )
-        SystemUIUtil.UpdateNavigation(
-            systemUIColor = theme.navigationBarColor,
-            colorScheme = colorScheme
-        )
     }
 
     MaterialTheme(

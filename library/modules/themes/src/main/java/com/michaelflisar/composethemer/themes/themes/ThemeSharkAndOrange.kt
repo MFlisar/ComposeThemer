@@ -14,15 +14,10 @@ object ThemeSharkAndOrange {
 
     const val KEY = "Shark And Orange"
 
-    fun get(
-        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
-        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
-    ) = ComposeTheme.Theme(
+    fun get() = ComposeTheme.Theme(
         key = "Shark And Orange",
         colorSchemeLight = Light,
-        colorSchemeDark = Dark,
-        statusBarColor = statusBarColor,
-        navigationBarColor = navigationBarColor
+        colorSchemeDark = Dark
     )
 
     private val Light = lightColorScheme(

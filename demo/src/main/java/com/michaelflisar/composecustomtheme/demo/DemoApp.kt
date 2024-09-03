@@ -10,11 +10,7 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        ComposeTheme.register(*ComposeThemes.getAll(
-            // optional - default value is Primary for statusbar and Default for navigation
-            // statusBarColor = ComposeTheme.SystemUIColor.Surface,
-            // navigationBarColor = ComposeTheme.SystemUIColor.Surface
-        ).toTypedArray())
+        ComposeTheme.register(*ComposeThemes.ALL.toTypedArray())
 
         // or register some of them
         // ComposeTheme.register(
@@ -24,11 +20,8 @@ class DemoApp : Application() {
         //     // ...
         // )
 
-        // get a single theme and customise it
-        // val theme = ThemeAmberBlue.get(
-        //     statusBarColor = ComposeTheme.SystemUIColor.Surface,
-        //     navigationBarColor = ComposeTheme.SystemUIColor.Surface
-        // )
+        // get a single theme
+        // val theme = ThemeAmberBlue.get()
 
         // or register your own themes...
         // ...

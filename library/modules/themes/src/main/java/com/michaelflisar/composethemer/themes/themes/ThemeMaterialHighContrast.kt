@@ -14,15 +14,10 @@ object ThemeMaterialHighContrast {
 
     const val KEY = "Material High Contrast"
     
-    fun get(
-        statusBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Primary,
-        navigationBarColor: ComposeTheme.SystemUIColor = ComposeTheme.SystemUIColor.Default
-    ) = ComposeTheme.Theme(
+    fun get() = ComposeTheme.Theme(
         key = KEY,
         colorSchemeLight = Light,
-        colorSchemeDark = Dark,
-        statusBarColor = statusBarColor,
-        navigationBarColor = navigationBarColor
+        colorSchemeDark = Dark
     )
 
     private val Light = lightColorScheme(
