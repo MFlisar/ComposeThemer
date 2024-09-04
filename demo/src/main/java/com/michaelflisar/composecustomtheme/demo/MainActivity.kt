@@ -189,6 +189,7 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 // consume insets as scaffold doesn't do it by default
                                 .consumeWindowInsets(padding)
+                                .verticalScroll(rememberScrollState())
                                 .padding(padding)
                                 .padding(16.dp),
                             baseTheme.value,
@@ -352,54 +353,6 @@ class MainActivity : ComponentActivity() {
                                 navigationBarColorPrimary.value = it
                             }
                         )
-                    }
-                }
-            }
-            DemoCollapsibleRegion(
-                title = "Example UI",
-                id = 3,
-                expandedIds = expandedRootRegions
-            ) {
-                var tabIndex by remember { mutableIntStateOf(0) }
-                val tabs = listOf("Home", "About", "Settings")
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    TabRow(selectedTabIndex = tabIndex) {
-                        tabs.forEachIndexed { index, title ->
-                            Tab(
-                                text = { Text(title) },
-                                selected = tabIndex == index,
-                                onClick = { tabIndex = index }
-                            )
-                        }
-                    }
-                    NavigationBar {
-                        tabs.forEachIndexed { index, title ->
-                            NavigationBarItem(
-                                label = {
-                                    Text(text = title)
-                                },
-                                selected = tabIndex == index,
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Default.Home,
-                                        contentDescription = null
-                                    )
-                                },
-                                onClick = { tabIndex = index }
-                            )
-                        }
-                    }
-                    Card {
-                        Text("Card", modifier = Modifier.padding(16.dp))
-                    }
-                    OutlinedCard {
-                        Text("Card", modifier = Modifier.padding(16.dp))
-                    }
-                    ElevatedCard {
-                        Text("Card", modifier = Modifier.padding(16.dp))
                     }
                 }
             }
