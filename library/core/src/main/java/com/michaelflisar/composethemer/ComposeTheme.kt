@@ -1,5 +1,6 @@
 package com.michaelflisar.composethemer
 
+import android.app.Activity
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -18,8 +19,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import com.michaelflisar.composethemer.ComposeTheme.enableEdgeToEdge
 
 object ComposeTheme {
@@ -107,13 +111,15 @@ object ComposeTheme {
         activity: ComponentActivity,
         statusBarColor: Color,
         navigationBarColor: Color,
+        statusBarIsDark: () -> Boolean = { statusBarColor.luminance() < .5f },
+        navigationBarIsDark: () -> Boolean = { navigationBarColor.luminance() < .5f },
         isStatusBarContrastEnforced: Boolean? = null,
         isNavigationBarContrastEnforced: Boolean? = null
     ) {
         enableEdgeToEdge(
             activity = activity,
-            statusBarStyle = SystemBarStyle.statusBar { statusBarColor.luminance() < .5f },
-            navigationBarStyle = SystemBarStyle.navigationBar { navigationBarColor.luminance() < .5f },
+            statusBarStyle = SystemBarStyle.statusBar { statusBarIsDark() },
+            navigationBarStyle = SystemBarStyle.navigationBar { navigationBarIsDark() },
             isStatusBarContrastEnforced,
             isNavigationBarContrastEnforced
         )
@@ -193,6 +199,7 @@ fun ComposeTheme(
     state: ComposeTheme.State,
     shapes: Shapes = MaterialTheme.shapes,
     typography: Typography = MaterialTheme.typography,
+    edgeToEdge: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val theme = ComposeTheme.find(state.theme.value)
@@ -201,9 +208,20 @@ fun ComposeTheme(
             val context = LocalContext.current
             if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         state.base.value.isDark() -> theme.colorSchemeDark
         else -> theme.colorSchemeLight
+    }
+    val darkTheme = state.base.value.isDark()
+
+    if (!edgeToEdge) {
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            SideEffect {
+                val window = (view.context as Activity).window
+                window.statusBarColor = colorScheme.primary.toArgb()
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            }
+        }
     }
 
     MaterialTheme(
