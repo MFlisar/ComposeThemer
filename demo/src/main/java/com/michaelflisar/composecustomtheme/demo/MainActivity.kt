@@ -64,9 +64,11 @@ import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
 import com.michaelflisar.composedemobaseactivity.classes.listSaverKeepEntryStateList
 import com.michaelflisar.composedemobaseactivity.composables.DemoCollapsibleRegion
 import com.michaelflisar.composedemobaseactivity.composables.DemoSegmentedButtons
+import com.michaelflisar.composedemobaseactivity.composables.rememberExpandedRegions
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
+import com.michaelflisar.composethemer.enableEdgeToEdge
 import com.michaelflisar.composethemer.navigationBar
 import com.michaelflisar.composethemer.statusBar
 import com.michaelflisar.kotpreferences.compose.collectAsState
@@ -130,7 +132,7 @@ class MainActivity : ComponentActivity() {
                     if (variant == 1) {
 
                         // Variant 1
-                        LaunchedEffect(state) {
+                        LaunchedEffect(state, statusBarColor, navigationBarColor) {
                             ComposeTheme.enableEdgeToEdge(
                                 activity = this@MainActivity,
                                 statusBarColor = statusBarColor.value,
@@ -153,7 +155,7 @@ class MainActivity : ComponentActivity() {
                                 } else navigationBarColor.value).luminance() < .5f
                             }
                         }
-                        LaunchedEffect(state) {
+                        LaunchedEffect(state, isDarkStatusBar, isDarkNavigationBar) {
                             ComposeTheme.enableEdgeToEdge(
                                 this@MainActivity,
                                 statusBarStyle = SystemBarStyle.statusBar { isDarkStatusBar.value },
@@ -221,8 +223,7 @@ class MainActivity : ComponentActivity() {
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
         val showLabels = rememberSaveable { mutableStateOf(true) }
-        val expandedRootRegions =
-            rememberSaveable(Unit, saver = listSaverKeepEntryStateList()) { mutableStateListOf(1) }
+        val regionsState = rememberExpandedRegions(listOf(1))
         val scope = rememberCoroutineScope()
 
         Column(
@@ -231,8 +232,8 @@ class MainActivity : ComponentActivity() {
         ) {
             DemoCollapsibleRegion(
                 title = "Theme",
-                id = 0,
-                expandedIds = expandedRootRegions
+                regionId = 0,
+                expandedRegionsState = regionsState
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -304,14 +305,14 @@ class MainActivity : ComponentActivity() {
             }
             DemoCollapsibleRegion(
                 title = "Theme Settings",
-                id = 1,
-                expandedIds = expandedRootRegions
+                regionId = 1,
+                expandedRegionsState = regionsState
             ) {
                 Text("Base Theme Style", style = MaterialTheme.typography.titleMedium)
                 DemoSegmentedButtons(
-                    items = ComposeTheme.BaseTheme.values().toList(),
+                    items = ComposeTheme.BaseTheme.entries,
                     itemToText = { it.name },
-                    initialSelectedIndex = ComposeTheme.BaseTheme.values().indexOf(baseTheme),
+                    initialSelectedIndex = ComposeTheme.BaseTheme.entries.indexOf(baseTheme),
                     onItemSelected = { index, item ->
                         scope.launch {
                             DemoPrefs.baseTheme.update(item)
@@ -331,8 +332,8 @@ class MainActivity : ComponentActivity() {
             }
             DemoCollapsibleRegion(
                 title = "System Bar Styles",
-                id = 2,
-                expandedIds = expandedRootRegions
+                regionId = 2,
+                expandedRegionsState = regionsState
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
