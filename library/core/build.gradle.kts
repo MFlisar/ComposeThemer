@@ -1,9 +1,82 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-parcelize")
-    id("maven-publish")
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.gradle.maven.publish.plugin)
+}
+
+// -------------------
+// Informations
+// -------------------
+
+// Module
+val artifactId = "core"
+
+// Library
+val libraryName = "ComposeThemer"
+val libraryDescription = "ComposeThemer - $artifactId module"
+val groupID = "io.github.mflisar.composethemer"
+val release = 2021
+val github = "https://github.com/MFlisar/ComposeThemer"
+val license = "Apache License 2.0"
+val licenseUrl = "$github/blob/main/LICENSE"
+
+// -------------------
+// Setup
+// -------------------
+
+kotlin {
+
+    // Java
+    jvm()
+
+    // Android
+    androidTarget {
+        publishLibraryVariants("release")
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
+    // iOS
+    macosX64()
+    macosArm64()
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
+
+    // -------
+    // Sources
+    // -------
+
+    sourceSets {
+
+        commonMain.dependencies {
+
+            // Kotlin
+            implementation(libs.kotlin)
+            implementation(libs.kotlinx.coroutines)
+
+            // AndroidX / Google
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material3)
+
+        }
+
+        androidMain.dependencies {
+
+            implementation(libs.androidx.activity.compose)
+
+        }
+    }
 }
 
 android {
@@ -12,62 +85,60 @@ android {
 
     compileSdk = app.versions.compileSdk.get().toInt()
 
-    buildFeatures {
-        compose = true
-    }
-
     defaultConfig {
         minSdk = app.versions.minSdk.get().toInt()
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            consumerProguardFiles("proguard-rules.pro")
-        }
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = compose.versions.compiler.get()
-    }
 }
 
-dependencies {
+mavenPublishing {
 
-    // ------------------------
-    // Kotlin
-    // ------------------------
+    configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Dokka("dokkaHtml"),
+            sourcesJar = true
+        )
+    )
 
-    implementation(libs.kotlin)
-    implementation(libs.kotlinx.coroutines)
+    coordinates(
+        groupId = groupID,
+        artifactId = artifactId,
+        version = System.getenv("TAG")
+    )
 
-    // ------------------------
-    // AndroidX / Google / Goolge
-    // ------------------------
+    pom {
+        name.set(libraryName)
+        description.set(libraryDescription)
+        inceptionYear.set("$release")
+        url.set(github)
 
-    // Compose BOM
-    implementation(platform(compose.bom))
-    implementation(compose.material3)
-    implementation(compose.activity)
-}
-
-project.afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                artifactId = "core"
-                from(components["release"])
+        licenses {
+            license {
+                name.set(license)
+                url.set(licenseUrl)
             }
         }
+
+        developers {
+            developer {
+                id.set("mflisar")
+                name.set("Michael Flisar")
+                email.set("mflisar.development@gmail.com")
+            }
+        }
+
+        scm {
+            url.set(github)
+        }
     }
+
+    // Configure publishing to Maven Central
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    // Enable GPG signing for all publications
+    signAllPublications()
 }

@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-parcelize")
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -22,31 +22,6 @@ android {
         versionName = "1.0"
     }
 
-    // custom build type for github apk (no signing but minified)
-    buildTypes {
-        create("github") {
-            initWith(getByName("debug"))
-            isMinifyEnabled = true
-            isShrinkResources = true
-            applicationIdSuffix = ".github"
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            matchingFallbacks.add("debug")
-        }
-    }
-
-    // eventually use local custom signing
-    val debugKeyStore = providers.gradleProperty("debugKeyStore").orNull
-    if (debugKeyStore != null) {
-        signingConfigs {
-            getByName("debug") {
-                keyAlias = "androiddebugkey"
-                keyPassword = "android"
-                storeFile = File(debugKeyStore)
-                storePassword = "android"
-            }
-        }
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -54,10 +29,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = compose.versions.compiler.get()
     }
 }
 
@@ -73,12 +44,10 @@ dependencies {
     // AndroidX
     // ------------------------
 
-    // Compose BOM
-    implementation(platform(compose.bom))
-    implementation(compose.material3)
-    implementation(compose.activity)
-    implementation(compose.material.extendedicons)
-    implementation(compose.drawablepainter)
+    implementation(libs.compose.material3)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.compose.material.icons.core)
+    implementation(libs.compose.material.icons.extended)
 
     // ------------------------
     // Libraries
@@ -88,10 +57,10 @@ dependencies {
     implementation(project(":ComposeThemer:Modules:Themes"))
 
     // KotPreferences
-    implementation(deps.kotpreferences.core)
-    implementation(deps.kotpreferences.datastore)
-    implementation(deps.kotpreferences.compose)
+    implementation("io.github.mflisar.kotpreferences:core:0.6.0-alpha07")
+    implementation("io.github.mflisar.kotpreferences:storage-datastore:0.6.0-alpha07")
+    implementation("io.github.mflisar.kotpreferences:extension-compose:0.6.0-alpha07")
 
     // a minimal library that provides some useful composables that I use inside demo activities
-    implementation(deps.composedemobaseactivity)
+    implementation("io.github.mflisar.composedemobaseactivity:library:0.8-alpha02")
 }

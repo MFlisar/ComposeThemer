@@ -42,6 +42,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -129,14 +130,16 @@ class MainActivity : ComponentActivity() {
                     if (variant == 1) {
 
                         // Variant 1
-                        ComposeTheme.enableEdgeToEdge(
-                            this,
-                            statusBarColor = statusBarColor.value,
-                            navigationBarColor = if (landscape) {
-                                SystemBarStyle.defaultScrim(resources)
-                            } else navigationBarColor.value,
-                            isNavigationBarContrastEnforced = landscape
-                        )
+                        LaunchedEffect(state) {
+                            ComposeTheme.enableEdgeToEdge(
+                                activity = this@MainActivity,
+                                statusBarColor = statusBarColor.value,
+                                navigationBarColor = if (landscape) {
+                                    SystemBarStyle.defaultScrim(resources)
+                                } else navigationBarColor.value,
+                                isNavigationBarContrastEnforced = landscape
+                            )
+                        }
                     } else {
 
                         // Variant 2
@@ -150,12 +153,14 @@ class MainActivity : ComponentActivity() {
                                 } else navigationBarColor.value).luminance() < .5f
                             }
                         }
-                        ComposeTheme.enableEdgeToEdge(
-                            this,
-                            statusBarStyle = SystemBarStyle.statusBar { isDarkStatusBar.value },
-                            navigationBarStyle = SystemBarStyle.navigationBar { isDarkNavigationBar.value },
-                            isNavigationBarContrastEnforced = landscape
-                        )
+                        LaunchedEffect(state) {
+                            ComposeTheme.enableEdgeToEdge(
+                                this@MainActivity,
+                                statusBarStyle = SystemBarStyle.statusBar { isDarkStatusBar.value },
+                                navigationBarStyle = SystemBarStyle.navigationBar { isDarkNavigationBar.value },
+                                isNavigationBarContrastEnforced = landscape
+                            )
+                        }
                     }
                 }
 
