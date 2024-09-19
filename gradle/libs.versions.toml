@@ -11,6 +11,10 @@ compose =                       "1.6.11"
 kotlinx-coroutines = 	        "1.9.0"
 androidx-activity = 		    "1.9.2"
 
+# Dependencies
+kotpreferences =                "0.6.0"
+demoutilities =                 "1.0.0"
+
 [plugins]
 
 android-application = 			    { id = "com.android.application",                   version.ref = "gradle" }
@@ -37,3 +41,8 @@ compose-material-icons-extended = 	{ module = "org.jetbrains.compose.material:ma
 compose-material3 =                 { module = "org.jetbrains.compose.material3:material3",                 version.ref = "compose" }
 
 androidx-activity-compose =         { module = "androidx.activity:activity-compose", 			version.ref = "androidx-activity" }
+
+kotpreferences-core =               { module = "io.github.mflisar.kotpreferences:core", 		        version.ref = "kotpreferences" }
+kotpreferences-datastore =          { module = "io.github.mflisar.kotpreferences:storage-datastore", 	version.ref = "kotpreferences" }
+kotpreferences-compose =            { module = "io.github.mflisar.kotpreferences:extension-compose", 	version.ref = "kotpreferences" }
+demoutilities-core =                { module = "io.github.mflisar.demoutilities:core", 			        version.ref = "demoutilities" }

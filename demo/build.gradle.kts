@@ -57,10 +57,10 @@ dependencies {
     implementation(project(":ComposeThemer:Modules:Themes"))
 
     // KotPreferences
-    implementation("io.github.mflisar.kotpreferences:core:0.6.0-alpha07")
-    implementation("io.github.mflisar.kotpreferences:storage-datastore:0.6.0-alpha07")
-    implementation("io.github.mflisar.kotpreferences:extension-compose:0.6.0-alpha07")
+    implementation(libs.kotpreferences.core)
+    implementation(libs.kotpreferences.datastore)
+    implementation(libs.kotpreferences.compose)
 
     // a minimal library that provides some useful composables that I use inside demo activities
-    implementation("io.github.mflisar.composedemobaseactivity:library:0.8-alpha02")
+    implementation(libs.demoutilities.core)
 }

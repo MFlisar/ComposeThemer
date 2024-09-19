@@ -23,20 +23,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -45,14 +38,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,7 +50,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
-import com.michaelflisar.composedemobaseactivity.classes.listSaverKeepEntryStateList
 import com.michaelflisar.composedemobaseactivity.composables.DemoCollapsibleRegion
 import com.michaelflisar.composedemobaseactivity.composables.DemoSegmentedButtons
 import com.michaelflisar.composedemobaseactivity.composables.rememberExpandedRegions
@@ -223,7 +211,7 @@ class MainActivity : ComponentActivity() {
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
         val showLabels = rememberSaveable { mutableStateOf(true) }
-        val regionsState = rememberExpandedRegions(listOf(1))
+        val regions = rememberExpandedRegions(listOf(1))
         val scope = rememberCoroutineScope()
 
         Column(
@@ -233,7 +221,7 @@ class MainActivity : ComponentActivity() {
             DemoCollapsibleRegion(
                 title = "Theme",
                 regionId = 0,
-                expandedRegionsState = regionsState
+                state = regions
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -306,7 +294,7 @@ class MainActivity : ComponentActivity() {
             DemoCollapsibleRegion(
                 title = "Theme Settings",
                 regionId = 1,
-                expandedRegionsState = regionsState
+                state = regions
             ) {
                 Text("Base Theme Style", style = MaterialTheme.typography.titleMedium)
                 DemoSegmentedButtons(
@@ -333,7 +321,7 @@ class MainActivity : ComponentActivity() {
             DemoCollapsibleRegion(
                 title = "System Bar Styles",
                 regionId = 2,
-                expandedRegionsState = regionsState
+                state = regions
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
