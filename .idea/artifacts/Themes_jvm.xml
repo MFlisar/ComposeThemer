@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Themes-jvm">
-    <output-path>$PROJECT_DIR$/library/modules/themes/build/libs</output-path>
-    <root id="archive" name="Themes-jvm.jar">
-      <element id="module-output" name="ComposeThemer.ComposeThemer.Modules.Themes.jvmMain" />
-    </root>
-  </artifact>
-</component>
