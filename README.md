@@ -1,7 +1,12 @@
 ### About
 
-[![Release](https://jitpack.io/v/MFlisar/ComposeThemer.svg)](https://jitpack.io/#MFlisar/ComposeThemer)
-![License](https://img.shields.io/github/license/MFlisar/ComposeThemer)
+[![Maven](https://img.shields.io/maven-central/v/io.github.mflisar.composethemer/core?style=for-the-badge&color=blue)](https://central.sonatype.com/namespace/io.github.mflisar.composethemer)
+[![API](https://img.shields.io/badge/api-21%2B-brightgreen.svg?style=for-the-badge)](https://android-arsenal.com/api?level=21)
+[![Kotlin](https://img.shields.io/github/languages/top/mflisar/kotpreferences.svg?style=for-the-badge&color=blueviolet)](https://kotlinlang.org/)
+[![KMP](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&label=Kotlin)](https://kotlinlang.org/docs/multiplatform.html)
+[![License](https://img.shields.io/github/license/MFlisar/ComposeThemer?style=for-the-badge)](LICENSE)
+
+<h1 align="center">ComposeThemer</h1>
 
 This is a **full compose theme engine** that handles applying a theme as well as updating the system ui elements. Extendible and allows to simply apply user selected themes inside your app.
 
