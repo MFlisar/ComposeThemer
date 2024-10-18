@@ -44,10 +44,10 @@ implementation("io.github.mflisar.composethemer:themes:$composethemer")
 
 ## :zap: Modules
 
-| Module                      | Info     | Description                                         |
-|-----------------------------|----------|-----------------------------------------------------|
-| `core`                      |          | the core module that provides all theming functions |
-| `themes` |          | a collection of 54 predefined themes                |
+| Module   | Info | Description                                         |
+|----------|------|-----------------------------------------------------|
+| `core`   |      | the core module that provides all theming functions |
+| `themes` |      | a collection of 55 predefined themes                |
 
 ## </> Basic Usage
 
