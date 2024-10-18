@@ -51,6 +51,36 @@ implementation("io.github.mflisar.composethemer:themes:$composethemer")
 
 ## </> Basic Usage
 
+Inside your application register all available themes (or at least one) like following:
+
+```
+class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        // register available themes
+        ComposeTheme.register(*ComposeThemes.ALL.toTypedArray())
+
+        // or register some of them
+        // ComposeTheme.register(
+        //     ThemeAmberBlue.get(),
+        //     ThemeAquaBlue.get(),
+        //     ThemeBahamaAndTrinidad.get(),
+        //     // ...
+        // )
+
+        // get a single theme
+        // val theme = ThemeAmberBlue.get()
+
+        // or register your own themes...
+        // ...
+    }
+}
+```
+
+Then use the `ComposeTheme` composable to apply the theme like following:
+
 ```kotlin
 // simply wrap your composable content inside ComposeTheme as if you would use MaterialTheme directly
 val baseTheme = remember { mutableStateOf(ComposeTheme.BaseTheme.System) }
