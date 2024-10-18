@@ -53,7 +53,7 @@ implementation("io.github.mflisar.composethemer:themes:$composethemer")
 
 Inside your application register all available themes (or at least one) like following:
 
-```
+```kotlin
 class App : Application() {
 
     override fun onCreate() {
