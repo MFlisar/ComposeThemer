@@ -72,7 +72,7 @@ ComposeTheme(state = state) {
 ```
 
 <details>
-<summary><b>Themes Extension</b>Usage</summary>
+<summary>Themes Extension Module</summary>
 
 ```kotlin
 // returns a list of all existing default themes
@@ -86,7 +86,7 @@ val theme = ThemeAmberBlue.get()
 </details>
 
 <details>
-<summary>SystemBarStyle Extension</summary>
+<summary>SystemBarStyle functions</summary>
 
 I added some extensions to `SystemBarStyle.Companion`.
 
