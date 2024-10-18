@@ -5,18 +5,114 @@
 
 This is a **full compose theme engine** that handles applying a theme as well as updating the system ui elements. Extendible and allows to simply apply user selected themes inside your app.
 
+## :heavy_check_mark: Features
+
+* allows to define custom user themes and applies them automatically
+* ability to retrieve all registered themes
+* supports system ui theming (status bar + navigation bar)
+* build on top of `MaterialTheme`
+* comes with optional *55 build-in themes*
+* offers some edgeToEdge helper functions
+
+**All features are splitted into separate modules, just include the modules you want to use!**
+
 ## :camera: Screenshots
 
 | ![Demo](screenshots/demo.gif?raw=true "Demo") |
 | :-: |
 
-## :book: Documentation
+## :elephant: Gradle
 
-The readme for this library with **code samples**, **screenshots** and more can be found on following *github page*:
+This library is distributed via [maven central](https://central.sonatype.com/).
 
-[![Static Badge](https://img.shields.io/badge/Open%20Documentation-lightgreen?style=for-the-badge&logo=github&logoColor=black)](https://mflisar.github.io/github-docs/pages/compose/composethemer/)
+*build.gradle.kts*
 
-Additionally there is also a full working [demo app](demo) inside the *demo module*.
+```kts
+val composethemer = "<LATEST-VERSION>"
+
+// core module
+implementation("io.github.mflisar.composethemer:core:$composethemer")
+
+// extension module
+implementation("io.github.mflisar.composethemer:themes:$composethemer")
+```
+
+## :zap: Modules
+
+| Module                      | Info     | Description                                         |
+|-----------------------------|----------|-----------------------------------------------------|
+| `core`                      |          | the core module that provides all theming functions |
+| `themes` |          | a collection of 54 predefined themes                |
+
+## </> Basic Usage
+
+```kotlin
+// simply wrap your composable content inside ComposeTheme as if you would use MaterialTheme directly
+val baseTheme = remember { mutableStateOf(ComposeTheme.BaseTheme.System) }
+val dynamic = remember { mutableStateOf(false) }
+val theme = remember { mutableStateOf("green") } // the key of an registered theme
+val state = ComposeTheme.State(baseTheme, dynamic, theme)
+ComposeTheme(state = state) {
+
+    // update edgeToEdge to the correct styles with the provided helper functions
+    // e.g. like following if the layout has a primary toolbar at top and nothing at bottom
+    // TIPP:
+    // this functions has an overload that works with SystemBarStyle instead if you want to use that directly
+    ComposeTheme.enableEdgeToEdge(
+        activity = this,
+        statusBarColor = MaterialTheme.colorScheme.primary,
+        navigationBarColor = if (landscape) {
+            SystemBarStyle.defaultScrim(resources)
+        } else MaterialTheme.colorScheme.background,
+        isNavigationBarContrastEnforced = landscape
+    )
+
+    // content
+}
+```
+
+<details>
+<summary><b>Themes Extension</b>Usage</summary>
+
+```kotlin
+// returns a list of all existing default themes
+val themes = ComposeTheme.getRegisteredThemes()
+
+// or get the default themes one by one (all named like Theme*)
+val theme = ThemeAmberBlue.get()
+// ... there are 56 predefined themes availabe ...
+```
+
+</details>
+
+<details>
+<summary>SystemBarStyle Extension</summary>
+
+I added some extensions to `SystemBarStyle.Companion`.
+
+```kotlin
+// following gives you a fully transparent SystemBarStyle or the default SystemBarStyle for the statusbar or navigationbar
+SystemBarStyle.transparent()
+SystemBarStyle.statusBar()
+SystemBarStyle.navigationBar()
+// this gives you the default scrim color that is normally defined privately aand can't be easily accessed
+SystemBarStyle.defaultScrim(resource)
+```
+
+</details>
+
+<details>
+<summary>Disable the edgeToEdge mode</summary>
+
+If desired, you can still use this library without using the edgeToEdge feature.
+
+```kotlin
+ComposeTheme(state = state, edgeToEdge = false) {
+    // content
+}
+```
+
+</details>
 
 ## :pray: Credits
 
