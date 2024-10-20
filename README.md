@@ -32,7 +32,7 @@ This is a **full compose theme engine** that handles applying a theme as well as
 |:---------------------:|:-------:|:----------------------------------------------:|
 | Compose Multiplatform | `1.7.0` | based on compose `1.7.1` and material3 `1.3.0` |
 
-> [!INFO]  
+> [!NOTE]  
 > This library does not use any experimental compose APIs and therefore should be forward compatible with newer compose versions!
 
 ## :elephant: Gradle
