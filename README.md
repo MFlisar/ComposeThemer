@@ -26,6 +26,15 @@ This is a **full compose theme engine** that handles applying a theme as well as
 | ![Demo](screenshots/demo.gif?raw=true "Demo") |
 | :-: |
 
+## :link: Dependencies
+
+|      Dependency       | Version |                     Infos                      |
+|:---------------------:|:-------:|:----------------------------------------------:|
+| Compose Multiplatform | `1.7.0` | based on compose `1.7.1` and material3 `1.3.0` |
+
+> [!INFO]  
+> This library does not use any experimental compose APIs and therefore should be forward compatible with newer compose versions!
+
 ## :elephant: Gradle
 
 This library is distributed via [maven central](https://central.sonatype.com/).
