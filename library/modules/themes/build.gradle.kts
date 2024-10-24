@@ -18,6 +18,7 @@ plugins {
 
 // Module
 val artifactId = "themes"
+val androidNamespace = "com.michaelflisar.composethemer.themes"
 
 // Library
 val libraryName = "ComposeThemer"
@@ -82,7 +83,7 @@ kotlin {
 
 android {
 
-    namespace = "com.michaelflisar.composethemer.themes"
+    namespace = androidNamespace
 
     compileSdk = app.versions.compileSdk.get().toInt()
 
