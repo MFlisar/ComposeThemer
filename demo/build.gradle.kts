@@ -62,5 +62,7 @@ dependencies {
     implementation(libs.kotpreferences.compose)
 
     // a minimal library that provides some useful composables that I use inside demo activities
-    implementation(libs.demoutilities.core)
+    implementation(libs.toolbox.core)
+    implementation(libs.toolbox.ui)
+    implementation(libs.toolbox.app)
 }

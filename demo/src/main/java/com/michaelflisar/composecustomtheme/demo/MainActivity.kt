@@ -50,9 +50,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
-import com.michaelflisar.composedemobaseactivity.composables.DemoCollapsibleRegion
-import com.michaelflisar.composedemobaseactivity.composables.DemoSegmentedButtons
-import com.michaelflisar.composedemobaseactivity.composables.rememberExpandedRegions
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
@@ -61,6 +58,9 @@ import com.michaelflisar.composethemer.navigationBar
 import com.michaelflisar.composethemer.statusBar
 import com.michaelflisar.kotpreferences.compose.collectAsState
 import com.michaelflisar.kotpreferences.compose.collectAsStateNotNull
+import com.michaelflisar.toolbox.androiddemoapp.composables.DemoCollapsibleRegion
+import com.michaelflisar.toolbox.androiddemoapp.composables.DemoSegmentedButtons
+import com.michaelflisar.toolbox.androiddemoapp.composables.rememberDemoExpandedRegions
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -211,7 +211,7 @@ class MainActivity : ComponentActivity() {
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
         val showLabels = rememberSaveable { mutableStateOf(true) }
-        val regions = rememberExpandedRegions(listOf(1))
+        val regions = rememberDemoExpandedRegions(listOf(1))
         val scope = rememberCoroutineScope()
 
         Column(
