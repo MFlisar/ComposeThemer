@@ -22,6 +22,19 @@ android {
         versionName = "1.0"
     }
 
+    // eventually use local custom signing
+    val debugKeyStore = providers.gradleProperty("debugKeyStore").orNull
+    if (debugKeyStore != null) {
+        signingConfigs {
+            getByName("debug") {
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+                storeFile = File(debugKeyStore)
+                storePassword = "android"
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -35,19 +48,14 @@ android {
 dependencies {
 
     // ------------------------
-    // Kotlin
-    // ------------------------
-
-    implementation(libs.kotlin)
-
-    // ------------------------
     // AndroidX
     // ------------------------
 
     implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
     implementation(libs.compose.material.icons.core)
     implementation(libs.compose.material.icons.extended)
+
+    implementation(androidx.activity.compose)
 
     // ------------------------
     // Libraries
@@ -57,12 +65,12 @@ dependencies {
     implementation(project(":ComposeThemer:Modules:Themes"))
 
     // KotPreferences
-    implementation(libs.kotpreferences.core)
-    implementation(libs.kotpreferences.datastore)
-    implementation(libs.kotpreferences.compose)
+    implementation(deps.kotpreferences.core)
+    implementation(deps.kotpreferences.datastore)
+    implementation(deps.kotpreferences.compose)
 
     // a minimal library that provides some useful composables that I use inside demo activities
-    implementation(libs.toolbox.core)
-    implementation(libs.toolbox.ui)
-    implementation(libs.toolbox.app)
+    implementation(deps.toolbox.core)
+    implementation(deps.toolbox.ui)
+    implementation(deps.toolbox.app)
 }

@@ -1,11 +1,13 @@
 package com.michaelflisar.composethemer.themes
 
 import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.themes.themes.ThemeDefault
 import com.michaelflisar.composethemer.themes.themes.ThemeAmberBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeAquaBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeBahamaAndTrinidad
 import com.michaelflisar.composethemer.themes.themes.ThemeBarossa
 import com.michaelflisar.composethemer.themes.themes.ThemeBigStoneTulip
+import com.michaelflisar.composethemer.themes.themes.ThemeBlackAndWhite
 import com.michaelflisar.composethemer.themes.themes.ThemeBlueDelight
 import com.michaelflisar.composethemer.themes.themes.ThemeBlueStoneTeal
 import com.michaelflisar.composethemer.themes.themes.ThemeBlueWhale
@@ -16,7 +18,6 @@ import com.michaelflisar.composethemer.themes.themes.ThemeCamaroneGreen
 import com.michaelflisar.composethemer.themes.themes.ThemeDamaskAndLunar
 import com.michaelflisar.composethemer.themes.themes.ThemeDeepBlueSea
 import com.michaelflisar.composethemer.themes.themes.ThemeDeepPurple
-import com.michaelflisar.composethemer.themes.themes.ThemeDefault
 import com.michaelflisar.composethemer.themes.themes.ThemeDellGenoaGreen
 import com.michaelflisar.composethemer.themes.themes.ThemeEbonyClay
 import com.michaelflisar.composethemer.themes.themes.ThemeEggplantPurple
@@ -29,6 +30,7 @@ import com.michaelflisar.composethemer.themes.themes.ThemeGreenJungle
 import com.michaelflisar.composethemer.themes.themes.ThemeGreenMoney
 import com.michaelflisar.composethemer.themes.themes.ThemeGreens
 import com.michaelflisar.composethemer.themes.themes.ThemeGreyLaw
+import com.michaelflisar.composethemer.themes.themes.ThemeGrey
 import com.michaelflisar.composethemer.themes.themes.ThemeHippieBlue
 import com.michaelflisar.composethemer.themes.themes.ThemeIndigoNights
 import com.michaelflisar.composethemer.themes.themes.ThemeIndigoSanMarino
@@ -50,6 +52,7 @@ import com.michaelflisar.composethemer.themes.themes.ThemeRedTornado
 import com.michaelflisar.composethemer.themes.themes.ThemeRosewood
 import com.michaelflisar.composethemer.themes.themes.ThemeRustDeepOrange
 import com.michaelflisar.composethemer.themes.themes.ThemeSanJuanBlue
+import com.michaelflisar.composethemer.themes.themes.ThemeSepia
 import com.michaelflisar.composethemer.themes.themes.ThemeSharkAndOrange
 import com.michaelflisar.composethemer.themes.themes.ThemeThunderbirdRed
 import com.michaelflisar.composethemer.themes.themes.ThemeVerdunGreen
@@ -70,6 +73,7 @@ object ComposeThemes {
             ThemeBahamaAndTrinidad.get(),
             ThemeBarossa.get(),
             ThemeBigStoneTulip.get(),
+            ThemeBlackAndWhite.get(),
             ThemeBlueDelight.get(),
             ThemeBlueStoneTeal.get(),
             ThemeBlueWhale.get(),
@@ -87,11 +91,12 @@ object ComposeThemes {
             ThemeEspressoAndCrema.get(),
             ThemeFlutterDash.get(),
             ThemeGoldSunset.get(),
-            ThemeGreens.get(),
             ThemeGreenForest.get(),
             ThemeGreenJungle.get(),
             ThemeGreenMoney.get(),
+            ThemeGreens.get(),
             ThemeGreyLaw.get(),
+            ThemeGrey.get(),
             ThemeHippieBlue.get(),
             ThemeIndigoNights.get(),
             ThemeIndigoSanMarino.get(),
@@ -113,6 +118,7 @@ object ComposeThemes {
             ThemeRosewood.get(),
             ThemeRustDeepOrange.get(),
             ThemeSanJuanBlue.get(),
+            ThemeSepia.get(),
             ThemeSharkAndOrange.get(),
             ThemeThunderbirdRed.get(),
             ThemeVerdunGreen.get(),

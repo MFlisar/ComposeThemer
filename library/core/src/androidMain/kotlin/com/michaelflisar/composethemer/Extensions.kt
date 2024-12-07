@@ -30,10 +30,11 @@ private val DefaultLightScrim = DefaultLightScrimColor.toArgb()
 private val DefaultDarkScrimColor = Color(0x80, 0x1b, 0x1b, 0x1b)
 private val DefaultDarkScrim = DefaultDarkScrimColor.toArgb()
 
-fun SystemBarStyle.Companion.defaultScrim(resources: Resources): Color {
-    val isDark = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-            Configuration.UI_MODE_NIGHT_YES
-    return if (isDark) DefaultLightScrimColor else DefaultDarkScrimColor
+fun SystemBarStyle.Companion.defaultScrim(
+    resources: Resources,
+    darkMode: Boolean = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+): Color {
+    return if (darkMode) DefaultDarkScrimColor else DefaultLightScrimColor
 }
 
 fun SystemBarStyle.Companion.navigationBar(

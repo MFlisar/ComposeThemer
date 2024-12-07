@@ -16,7 +16,7 @@ This is a **full compose theme engine** that handles applying a theme as well as
 * ability to retrieve all registered themes
 * supports system ui theming (status bar + navigation bar)
 * build on top of `MaterialTheme`
-* comes with optional *55 build-in themes*
+* comes with optional *59 build-in themes*
 * offers some edgeToEdge helper functions
 
 **All features are splitted into separate modules, just include the modules you want to use!**
@@ -30,7 +30,7 @@ This is a **full compose theme engine** that handles applying a theme as well as
 
 |      Dependency       | Version |                     Infos                      |
 |:---------------------:|:-------:|:----------------------------------------------:|
-| Compose Multiplatform | `1.7.0` | based on compose `1.7.1` and material3 `1.3.0` |
+| Compose Multiplatform | `1.7.1` | based on compose `1.7.5` and material3 `1.3.1` |
 
 > [!NOTE]  
 > This library does not use any experimental compose APIs and therefore should be forward compatible with newer compose versions!
@@ -56,7 +56,7 @@ implementation("io.github.mflisar.composethemer:themes:$composethemer")
 | Module   | Info | Description                                         |
 |----------|------|-----------------------------------------------------|
 | `core`   |      | the core module that provides all theming functions |
-| `themes` |      | a collection of 55 predefined themes                |
+| `themes` |      | a collection of 59 predefined themes                |
 
 ## </> Basic Usage
 
@@ -124,7 +124,7 @@ val themes = ComposeTheme.getRegisteredThemes()
 
 // or get the default themes one by one (all named like Theme*)
 val theme = ThemeAmberBlue.get()
-// ... there are 56 predefined themes availabe ...
+// ... there are 59 predefined themes availabe ...
 ```
 
 </details>
@@ -160,6 +160,6 @@ ComposeTheme(state = state, edgeToEdge = false) {
 
 ## :pray: Credits
 
-This library contains 54 predefined color schemes inside the `themes` module. Those are all directly copied from [FlexColorScheme](https://rydmike.com/flexcolorscheme/themesplayground-latest/) - a very useful homepage that allows you to **create your own themes** and also contains 54 predefined themes already. With the permission of [Rydmike](https://github.com/rydmike) I just copied every single predefined theme from his homepage and added it to this library.
+This library contains 59 predefined color schemes inside the `themes` module. Those are all directly copied from [FlexColorScheme](https://rydmike.com/flexcolorscheme/themesplayground-latest/) - a very useful homepage that allows you to **create your own themes** and also contains 54 predefined themes already. With the permission of [Rydmike](https://github.com/rydmike) I just copied every single predefined theme from his homepage and added it to this library.
 
 

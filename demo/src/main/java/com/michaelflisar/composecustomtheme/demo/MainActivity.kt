@@ -51,6 +51,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
 import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.UpdateEdgeToEdgeDefault
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
 import com.michaelflisar.composethemer.enableEdgeToEdge
@@ -120,16 +121,29 @@ class MainActivity : ComponentActivity() {
                     if (variant == 1) {
 
                         // Variant 1
-                        LaunchedEffect(state, statusBarColor, navigationBarColor) {
-                            ComposeTheme.enableEdgeToEdge(
-                                activity = this@MainActivity,
-                                statusBarColor = statusBarColor.value,
-                                navigationBarColor = if (landscape) {
-                                    SystemBarStyle.defaultScrim(resources)
-                                } else navigationBarColor.value,
-                                isNavigationBarContrastEnforced = landscape
-                            )
-                        }
+                        val isDark = state.base.value.isDark()
+
+                        //LaunchedEffect(state, statusBarColor, navigationBarColor) {
+                        //    ComposeTheme.enableEdgeToEdge(
+                        //        activity = this@MainActivity,
+                        //        statusBarColor = statusBarColor.value,
+                        //        navigationBarColor = if (landscape) {
+                        //            SystemBarStyle.defaultScrim(resources, isDark)
+                        //        } else navigationBarColor.value,
+                        //        isNavigationBarContrastEnforced = landscape
+                        //    )
+                        //}
+
+                        // extension function => this does the same as the function above
+                        UpdateEdgeToEdgeDefault(
+                            activity = this,
+                            themeState = state,
+                            statusBarColor = statusBarColor.value,
+                            navigationBarColor = if (landscape) {
+                                SystemBarStyle.defaultScrim(resources, isDark)
+                            } else navigationBarColor.value,
+                            isNavigationBarContrastEnforced = landscape
+                        )
                     } else {
 
                         // Variant 2

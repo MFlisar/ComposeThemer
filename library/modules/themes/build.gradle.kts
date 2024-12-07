@@ -63,8 +63,7 @@ kotlin {
         commonMain.dependencies {
 
             // Kotlin
-            implementation(libs.kotlin)
-            implementation(libs.kotlinx.coroutines)
+            implementation(kotlinx.coroutines)
 
             // AndroidX / Google
             implementation(libs.compose.material3)
@@ -144,3 +143,167 @@ mavenPublishing {
     // Enable GPG signing for all publications
     signAllPublications()
 }
+
+
+
+tasks.register("convert_themes") {
+
+    println("Converting...")
+
+    val link = "https://rydmike.com/flexcolorscheme/themesplayground-latest/"
+    val version = "FlexColorScheme v8.0.2"
+
+    val excludedStyles = listOf(
+        "brightness",
+        "primaryFixed",
+        "primaryFixedDim",
+        "onPrimaryFixed",
+        "onPrimaryFixedVariant",
+        "secondaryFixed",
+        "secondaryFixedDim",
+        "onSecondaryFixed",
+        "onSecondaryFixedVariant",
+        "tertiaryFixed",
+        "tertiaryFixedDim",
+        "onTertiaryFixed",
+        "onTertiaryFixedVariant",
+        "shadow"
+    )
+    val renamedStyles = mapOf(
+        "onInverseSurface" to "inverseOnSurface"
+    )
+
+    val themesFolderOrig = File("$projectDir/_themes")
+    val themesFolderConverted = File("$projectDir/src/commonMain/kotlin/com/michaelflisar/composethemer/themes/themes")
+    val composeThemesFile = File("$projectDir/src/commonMain/kotlin/com/michaelflisar/composethemer/themes/ComposeThemes.kt")
+
+    println("")
+    println("---------------------------")
+    println("- Begin Converting Themes -")
+    println("---------------------------")
+    println("")
+
+    val themes = themesFolderOrig.listFiles()
+    val themeFileNames = ArrayList<String>()
+    themes.forEach {
+
+        val theme = it.nameWithoutExtension
+        val themeNoSpaces = theme.replace(" ", "")
+
+        themeFileNames += "Theme$themeNoSpaces"
+
+        //println("Theme: $theme")
+        val lines = it.readLines(Charsets.UTF_8)
+
+        val lineBeginLightTheme = lines.indexOfFirst { it.contains("lightColorScheme") } + 1
+        val lineEndLightTheme = lines.drop(lineBeginLightTheme).indexOfFirst { it.contains(");") } + lineBeginLightTheme - 1
+        val lineBeginDarkTheme = lines.indexOfFirst { it.contains("darkColorScheme") } + 1
+        val lineEndDarkTheme = lines.drop(lineBeginDarkTheme).indexOfFirst { it.contains(");") } + lineBeginDarkTheme - 1
+
+        val convertLine = { line: String ->
+            val parts = line.split(":").map { it.trim() }
+            val name = parts[0]
+            val value = parts[1]
+            if (!excludedStyles.contains(name)) {
+                val mappedName = renamedStyles[name] ?: name
+                "        $mappedName = $value"
+            } else null
+        }
+
+        val lightTheme = lines.subList(lineBeginLightTheme, lineEndLightTheme).mapNotNull { convertLine(it) }
+        val darkTheme = lines.subList(lineBeginDarkTheme, lineEndDarkTheme).mapNotNull { convertLine(it) }
+
+        //println("- Light: $lineBeginLightTheme => $lineEndLightTheme")
+        //println("- Dark: $lineBeginDarkTheme => $lineEndDarkTheme")
+
+        val fileContent = listOf(
+            "package com.michaelflisar.composethemer.themes.themes",
+            "",
+            "import androidx.compose.material3.darkColorScheme",
+            "import androidx.compose.material3.lightColorScheme",
+            "import androidx.compose.ui.graphics.Color",
+            "import com.michaelflisar.composethemer.ComposeTheme",
+            "",
+            "/**",
+            " * Theme taken from the default themes from $link",
+            " *",
+            " * $version",
+            " *",
+            " * FlexColor Theme Name: \"Midnight\"",
+            " */",
+            "object Theme$themeNoSpaces {",
+            "",
+            "    const val KEY = \"$theme\"",
+            "",
+            "    fun get() = ComposeTheme.Theme(",
+            "        key = KEY,",
+            "        colorSchemeLight = Light,",
+            "        colorSchemeDark = Dark",
+            "    )",
+            "",
+            "    private val Light = lightColorScheme(",
+            lightTheme,
+            "    )",
+            "",
+            "    private val Dark = darkColorScheme(",
+            darkTheme,
+            "    )",
+            "}"
+        ).map {
+            if (it is String) {
+                listOf(it)
+            } else (it as List<String>)
+        }.flatten()
+
+        val convertedFileContent = fileContent.joinToString("\n")
+
+        val convertedFile = File(themesFolderConverted, "Theme$themeNoSpaces.kt")
+        convertedFile.writeText(convertedFileContent, Charsets.UTF_8)
+
+        //println("-----------")
+        //println(convertedFile)
+        //println("-----------")
+
+        println("Theme $theme created: $convertedFile")
+
+    }
+
+    val fileContentComposeThemes = listOf(
+        "package com.michaelflisar.composethemer.themes",
+        "",
+        "import com.michaelflisar.composethemer.ComposeTheme",
+        "import com.michaelflisar.composethemer.themes.themes.ThemeDefault",
+        themeFileNames.map {
+            "import com.michaelflisar.composethemer.themes.themes.$it"
+        },
+        "",
+        "object ComposeThemes {",
+        "",
+        "    val ALL: List<ComposeTheme.Theme>",
+        "        get() = listOf(",
+        "            // default m3 theme",
+        "            ThemeDefault.get(),",
+        "            // custom themes",
+        themeFileNames.map {
+            "            $it.get(),"
+        },
+        "        )",
+        "}"
+    ).map {
+        if (it is String) {
+            listOf(it)
+        } else (it as List<String>)
+    }.flatten()
+
+    val composeThemesFileContent = fileContentComposeThemes.joinToString("\n")
+    composeThemesFile.writeText(composeThemesFileContent, Charsets.UTF_8)
+
+    println("")
+    println("-------------------------")
+    println("- End Converting Themes -")
+    println("-------------------------")
+    println("")
+
+    println("Converted Themes: ${themes.size}")
+}
+

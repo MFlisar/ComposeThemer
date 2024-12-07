@@ -1,0 +1,15 @@
+[versions]
+
+# mflisar
+kotpreferences =                "0.7.0"
+toolbox =                       "2.2.2"
+
+[libraries]
+
+# mflisar
+kotpreferences-core =               { module = "io.github.mflisar.kotpreferences:core", 		        version.ref = "kotpreferences" }
+kotpreferences-datastore =          { module = "io.github.mflisar.kotpreferences:storage-datastore", 	version.ref = "kotpreferences" }
+kotpreferences-compose =            { module = "io.github.mflisar.kotpreferences:extension-compose", 	version.ref = "kotpreferences" }
+toolbox-core =                      { module = "io.github.mflisar.toolbox:core", 			            version.ref = "toolbox" }
+toolbox-ui =                        { module = "io.github.mflisar.toolbox:ui", 			                version.ref = "toolbox" }
+toolbox-app =                       { module = "io.github.mflisar.toolbox:android-demo-app", 			version.ref = "toolbox" }

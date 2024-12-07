@@ -134,16 +134,16 @@ fun UpdateEdgeToEdgeDefault(
     activity: ComponentActivity,
     themeState: ComposeTheme.State,
     statusBarColor: Color = MaterialTheme.colorScheme.primary,
-    statusBarOnColor: Color = MaterialTheme.colorScheme.onPrimary,
-    statusBarIsDark: () -> Boolean = { statusBarOnColor.luminance() > .5f },
+    //statusBarOnColor: Color = MaterialTheme.colorScheme.onPrimary,
+    statusBarIsDark: () -> Boolean = { statusBarColor.luminance() < .5f },
     navigationBarColor: Color = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        SystemBarStyle.defaultScrim(activity.resources)
+        SystemBarStyle.defaultScrim(activity.resources, themeState.base.value.isDark())
     } else MaterialTheme.colorScheme.background,
     isNavigationBarContrastEnforced: Boolean = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 ) {
     // Portrait: Statusbar is Primary, Navigation is Background
     // Landscape: Navigation has enforced contrast + default scrim
-    LaunchedEffect(themeState) {
+    LaunchedEffect(themeState, statusBarColor, navigationBarColor, isNavigationBarContrastEnforced) {
         ComposeTheme.enableEdgeToEdge(
             activity,
             statusBarColor = statusBarColor,
@@ -153,3 +153,4 @@ fun UpdateEdgeToEdgeDefault(
         )
     }
 }
+
