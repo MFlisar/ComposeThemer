@@ -110,62 +110,25 @@ class MainActivity : ComponentActivity() {
                 // Statusbar and Navigation Bar is drawn in primary color -> we use this to detect the dark mode for the system bars
                 if (edgeToEdge) {
 
-                    // ComposeTheme.enableEdgeToEdge...helper function to easily enable edgeToEdge
+                    // UpdateEdgeToEdgeDefault...helper function to easily enable edgeToEdge
                     // SystemBarStyle also offers some extensions (statusBar, navigationBar, transparent) that can be used
 
                     // this app draws a bottom navigation behind the navigation bar in portrait only, in landscape mode it doesn't
                     // => landscape may
                     val landscape =
                         LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+                    val isDark = state.base.value.isDark()
 
-                    if (variant == 1) {
-
-                        // Variant 1
-                        val isDark = state.base.value.isDark()
-
-                        //LaunchedEffect(state, statusBarColor, navigationBarColor) {
-                        //    ComposeTheme.enableEdgeToEdge(
-                        //        activity = this@MainActivity,
-                        //        statusBarColor = statusBarColor.value,
-                        //        navigationBarColor = if (landscape) {
-                        //            SystemBarStyle.defaultScrim(resources, isDark)
-                        //        } else navigationBarColor.value,
-                        //        isNavigationBarContrastEnforced = landscape
-                        //    )
-                        //}
-
-                        // extension function => this does the same as the function above
-                        UpdateEdgeToEdgeDefault(
-                            activity = this,
-                            themeState = state,
-                            statusBarColor = statusBarColor.value,
-                            navigationBarColor = if (landscape) {
-                                SystemBarStyle.defaultScrim(resources, isDark)
-                            } else navigationBarColor.value,
-                            isNavigationBarContrastEnforced = landscape
-                        )
-                    } else {
-
-                        // Variant 2
-                        val isDarkStatusBar = remember(statusBarColor.value) {
-                            derivedStateOf { statusBarColor.value.luminance() < .5f }
-                        }
-                        val isDarkNavigationBar = remember(navigationBarColor.value, landscape, resources) {
-                            derivedStateOf {
-                                (if (landscape) {
-                                    SystemBarStyle.defaultScrim(resources)
-                                } else navigationBarColor.value).luminance() < .5f
-                            }
-                        }
-                        LaunchedEffect(state, isDarkStatusBar, isDarkNavigationBar) {
-                            ComposeTheme.enableEdgeToEdge(
-                                this@MainActivity,
-                                statusBarStyle = SystemBarStyle.statusBar { isDarkStatusBar.value },
-                                navigationBarStyle = SystemBarStyle.navigationBar { isDarkNavigationBar.value },
-                                isNavigationBarContrastEnforced = landscape
-                            )
-                        }
-                    }
+                    // extension function => this does the same as the function above
+                    UpdateEdgeToEdgeDefault(
+                        activity = this,
+                        themeState = state,
+                        statusBarColor = statusBarColor.value,
+                        navigationBarColor = if (landscape) {
+                            SystemBarStyle.defaultScrim(resources, isDark)
+                        } else navigationBarColor.value,
+                        isNavigationBarContrastEnforced = landscape
+                    )
                 }
 
                 Scaffold(
