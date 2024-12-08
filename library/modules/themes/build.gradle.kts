@@ -148,8 +148,6 @@ mavenPublishing {
 
 tasks.register("convert_themes") {
 
-    enabled = false
-
     doLast {
         println("Converting...")
 
