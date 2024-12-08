@@ -100,14 +100,15 @@ ComposeTheme(state = state) {
 
     // update edgeToEdge to the correct styles with the provided helper functions
     // e.g. like following if the layout has a primary toolbar at top and nothing at bottom
-    // TIPP:
-    // this functions has an overload that works with SystemBarStyle instead if you want to use that directly
-    ComposeTheme.enableEdgeToEdge(
+    val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val isDark = state.base.value.isDark()
+    UpdateEdgeToEdgeDefault(
         activity = this,
+        themeState = state,
         statusBarColor = MaterialTheme.colorScheme.primary,
         navigationBarColor = if (landscape) {
-            SystemBarStyle.defaultScrim(resources)
-        } else MaterialTheme.colorScheme.background,
+            SystemBarStyle.defaultScrim(resources, isDark)
+        } else navigationBarColor.value,
         isNavigationBarContrastEnforced = landscape
     )
 
