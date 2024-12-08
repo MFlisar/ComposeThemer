@@ -108,7 +108,7 @@ ComposeTheme(state = state) {
         statusBarColor = MaterialTheme.colorScheme.primary,
         navigationBarColor = if (landscape) {
             SystemBarStyle.defaultScrim(resources, isDark)
-        } else navigationBarColor.value,
+        } else MaterialTheme.colorScheme.background,
         isNavigationBarContrastEnforced = landscape
     )
 
