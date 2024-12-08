@@ -70,7 +70,9 @@ dependencies {
     implementation(deps.kotpreferences.compose)
 
     // a minimal library that provides some useful composables that I use inside demo activities
-    //implementation(deps.toolbox.core)
+    implementation(deps.toolbox.core)
     implementation(deps.toolbox.ui)
-    //implementation(deps.toolbox.app)
+    implementation(deps.toolbox.app) {
+        exclude("io.github.mflisar.composethemer")
+    }
 }
