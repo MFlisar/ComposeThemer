@@ -6,26 +6,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +36,7 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -44,7 +44,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -56,8 +55,11 @@ import com.michaelflisar.composethemer.demo.R
 import com.michaelflisar.kotpreferences.compose.collectAsState
 import com.michaelflisar.kotpreferences.compose.collectAsStateNotNull
 import com.michaelflisar.toolbox.androiddemoapp.composables.DemoCollapsibleRegion
+import com.michaelflisar.toolbox.androiddemoapp.composables.DemoDropdown
 import com.michaelflisar.toolbox.androiddemoapp.composables.DemoSegmentedButtons
 import com.michaelflisar.toolbox.androiddemoapp.composables.rememberDemoExpandedRegions
+import com.michaelflisar.toolbox.composables.MyCheckbox
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -182,7 +184,6 @@ class MainActivity : ComponentActivity() {
         statusBarColorPrimary: MutableState<Boolean>,
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
-        val showLabels = rememberSaveable { mutableStateOf(true) }
         val regions = rememberDemoExpandedRegions(listOf(1))
         val scope = rememberCoroutineScope()
 
@@ -192,22 +193,10 @@ class MainActivity : ComponentActivity() {
         ) {
             DemoCollapsibleRegion(
                 title = "Theme",
+                info = "${ComposeTheme.getRegisteredThemes().size} themes available",
                 regionId = 0,
                 state = regions
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text("Theme", style = MaterialTheme.typography.titleMedium)
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text("Show Labels", style = MaterialTheme.typography.labelSmall)
-                    Checkbox(
-                        checked = showLabels.value,
-                        onCheckedChange = {
-                            showLabels.value = it
-                        }
-                    )
-                }
                 val selected = DemoPrefs.themeKey.collectAsState()
                 if (dynamic) {
                     Text(
@@ -215,51 +204,29 @@ class MainActivity : ComponentActivity() {
                         style = MaterialTheme.typography.bodySmall
                     )
                 } else {
-                    Text(
-                        "${ComposeTheme.getRegisteredThemes().size} themes available",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        ComposeTheme.getRegisteredThemes()
-                            .forEach {
-                                FilterChip(
-                                    selected = selected.value == it.key,
-                                    onClick = {
-                                        scope.launch {
-                                            DemoPrefs.themeKey.update(it.key)
-                                        }
-                                    },
-                                    label = {
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                        ) {
-                                            if (showLabels.value) {
-                                                Text(it.key)
-                                            }
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(16.dp)
-                                                    .clip(CircleShape)
-                                                    .background(if (baseTheme.isDark()) it.colorSchemeDark.primary else it.colorSchemeLight.primary)
-                                            )
-                                        }
-
-                                    },
-                                    leadingIcon = if (selected.value == it.key) {
-                                        {
-                                            Icon(Icons.Default.Check, contentDescription = null)
-                                        }
-                                    } else null
-                                )
-                            }
+                    val themes by remember {
+                        derivedStateOf {
+                            ComposeTheme.getRegisteredThemes().sortedBy { it.key.lowercase() }
+                        }
                     }
-                    Text(
-                        "Selected Theme: ${selected.value}",
-                        style = MaterialTheme.typography.bodySmall
+                    DemoDropdown(
+                        modifier = Modifier.fillMaxWidth(),
+                        items = themes,
+                        itemToString = { item, dropdown -> item.key },
+                        leadingIcon = { item, dropdown ->
+                            Box(
+                                modifier = Modifier
+                                    .size(16.dp)
+                                    .clip(CircleShape)
+                                    .background(if (baseTheme.isDark()) item.colorSchemeDark.primary else item.colorSchemeLight.primary)
+                            )
+                        },
+                        selected = themes.find { it.key == selected.value }!!,
+                        onItemSelected = { index, item ->
+                            scope.launch(Dispatchers.IO) {
+                                DemoPrefs.themeKey.update(item.key)
+                            }
+                        }
                     )
                 }
             }
@@ -268,7 +235,7 @@ class MainActivity : ComponentActivity() {
                 regionId = 1,
                 state = regions
             ) {
-                Text("Base Theme Style", style = MaterialTheme.typography.titleMedium)
+                Text("Base Theme Style", style = MaterialTheme.typography.titleSmall)
                 DemoSegmentedButtons(
                     items = ComposeTheme.BaseTheme.entries,
                     itemToText = { it.name },
@@ -279,7 +246,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 )
-                Text("Enable dynamic theme?", style = MaterialTheme.typography.titleMedium)
+                Text("Enable dynamic theme?", style = MaterialTheme.typography.titleSmall)
                 DemoSegmentedButtons(
                     items = listOf("Yes", "No"),
                     initialSelectedIndex = if (dynamic) 0 else 1,
@@ -298,28 +265,43 @@ class MainActivity : ComponentActivity() {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
+                    MyCheckbox(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = "Status Bar Primary",
+                        checked = statusBarColorPrimary,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    MyCheckbox(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = "Navigation Bar Primary",
+                        checked = navigationBarColorPrimary,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+            DemoCollapsibleRegion(
+                title = "UI Examples",
+                regionId = 3,
+                state = regions
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ){
+                    ElevatedCard(
+                        modifier = Modifier.weight(1f)
                     ) {
-                        Text("Status Bar Primary", style = MaterialTheme.typography.titleMedium)
-                        Checkbox(
-                            checked = statusBarColorPrimary.value,
-                            onCheckedChange = {
-                                statusBarColorPrimary.value = it
-                            }
-                        )
+                        Text(modifier = Modifier.padding(8.dp), text = "ElevatedCard")
                     }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
+                    Card(
+                        modifier = Modifier.weight(1f)
                     ) {
-                        Text("Navigation Bar Primary", style = MaterialTheme.typography.titleMedium)
-                        Checkbox(
-                            checked = navigationBarColorPrimary.value,
-                            onCheckedChange = {
-                                navigationBarColorPrimary.value = it
-                            }
-                        )
+                        Text(modifier = Modifier.padding(8.dp), text = "Card")
                     }
+                    val checked = remember { mutableStateOf(false) }
+                    Checkbox(
+                        modifier = Modifier.weight(1f),
+                        checked = checked.value,
+                        onCheckedChange = { checked.value = it })
                 }
             }
         }

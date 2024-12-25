@@ -18,7 +18,7 @@ plugins {
 
 // Module
 val artifactId = "core"
-val androidNamespace = "com.michaelflisar.composethemer"
+val androidNamespace = "com.michaelflisar.composethemer.core"
 
 // Library
 val libraryName = "ComposeThemer"
@@ -63,7 +63,7 @@ kotlin {
         commonMain.dependencies {
 
             // Kotlin
-            implementation(kotlinx.coroutines)
+            implementation(kotlinx.coroutines.core)
 
             // AndroidX / Google
             implementation(libs.compose.runtime)

@@ -63,14 +63,14 @@ kotlin {
         commonMain.dependencies {
 
             // Kotlin
-            implementation(kotlinx.coroutines)
+            implementation(kotlinx.coroutines.core)
 
             // AndroidX / Google
             implementation(libs.compose.material3)
             //implementation(libs.compose.activity)
 
             // Library
-            implementation(project(":ComposeThemer:Core"))
+            implementation(project(":composethemer:core"))
 
         }
 
@@ -143,8 +143,6 @@ mavenPublishing {
     // Enable GPG signing for all publications
     signAllPublications()
 }
-
-
 
 tasks.register("convert_themes") {
 
