@@ -1,7 +1,7 @@
 [versions]
 
 # mflisar
-kotpreferences =                "0.7.0"
+kotpreferences =                "0.7.2"
 toolbox =                       "2.4.2"
 
 [libraries]

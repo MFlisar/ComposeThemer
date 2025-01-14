@@ -61,8 +61,8 @@ dependencies {
     // Libraries
     // ------------------------
 
-    implementation(project(":ComposeThemer:Core"))
-    implementation(project(":ComposeThemer:Modules:Themes"))
+    implementation(project(":composethemer:core"))
+    implementation(project(":composethemer:modules:themes"))
 
     // KotPreferences
     implementation(deps.kotpreferences.core)

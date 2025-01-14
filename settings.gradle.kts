@@ -39,16 +39,16 @@ pluginManagement {
 // --------------
 
 // Android + JVM + iOS
-include(":ComposeThemer:Core")
-project(":ComposeThemer:Core").projectDir = file("library/core")
+include(":composethemer:core")
+project(":composethemer:core").projectDir = file("library/core")
 
 // --------------
 // Modules
 // --------------
 
 // Android + JVM + iOS
-include(":ComposeThemer:Modules:Themes")
-project(":ComposeThemer:Modules:Themes").projectDir = file("library/modules/themes")
+include(":composethemer:modules:themes")
+project(":composethemer:modules:themes").projectDir = file("library/modules/themes")
 
 // --------------
 // App
