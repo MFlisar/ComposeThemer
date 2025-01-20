@@ -9,10 +9,17 @@ library:
   maven: io.github.mflisar.composethemer
   maven-main-library: core
   multiplatform: true
-  screenshots:
-    - name: Demo
+  platforms:
+    - jvm
+    - android
+    - macos
+    - ios
+    - js
+    - wasm
+  screenshots: 
+    - name: core
       images:
-        - ./screenshots/demo.gif
+        - ./screenshots/core/demo.gif
   branch: master
   demo: true
 
@@ -20,45 +27,52 @@ library:
 # Dependencies
 # ------------
 
-# optional
 dependencies:
-  compose:
-    cmp: 1.7.1
-    compose: 1.7.5
-    material3: 1.3.1
-    experimental: false
+  compose-multiplatform: 1.7.1 # https://github.com/JetBrains/compose-multiplatform/releases
+  jetpack-compose-runtime: 1.7.5 # https://developer.android.com/jetpack/androidx/releases/compose-runtime
+  jetpack-compose-material3: 1.3.1 # https://developer.android.com/jetpack/androidx/releases/compose-material3
+  experimental: false
 
-# -------------
-# Module
-# -------------
+# ------------
+# Groups
+# ------------
 
-# GRUPPEN - optional: nur bei mehreren Modulen benötigt!
 groups:
   - name: core
     label: Core
-    gradle-comment: core 
+    gradle-comment: core
   - name: modules
     label: Modules
     gradle-comment: modules
 
+# ------------
+# Modules
+# ------------
+
 modules:
   - name: core
     group: core
-    description: the core module
+    description: provides all the basic dialog classes to use and apply themes
     optional: false
     platforms:
-      android: true
-      ios: true
-      jvm: true
-      info:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
     dependencies: []
   - name: themes
     group: modules
-    description: defines a set of 59 themes
+    description: provides a list of 59 predefined themes
     optional: true
     platforms:
-      android: true
-      ios: true
-      jvm: true
-      info:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
     dependencies: []

@@ -38,7 +38,7 @@ pluginManagement {
 // Library
 // --------------
 
-// Android + JVM + iOS
+// Android + JVM + iOS + js + wasm
 include(":composethemer:core")
 project(":composethemer:core").projectDir = file("library/core")
 
@@ -46,7 +46,7 @@ project(":composethemer:core").projectDir = file("library/core")
 // Modules
 // --------------
 
-// Android + JVM + iOS
+// Android + JVM + iOS + js + wasm
 include(":composethemer:modules:themes")
 project(":composethemer:modules:themes").projectDir = file("library/modules/themes")
 
@@ -54,5 +54,5 @@ project(":composethemer:modules:themes").projectDir = file("library/modules/them
 // App
 // --------------
 
-include(":demo")
-project(":demo").projectDir = file("demo")
+include(":demo:android")
+include(":demo:desktop")

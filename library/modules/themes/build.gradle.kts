@@ -2,6 +2,7 @@ import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -16,18 +17,31 @@ plugins {
 // Informations
 // -------------------
 
+val description = "provides a list of 59 predefined themes"
+
 // Module
 val artifactId = "themes"
 val androidNamespace = "com.michaelflisar.composethemer.themes"
 
 // Library
 val libraryName = "ComposeThemer"
-val libraryDescription = "ComposeThemer - $artifactId module"
+val libraryDescription = "ComposeThemer - $artifactId module - $description"
 val groupID = "io.github.mflisar.composethemer"
 val release = 2021
 val github = "https://github.com/MFlisar/ComposeThemer"
 val license = "Apache License 2.0"
 val licenseUrl = "$github/blob/main/LICENSE"
+
+// -------------------
+// Variables for Documentation Generator
+// -------------------
+
+// # DEP is an optional arrays!
+
+// OPTIONAL = "true"                // defines if this module is optional or not
+// GROUP_ID = "modules"             // defines the "grouping" in the documentation this module belongs to
+// #DEP = "deps.kotbilling|KotBilling|https://github.com/MFlisar/Kotbilling"
+// PLATFORM_INFO = ""               // defines a comment that will be shown in the documentation for this modules platform support
 
 // -------------------
 // Setup
@@ -53,6 +67,13 @@ kotlin {
     iosArm64()
     iosX64()
     iosSimulatorArm64()
+
+    // js
+    js(IR) {
+        browser()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs { browser() }
 
     // -------
     // Sources
