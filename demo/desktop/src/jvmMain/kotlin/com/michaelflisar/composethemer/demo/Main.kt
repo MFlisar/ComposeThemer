@@ -13,6 +13,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -113,7 +115,9 @@ fun main() {
                                     Card {
                                         Text("Card", modifier = Modifier.padding(16.dp))
                                     }
-                                    ElevatedCard {
+                                    ElevatedCard(
+                                        elevation =  CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+                                    ) {
                                         Text("ElevatedCard", modifier = Modifier.padding(16.dp))
                                     }
                                 }

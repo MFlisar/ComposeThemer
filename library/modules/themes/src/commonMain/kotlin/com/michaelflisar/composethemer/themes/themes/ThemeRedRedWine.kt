@@ -10,7 +10,7 @@ import com.michaelflisar.composethemer.ComposeTheme
  *
  * FlexColorScheme v8.0.2
  *
- * FlexColor Theme Name: "Midnight"
+ * FlexColor Theme Name: "Red Red Wine"
  */
 object ThemeRedRedWine {
 
@@ -55,6 +55,10 @@ object ThemeRedRedWine {
         inverseSurface = Color(0xFF2A2A2A),
         inverseOnSurface = Color(0xFFF1F1F1),
         inversePrimary = Color(0xFFFFB4C1),
+        surfaceTint = Color(0xFF9B1B30), // copied from: primary
+        surfaceVariant = Color(0xFFD1D1D1), // copied from: outlineVariant
+        background = Color(0xFFFCFCFC), // copied from: surface
+        onBackground = Color(0xFF111111), // copied from: onSurface
     )
 
     private val Dark = darkColorScheme(
@@ -90,5 +94,9 @@ object ThemeRedRedWine {
         inverseSurface = Color(0xFFE8E8E8),
         inverseOnSurface = Color(0xFF2A2A2A),
         inversePrimary = Color(0xFF65333B),
+        surfaceTint = Color(0xFFE4677C), // copied from: primary
+        surfaceVariant = Color(0xFF414141), // copied from: outlineVariant
+        background = Color(0xFF080808), // copied from: surface
+        onBackground = Color(0xFFF1F1F1), // copied from: onSurface
     )
 }

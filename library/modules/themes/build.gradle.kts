@@ -165,6 +165,17 @@ mavenPublishing {
     signAllPublications()
 }
 
+// -------------------
+// Theme Converter
+// -------------------
+
+private class ThemeColor(val name: String, val value: String) {
+    fun toLine() = "        $name = $value,"
+}
+private class ThemeColorCopy(val from: String, val to: String) {
+    fun toLine(colors: List<ThemeColor>) = "        $from = ${colors.find { it.name == to }?.value}, // copied from: $to"
+}
+
 tasks.register("convert_themes") {
 
     doLast {
@@ -193,6 +204,32 @@ tasks.register("convert_themes") {
             "onInverseSurface" to "inverseOnSurface"
         )
 
+        // TODO:
+        // missing theme variables:
+        // light:
+        //   - surfaceTint = primary
+        //   - surfaceVariant = ColorLightTokens.SurfaceVariant // PaletteTokens.NeutralVariant90       => ????
+        //   - background = ColorLightTokens.Background         // PaletteTokens.Neutral98              => same as Surface!
+        //   - onBackground = ColorLightTokens.OnBackground     // PaletteTokens.Neutral10              => same as OnSurface!
+        // dark:
+        //   - surfaceTint = primary
+        //   - surfaceVariant = ColorLightTokens.SurfaceVariant // PaletteTokens.NeutralVariant30       => same as OutlineVariant!
+        //   - background = ColorLightTokens.Background         // PaletteTokens.Neutral6               => same as Surface!
+        //   - onBackground = ColorLightTokens.OnBackground     // PaletteTokens.Neutral90              => same as OnSurface!
+
+        val copyColorsLight = listOf(
+            ThemeColorCopy("surfaceTint", "primary"),
+            ThemeColorCopy("surfaceVariant", "outlineVariant"), // TODO: this color is missing
+            ThemeColorCopy("background", "surface"),
+            ThemeColorCopy("onBackground", "onSurface")
+        )
+        val copyColorsDark = listOf(
+            ThemeColorCopy("surfaceTint", "primary"),
+            ThemeColorCopy("surfaceVariant", "outlineVariant"),
+            ThemeColorCopy("background", "surface"),
+            ThemeColorCopy("onBackground", "onSurface")
+        )
+
         val themesFolderOrig = File("$projectDir/_themes")
         val themesFolderConverted =
             File("$projectDir/src/commonMain/kotlin/com/michaelflisar/composethemer/themes/themes")
@@ -218,26 +255,22 @@ tasks.register("convert_themes") {
             val lines = it.readLines(Charsets.UTF_8)
 
             val lineBeginLightTheme = lines.indexOfFirst { it.contains("lightColorScheme") } + 1
-            val lineEndLightTheme = lines.drop(lineBeginLightTheme)
-                .indexOfFirst { it.contains(");") } + lineBeginLightTheme - 1
+            val lineEndLightTheme = lines.drop(lineBeginLightTheme).indexOfFirst { it.contains(");") } + lineBeginLightTheme - 1
             val lineBeginDarkTheme = lines.indexOfFirst { it.contains("darkColorScheme") } + 1
-            val lineEndDarkTheme = lines.drop(lineBeginDarkTheme)
-                .indexOfFirst { it.contains(");") } + lineBeginDarkTheme - 1
+            val lineEndDarkTheme = lines.drop(lineBeginDarkTheme).indexOfFirst { it.contains(");") } + lineBeginDarkTheme - 1
 
             val convertLine = { line: String ->
                 val parts = line.split(":").map { it.trim() }
                 val name = parts[0]
-                val value = parts[1]
+                val value = parts[1].trim(',')
                 if (!excludedStyles.contains(name)) {
                     val mappedName = renamedStyles[name] ?: name
-                    "        $mappedName = $value"
+                    ThemeColor(mappedName, value)
                 } else null
             }
 
-            val lightTheme =
-                lines.subList(lineBeginLightTheme, lineEndLightTheme).mapNotNull { convertLine(it) }
-            val darkTheme =
-                lines.subList(lineBeginDarkTheme, lineEndDarkTheme).mapNotNull { convertLine(it) }
+            val lightThemeColors = lines.subList(lineBeginLightTheme, lineEndLightTheme).mapNotNull { convertLine(it) }
+            val darkThemeColors = lines.subList(lineBeginDarkTheme, lineEndDarkTheme).mapNotNull { convertLine(it) }
 
             //println("- Light: $lineBeginLightTheme => $lineEndLightTheme")
             //println("- Dark: $lineBeginDarkTheme => $lineEndDarkTheme")
@@ -255,7 +288,7 @@ tasks.register("convert_themes") {
                 " *",
                 " * $version",
                 " *",
-                " * FlexColor Theme Name: \"Midnight\"",
+                " * FlexColor Theme Name: \"$theme\"",
                 " */",
                 "object Theme$themeNoSpaces {",
                 "",
@@ -268,11 +301,13 @@ tasks.register("convert_themes") {
                 "    )",
                 "",
                 "    private val Light = lightColorScheme(",
-                lightTheme,
+                lightThemeColors.map { it.toLine() },
+                copyColorsLight.map { it.toLine(lightThemeColors) },
                 "    )",
                 "",
                 "    private val Dark = darkColorScheme(",
-                darkTheme,
+                darkThemeColors.map { it.toLine() },
+                copyColorsDark.map { it.toLine(darkThemeColors) },
                 "    )",
                 "}"
             ).map {
@@ -299,9 +334,7 @@ tasks.register("convert_themes") {
             "",
             "import com.michaelflisar.composethemer.ComposeTheme",
             "import com.michaelflisar.composethemer.themes.themes.ThemeDefault",
-            themeFileNames.map {
-                "import com.michaelflisar.composethemer.themes.themes.$it"
-            },
+            themeFileNames.map { "import com.michaelflisar.composethemer.themes.themes.$it" },
             "",
             "object ComposeThemes {",
             "",
@@ -310,9 +343,7 @@ tasks.register("convert_themes") {
             "            // default m3 theme",
             "            ThemeDefault.get(),",
             "            // custom themes",
-            themeFileNames.map {
-                "            $it.get(),"
-            },
+            themeFileNames.map { "            $it.get()," },
             "        )",
             "}"
         ).map {
