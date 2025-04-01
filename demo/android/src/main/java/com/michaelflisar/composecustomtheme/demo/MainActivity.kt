@@ -5,26 +5,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,14 +36,11 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -52,15 +49,12 @@ import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.UpdateEdgeToEdgeDefault
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
-import com.michaelflisar.kotpreferences.compose.collectAsState
-import com.michaelflisar.kotpreferences.compose.collectAsStateNotNull
+import com.michaelflisar.composethemer.picker.ThemePicker
+import com.michaelflisar.kotpreferences.compose.asMutableState
 import com.michaelflisar.toolbox.androiddemoapp.composables.DemoCollapsibleRegion
-import com.michaelflisar.toolbox.androiddemoapp.composables.DemoDropdown
-import com.michaelflisar.toolbox.androiddemoapp.composables.DemoSegmentedButtons
 import com.michaelflisar.toolbox.androiddemoapp.composables.rememberDemoExpandedRegions
 import com.michaelflisar.toolbox.composables.MyCheckbox
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.michaelflisar.toolbox.composables.MyRow
 
 class MainActivity : ComponentActivity() {
 
@@ -74,17 +68,19 @@ class MainActivity : ComponentActivity() {
 
             // those states are persisted and retrieved via my kotpreferences library
             // => of course any compose state can be used
-            val baseTheme = DemoPrefs.baseTheme.collectAsStateNotNull()
-            val dynamic = DemoPrefs.dynamic.collectAsStateNotNull()
-            val theme = DemoPrefs.themeKey.collectAsStateNotNull()
+            val baseTheme = DemoPrefs.baseTheme.asMutableState()
+            val contrast = DemoPrefs.contrast.asMutableState()
+            val dynamic = DemoPrefs.dynamic.asMutableState()
+            val theme = DemoPrefs.themeKey.asMutableState()
 
             // simple runtime saved states would look like following:
             // val baseTheme = rememberSaveable { mutableStateOf(ComposeTheme.BaseTheme.System) }
+            // val contrast = rememberSaveable { mutableStateOf(ComposeTheme.Contrast.Normal) }
             // val dynamic = rememberSaveable { mutableStateOf(false) }
             // val theme = rememberSaveable { mutableStateOf(ThemeGreenForest.KEY) } // key of the current theme
             // val edgeToEdge = rememberSaveable { mutableStateOf(false) }
 
-            val state = ComposeTheme.State(baseTheme, dynamic, theme)
+            val state = ComposeTheme.State(baseTheme, contrast, dynamic, theme)
 
             // in a live app you may have screens with different colors behind the status and navigation bar =>
             // following states emulate such a behaviour and show how those cases can be handled
@@ -149,6 +145,11 @@ class MainActivity : ComponentActivity() {
                                 IconButton(onClick = { }) {
                                     Icon(Icons.Filled.Home, contentDescription = "Home")
                                 }
+                            },
+                            floatingActionButton = {
+                                FloatingActionButton(onClick = {}) {
+                                    Icon(Icons.Filled.Info, contentDescription = null)
+                                }
                             }
                         )
                     },
@@ -161,8 +162,9 @@ class MainActivity : ComponentActivity() {
                                 .verticalScroll(rememberScrollState())
                                 .padding(padding)
                                 .padding(16.dp),
-                            baseTheme.value,
-                            dynamic.value,
+                            baseTheme,
+                            contrast,
+                            dynamic,
                             statusBarColorPrimary,
                             navigationBarColorPrimary
                         )
@@ -179,13 +181,13 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun Content(
         modifier: Modifier,
-        baseTheme: ComposeTheme.BaseTheme,
-        dynamic: Boolean,
+        baseTheme: MutableState<ComposeTheme.BaseTheme>,
+        contrast: MutableState<ComposeTheme.Contrast>,
+        dynamic: MutableState<Boolean>,
         statusBarColorPrimary: MutableState<Boolean>,
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
-        val regions = rememberDemoExpandedRegions(listOf(1))
-        val scope = rememberCoroutineScope()
+        val regions = rememberDemoExpandedRegions(listOf(0, 2))
 
         Column(
             modifier = modifier,
@@ -197,69 +199,22 @@ class MainActivity : ComponentActivity() {
                 regionId = 0,
                 state = regions
             ) {
-                val selected = DemoPrefs.themeKey.collectAsState()
-                if (dynamic) {
-                    Text(
-                        "If dynamic theme is enabled the selected theme won't have any impact as colors are derived dynamically from the current wallpaper!",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                } else {
-                    val themes by remember {
-                        derivedStateOf {
-                            ComposeTheme.getRegisteredThemes().sortedBy { it.key.lowercase() }
-                        }
-                    }
-                    DemoDropdown(
-                        modifier = Modifier.fillMaxWidth(),
-                        items = themes,
-                        itemToString = { item, dropdown -> item.key },
-                        leadingIcon = { item, dropdown ->
-                            Box(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .clip(CircleShape)
-                                    .background(if (baseTheme.isDark()) item.colorSchemeDark.primary else item.colorSchemeLight.primary)
-                            )
-                        },
-                        selected = themes.find { it.key == selected.value }!!,
-                        onItemSelected = { index, item ->
-                            scope.launch(Dispatchers.IO) {
-                                DemoPrefs.themeKey.update(item.key)
-                            }
-                        }
-                    )
-                }
-            }
-            DemoCollapsibleRegion(
-                title = "Theme Settings",
-                regionId = 1,
-                state = regions
-            ) {
-                Text("Base Theme Style", style = MaterialTheme.typography.titleSmall)
-                DemoSegmentedButtons(
-                    items = ComposeTheme.BaseTheme.entries,
-                    itemToText = { it.name },
-                    initialSelectedIndex = ComposeTheme.BaseTheme.entries.indexOf(baseTheme),
-                    onItemSelected = { index, item ->
-                        scope.launch {
-                            DemoPrefs.baseTheme.update(item)
-                        }
-                    }
-                )
-                Text("Enable dynamic theme?", style = MaterialTheme.typography.titleSmall)
-                DemoSegmentedButtons(
-                    items = listOf("Yes", "No"),
-                    initialSelectedIndex = if (dynamic) 0 else 1,
-                    onItemSelected = { index ->
-                        scope.launch {
-                            DemoPrefs.dynamic.update(index == 0)
-                        }
-                    }
+                val themeKey = DemoPrefs.themeKey.asMutableState()
+                ThemePicker(
+                    setup = ThemePicker.Setup(
+                        supportsDynamic = true,
+                        labelWidth = 72.dp
+                    ),
+                    baseTheme = baseTheme,
+                    contrast = contrast,
+                    dynamic = dynamic,
+                    themeKey = themeKey,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
             DemoCollapsibleRegion(
                 title = "System Bar Styles",
-                regionId = 2,
+                regionId = 1,
                 state = regions
             ) {
                 Column(
@@ -281,12 +236,12 @@ class MainActivity : ComponentActivity() {
             }
             DemoCollapsibleRegion(
                 title = "UI Examples",
-                regionId = 3,
+                regionId = 2,
                 state = regions
             ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ){
+                ) {
                     ElevatedCard(
                         modifier = Modifier.weight(1f)
                     ) {
@@ -303,7 +258,27 @@ class MainActivity : ComponentActivity() {
                         checked = checked.value,
                         onCheckedChange = { checked.value = it })
                 }
+                MyRow {
+                    ColorCard(MaterialTheme.colorScheme.primary, "Primary")
+                    ColorCard(MaterialTheme.colorScheme.secondary, "Secondary")
+                    ColorCard(MaterialTheme.colorScheme.tertiary, "Tertiary")
+                }
+                MyRow {
+                    ColorCard(MaterialTheme.colorScheme.primaryContainer, "Primary Container")
+                    ColorCard(MaterialTheme.colorScheme.secondaryContainer, "Secondary Container")
+                    ColorCard(MaterialTheme.colorScheme.tertiaryContainer, "Tertiary Container")
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun RowScope.ColorCard(color: Color, label: String) {
+    Card(
+        modifier = Modifier.weight(1f),
+        colors = CardDefaults.cardColors(containerColor = color)
+    ) {
+        Text(modifier = Modifier.padding(8.dp), text = label)
     }
 }

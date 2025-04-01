@@ -12,7 +12,8 @@ icon: material/information-variant
 * ability to retrieve all registered themes
 * supports system ui theming (status bar + navigation bar)
 * build on top of `MaterialTheme`
-* comes with optional **59 build-in themes**
+* supports dynamic theming as well as the new contrast themes
+* comes with optional collections of predefined themes
 * offers some edgeToEdge helper functions
 
 !!! info
@@ -26,8 +27,3 @@ icon: material/information-variant
 {% include 'platforms.md' %}
 
 {% include 'demo.md' %}
-
-## :pray: Credits
-
-This library contains 59 predefined color schemes inside the `themes` module. Those are all directly copied from [FlexColorScheme](https://rydmike.com/flexcolorscheme/themesplayground-latest/) - a very useful homepage that allows you to **create your own themes** and also contains 54 predefined themes already. With the permission of [Rydmike](https://github.com/rydmike) I just copied every single predefined theme from his homepage and added it to this library.
-

@@ -62,7 +62,8 @@ dependencies {
     // ------------------------
 
     implementation(project(":composethemer:core"))
-    implementation(project(":composethemer:modules:themes"))
+    implementation(project(":composethemer:modules:picker"))
+    implementation(project(":composethemer:modules:themes:metro"))
 
     // KotPreferences
     implementation(deps.kotpreferences.core)

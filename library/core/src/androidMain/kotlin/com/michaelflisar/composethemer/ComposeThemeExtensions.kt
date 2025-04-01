@@ -1,11 +1,14 @@
 package com.michaelflisar.composethemer
 
 import android.app.Activity
+import android.app.UiModeManager
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
@@ -19,6 +22,7 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
@@ -43,11 +47,12 @@ fun ComposeTheme(
     val colorScheme = when {
         state.dynamic.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (state.base.value.isDark()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(
+                context
+            )
         }
 
-        state.base.value.isDark() -> theme.colorSchemeDark
-        else -> theme.colorSchemeLight
+        else -> theme.selectSchemeForContrast(state.base.value.isDark(), state.contrast.value)
     }
     val darkTheme = state.base.value.isDark()
 
@@ -57,7 +62,8 @@ fun ComposeTheme(
             SideEffect {
                 val window = (view.context as Activity).window
                 window.statusBarColor = colorScheme.primary.toArgb()
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                    darkTheme
             }
         }
     }
@@ -143,7 +149,12 @@ fun UpdateEdgeToEdgeDefault(
 ) {
     // Portrait: Statusbar is Primary, Navigation is Background
     // Landscape: Navigation has enforced contrast + default scrim
-    LaunchedEffect(themeState, statusBarColor, navigationBarColor, isNavigationBarContrastEnforced) {
+    LaunchedEffect(
+        themeState,
+        statusBarColor,
+        navigationBarColor,
+        isNavigationBarContrastEnforced
+    ) {
         ComposeTheme.enableEdgeToEdge(
             activity,
             statusBarColor = statusBarColor,
@@ -154,3 +165,45 @@ fun UpdateEdgeToEdgeDefault(
     }
 }
 
+fun isContrastAvailable(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+}
+
+@Composable
+private fun ComposeTheme.Theme<*>.selectSchemeForContrast(
+    isDark: Boolean,
+    contrast: ComposeTheme.Contrast
+): ColorScheme {
+
+    val context = LocalContext.current
+    val colorScheme = if (isDark) darkScheme else lightScheme
+    val isPreview = LocalInspectionMode.current
+
+    // TODO(b/336693596): UIModeManager is not yet supported in preview
+    if (!isPreview) {
+        val baseContrast = when (contrast) {
+            ComposeTheme.Contrast.System -> {
+                if (isContrastAvailable()) {
+                    val uiModeManager =
+                        context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+                    val contrastLevel = uiModeManager.contrast
+                    when (contrastLevel) {
+                        in 0.0f..0.33f -> ComposeTheme.BaseContrast.Normal
+                        in 0.34f..0.66f -> ComposeTheme.BaseContrast.Medium
+                        in 0.67f..1.0f -> ComposeTheme.BaseContrast.High
+                        else -> ComposeTheme.BaseContrast.Normal
+                    }
+                } else {
+                    ComposeTheme.BaseContrast.Normal
+                }
+            }
+
+            ComposeTheme.Contrast.Normal -> ComposeTheme.BaseContrast.Normal
+            ComposeTheme.Contrast.Medium -> ComposeTheme.BaseContrast.Medium
+            ComposeTheme.Contrast.High -> ComposeTheme.BaseContrast.High
+        }
+
+        return getScheme(isDark, baseContrast)
+
+    } else return colorScheme
+}

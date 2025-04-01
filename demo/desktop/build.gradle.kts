@@ -19,10 +19,12 @@ kotlin {
                 implementation(compose.desktop.currentOs)
 
                 implementation(project(":composethemer:core"))
-                implementation(project(":composethemer:modules:themes"))
+                implementation(project(":composethemer:modules:picker"))
+                implementation(project(":composethemer:modules:themes:metro"))
 
                 implementation(deps.toolbox.core)
                 implementation(deps.toolbox.ui)
+
             }
         }
     }

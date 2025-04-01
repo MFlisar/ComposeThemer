@@ -47,8 +47,10 @@ project(":composethemer:core").projectDir = file("library/core")
 // --------------
 
 // Android + JVM + iOS + js + wasm
-include(":composethemer:modules:themes")
-project(":composethemer:modules:themes").projectDir = file("library/modules/themes")
+include(":composethemer:modules:picker")
+project(":composethemer:modules:picker").projectDir = file("library/modules/picker")
+include(":composethemer:modules:themes:metro")
+project(":composethemer:modules:themes:metro").projectDir = file("library/modules/themes/metro")
 
 // --------------
 // App

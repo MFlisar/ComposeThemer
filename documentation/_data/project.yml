@@ -44,6 +44,9 @@ groups:
   - name: modules
     label: Modules
     gradle-comment: modules
+  - name: themes
+    label: Themes
+    gradle-comment: themes
 
 # ------------
 # Modules
@@ -63,9 +66,22 @@ modules:
       - wasm
     platforms-info: ""
     dependencies: []
-  - name: themes
+  - name: modules-picker
     group: modules
-    description: provides a list of 59 predefined themes
+    description: provides extra modules for the core library
+    optional: true
+    platforms:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
+    dependencies: [ ]
+  - name: themes-metro
+    group: themes
+    description: provides themes based on the 20 metro colors (including 5 variants per theme)
     optional: true
     platforms:
       - jvm
