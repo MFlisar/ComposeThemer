@@ -47,6 +47,7 @@ val licenseUrl = "$github/blob/main/LICENSE"
 // BRANCH = "master"        // defines the branch on github (master/main)
 // GROUP = "core|Core|core"
 // GROUP = "modules|Modules|modules"
+// GROUP = "themes|Themes|themes"
 
 
 // -------------------

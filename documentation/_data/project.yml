@@ -68,7 +68,7 @@ modules:
     dependencies: []
   - name: modules-picker
     group: modules
-    description: provides extra modules for the core library
+    description: provides a theme picker for your UI
     optional: true
     platforms:
       - jvm
@@ -78,10 +78,10 @@ modules:
       - js
       - wasm
     platforms-info: ""
-    dependencies: [ ]
+    dependencies: []
   - name: themes-metro
     group: themes
-    description: provides themes based on the 20 metro colors (including 5 variants per theme)
+    description: provides a list of themes based on the 20 metro colors (each one in 5 variations)
     optional: true
     platforms:
       - jvm

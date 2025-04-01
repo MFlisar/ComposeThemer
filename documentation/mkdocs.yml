@@ -118,6 +118,10 @@ nav:
     - Dependencies: dependencies.md
     - Setup: setup.md
     - Usage: usage.md
+  - Modules:
+      - Picker: modules/picker.md
+  - Themes:
+      - Metro: themes/metro.md
   - More:
     - Other Libraries: other-libraries.md
     - About Me: me.md
