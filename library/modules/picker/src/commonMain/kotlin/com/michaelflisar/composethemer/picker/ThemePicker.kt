@@ -124,8 +124,9 @@ fun rememberMultiLevelThemePicker(
                 selectedGroup.value = g
                 val v = selectedVariant.value
                 val vIds = g.getVariantIds()
-                if (v != null && !vIds.contains(v.id)) {
-                    selectedVariant.value = v
+                if (v == null || !vIds.contains(v.id)) {
+                    val defaultVariant = Variant.getDefault(state.allThemes, g)
+                    selectedVariant.value = defaultVariant
                 }
             }
         }
@@ -135,7 +136,7 @@ fun rememberMultiLevelThemePicker(
         val group = selectedGroup.value
 
         if (group != null) {
-            val defaultVariant = state.allThemes.find { it.variantId() == group.collection.defaultVariantId }?.let { Variant(it) }
+            val defaultVariant = Variant.getDefault(state.allThemes, group)
             val newId = if (!showVariantPicker) {
                 selectedVariant.value = defaultVariant
                 group.themes.find { it.variantId() == defaultVariant?.id }?.id
