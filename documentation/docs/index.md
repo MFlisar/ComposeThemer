@@ -12,11 +12,14 @@ icon: material/information-variant
 * ability to retrieve all registered themes
 * supports system ui theming (status bar + navigation bar)
 * build on top of `MaterialTheme`
-* supports dynamic theming as well as system and user contrast settings
-* comes with optional collections of predefined themes[ThemeTemplate.kt](../../scripts/ThemeTemplate.kt)
+* supports *dynamic theming* as well as system and user *contrast* settings
+* comes with optional collections of predefined themes
+  * based on Metro colors
+  * based on Flat UI colors
+  * based on material colors (500)
 * offers some edgeToEdge helper functions
 
-!!! info[ThemeTemplate.kt](../../scripts/ThemeTemplate.kt)
+!!! info
     
     All features are splitted into separate modules, just include the modules you want to use!
 

@@ -17,9 +17,17 @@ library:
     - js
     - wasm
   screenshots: 
-    - name: core
+    - name: defaultpicker
       images:
-        - ./screenshots/core/demo.gif
+        - ./screenshots/defaultpicker/android1.png
+        - ./screenshots/defaultpicker/android2.png
+        - ./screenshots/defaultpicker/android3.png
+        - ./screenshots/defaultpicker/android4.png
+        - ./screenshots/defaultpicker/desktop1.png
+        - ./screenshots/defaultpicker/desktop2.png
+        - ./screenshots/defaultpicker/desktop3.png
+        - ./screenshots/defaultpicker/desktop4.png
+        - ./screenshots/defaultpicker/desktop5.png
   branch: master
   demo: true
 
@@ -66,9 +74,48 @@ modules:
       - wasm
     platforms-info: ""
     dependencies: []
+  - name: modules-defaultpicker
+    group: modules
+    description: provides a default theme picker UI
+    optional: true
+    platforms:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
+    dependencies: []
   - name: modules-picker
     group: modules
-    description: provides a theme picker for your UI
+    description: provides states and composables to create a theme picker UI
+    optional: true
+    platforms:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
+    dependencies: []
+  - name: themes-flatui
+    group: themes
+    description: provides a list of themes based on the 20 flatui colors (each one in 5 variations)
+    optional: true
+    platforms:
+      - jvm
+      - android
+      - macos
+      - ios
+      - js
+      - wasm
+    platforms-info: ""
+    dependencies: []
+  - name: themes-material500
+    group: themes
+    description: provides a list of themes based on the 20 material500 colors (each one in 5 variations)
     optional: true
     platforms:
       - jvm

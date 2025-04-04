@@ -120,8 +120,11 @@ nav:
     - Usage: usage.md
   - Modules:
       - Picker: modules/picker.md
+      - Default Picker: modules/defaultpicker.md
   - Themes:
+      - Flat UI: themes/flatui.md
       - Metro: themes/metro.md
+      - Material 500: themes/material500.md
   - More:
     - Other Libraries: other-libraries.md
     - About Me: me.md
