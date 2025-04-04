@@ -17,7 +17,7 @@ fun SingleLevelThemeSelector(
         themes = state.allThemes,
         selectedThemeId = state.selectedThemeId,
         setup = spinnerSetup,
-        enabled = state.isThemeEnabled(),
+        enabled = state.isThemeEnabled.value,
         isDark = state.baseTheme.value.isDark()
     )
 }

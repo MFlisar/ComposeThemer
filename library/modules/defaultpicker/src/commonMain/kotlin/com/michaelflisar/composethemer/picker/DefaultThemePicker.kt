@@ -113,7 +113,7 @@ fun DefaultThemePicker(
             modifier = Modifier.fillMaxWidth(),
             label = labelContrast,
             labelWidth = labelWidth,
-            enabled = pickerState.isContrastEnabled()
+            enabled = pickerState.isContrastEnabled.value
         ) {
             ContrastPicker(
                 modifier = Modifier.fillMaxWidth(),
@@ -131,7 +131,7 @@ fun DefaultThemePicker(
             modifier = Modifier.fillMaxWidth(),
             label = labelTheme,
             labelWidth = labelWidth,
-            enabled = pickerState.isThemeEnabled()
+            enabled = pickerState.isThemeEnabled.value
         ) {
             // you have 2 options:
             // - a spinner with all themes

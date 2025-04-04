@@ -56,6 +56,6 @@ fun ContrastPicker(
         selected = state.contrast,
         labelProvider = label,
         iconProvider = icon,
-        enabled = state.isContrastEnabled()
+        enabled = state.isContrastEnabled.value
     )
 }
