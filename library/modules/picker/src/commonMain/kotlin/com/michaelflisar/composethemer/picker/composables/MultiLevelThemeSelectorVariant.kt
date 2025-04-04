@@ -22,7 +22,7 @@ fun MultiLevelThemeSelectorVariant(
             selectedVariant = multiState.selectedVariant,
             themesOfGroup = multiState.themesOfSelectedGroup,
             setup = spinnerSetup,
-            enabled = state.isThemeEnabled.value,
+            enabled = state.isThemeEnabled(),
             isDark = state.baseTheme.value.isDark()
         )
     }

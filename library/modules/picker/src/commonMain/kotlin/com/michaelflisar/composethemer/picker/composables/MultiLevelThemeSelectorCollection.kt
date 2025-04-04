@@ -19,7 +19,7 @@ fun MultiLevelThemeSelectorCollection(
             collections = multiState.collections,
             selectedCollection = multiState.selectedCollection,
             setup = spinnerSetup,
-            enabled = state.isThemeEnabled.value
+            enabled = state.isThemeEnabled()
         )
     }
 }

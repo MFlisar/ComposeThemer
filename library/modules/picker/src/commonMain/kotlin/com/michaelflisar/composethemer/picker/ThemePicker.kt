@@ -19,9 +19,13 @@ object ThemePicker {
         val dynamic: MutableState<Boolean>,
         val selectedThemeId: MutableState<String>,
         val selectedTheme: androidx.compose.runtime.State<ComposeTheme.Theme?>,
-        val isContrastEnabled: androidx.compose.runtime.State<Boolean>,
-        val isThemeEnabled: androidx.compose.runtime.State<Boolean>,
-    )
+        private val contrastEnabled: androidx.compose.runtime.State<Boolean>,
+        private val themeEnabled: androidx.compose.runtime.State<Boolean>,
+        private val handleEnabledStates: Boolean
+    ) {
+        fun isThemeEnabled() = !handleEnabledStates || themeEnabled.value
+        fun isContrastEnabled() = !handleEnabledStates || contrastEnabled.value
+    }
 
     class MultiLevelState(
         val selectedCollection: MutableState<ComposeTheme.Collection?>,
@@ -54,15 +58,16 @@ fun rememberThemePicker(
     contrast: MutableState<ComposeTheme.Contrast>,
     dynamic: MutableState<Boolean>,
     themeId: MutableState<String>,
+    handleEnabledStates: Boolean = true
 ): ThemePicker.State {
     val allThemes = ComposeTheme.getRegisteredThemes().sortedBy { it.fullName.lowercase() }
     val selectedTheme =
         remember(themeId.value) { derivedStateOf { allThemes.find { it.id == themeId.value } } }
-    val isContrastEnabled = remember(
+    val contrastEnabled = remember(
         dynamic.value,
         selectedTheme.value
     ) { derivedStateOf { !dynamic.value && selectedTheme.value?.supportsContrast() == true } }
-    val isThemeEnabled = remember(dynamic.value) { derivedStateOf { !dynamic.value } }
+    val themeEnabled = remember(dynamic.value) { derivedStateOf { !dynamic.value } }
     return ThemePicker.State(
         allThemes = allThemes,
         baseTheme = baseTheme,
@@ -70,8 +75,9 @@ fun rememberThemePicker(
         dynamic = dynamic,
         selectedThemeId = themeId,
         selectedTheme = selectedTheme,
-        isContrastEnabled = isContrastEnabled,
-        isThemeEnabled = isThemeEnabled
+        contrastEnabled = contrastEnabled,
+        themeEnabled = themeEnabled,
+        handleEnabledStates = handleEnabledStates
     )
 }
 

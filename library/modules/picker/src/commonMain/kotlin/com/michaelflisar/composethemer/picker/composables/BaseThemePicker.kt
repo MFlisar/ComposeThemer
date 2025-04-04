@@ -48,7 +48,6 @@ fun BaseThemePicker(
         ),
         selected = state.baseTheme,
         labelProvider = label,
-        iconProvider = icon,
-        enabled = true
+        iconProvider = icon
     )
 }

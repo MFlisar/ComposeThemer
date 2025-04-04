@@ -19,7 +19,7 @@ fun MultiLevelThemeSelectorTheme(
         groups = multiState.groups,
         selectedGroup = multiState.selectedGroup,
         setup = spinnerSetup,
-        enabled = state.isThemeEnabled.value,
+        enabled = state.isThemeEnabled(),
         isDark = state.baseTheme.value.isDark(),
         showVariantPicker = multiState.showVariantPicker
     )
