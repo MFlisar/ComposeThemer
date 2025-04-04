@@ -20,7 +20,9 @@ object ThemePicker {
         val selectedThemeId: MutableState<String>,
         val selectedTheme: androidx.compose.runtime.State<ComposeTheme.Theme?>,
         val isContrastEnabled: androidx.compose.runtime.State<Boolean>,
-        val isThemeEnabled: androidx.compose.runtime.State<Boolean>
+        val isThemeEnabled: androidx.compose.runtime.State<Boolean>,
+        val isContrastUsable: androidx.compose.runtime.State<Boolean>,
+        val isThemeUsable: androidx.compose.runtime.State<Boolean>,
     )
 
     class MultiLevelState(
@@ -76,7 +78,9 @@ fun rememberThemePicker(
         selectedThemeId = themeId,
         selectedTheme = selectedTheme,
         isContrastEnabled = isContrastEnabled,
-        isThemeEnabled = isThemeEnabled
+        isThemeEnabled = isThemeEnabled,
+        isThemeUsable = themeEnabled,
+        isContrastUsable = contrastEnabled
     )
 }
 
