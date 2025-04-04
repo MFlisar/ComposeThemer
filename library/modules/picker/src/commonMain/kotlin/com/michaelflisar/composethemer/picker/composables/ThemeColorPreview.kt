@@ -1,4 +1,4 @@
-package com.michaelflisar.composethemer.picker.internal
+package com.michaelflisar.composethemer.picker.composables
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
@@ -14,17 +14,17 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 
-object PreviewColorScheme {
-    enum class Preview {
+object ThemeColorPreview {
+    enum class Type {
         Primary,
         All
     }
 }
 
 @Composable
-internal fun PreviewColorScheme(
+fun ThemeColorPreview(
     colorScheme: ColorScheme?,
-    preview: PreviewColorScheme.Preview
+    preview: ThemeColorPreview.Type = ThemeColorPreview.Type.All
 ) {
     if (colorScheme != null) {
         val lineHeight = with(LocalDensity.current) { LocalTextStyle.current.lineHeight.toDp() }
@@ -37,7 +37,7 @@ internal fun PreviewColorScheme(
             val strokeWidth = 1.dp.toPx()
 
             when (preview) {
-                PreviewColorScheme.Preview.Primary -> {
+                ThemeColorPreview.Type.Primary -> {
                     drawRect(
                         color = colorScheme.primary,
                         topLeft = Offset(0f, 0f),
@@ -46,7 +46,7 @@ internal fun PreviewColorScheme(
                     )
                 }
 
-                PreviewColorScheme.Preview.All -> {
+                ThemeColorPreview.Type.All -> {
                     drawRect(
                         color = colorScheme.primary,
                         topLeft = Offset(0f, 0f),

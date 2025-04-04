@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.picker.ThemePicker
 import com.michaelflisar.composethemer.picker.classes.Variant
-import com.michaelflisar.composethemer.picker.internal.PreviewColorScheme
+import com.michaelflisar.composethemer.picker.composables.ThemeColorPreview
 import com.michaelflisar.composethemer.picker.internal.Spinner
 import com.michaelflisar.composethemer.picker.internal.SpinnerText
 
@@ -41,9 +41,9 @@ internal fun VariantSpinner(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PreviewColorScheme(
+            ThemeColorPreview(
                 colorScheme = colorScheme,
-                preview = PreviewColorScheme.Preview.All
+                preview = ThemeColorPreview.Type.All
             )
             SpinnerText(
                 modifier = Modifier.weight(1f),
