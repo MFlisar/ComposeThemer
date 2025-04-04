@@ -3,9 +3,6 @@ package com.michaelflisar.composethemer.picker.composables
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.michaelflisar.composethemer.ComposeTheme
@@ -16,15 +13,14 @@ import com.michaelflisar.composethemer.picker.internal.SingleChoice
 fun BaseThemePicker(
     state: ThemePicker.State,
     modifier: Modifier = Modifier,
-    labelProvider: (item: ComposeTheme.BaseTheme) -> String? = { it.name },
+    labelProvider: @Composable (item: ComposeTheme.BaseTheme) -> String? = { it.name },
     iconProvider: ((item: ComposeTheme.BaseTheme) -> ImageVector?)? = null
 ) {
     BaseThemePicker(
         state = state,
         modifier = modifier,
         label = {
-            val text by remember { derivedStateOf { labelProvider(it) } }
-            text?.let {
+            labelProvider(it)?.let {
                 Text(it)
             }
         },

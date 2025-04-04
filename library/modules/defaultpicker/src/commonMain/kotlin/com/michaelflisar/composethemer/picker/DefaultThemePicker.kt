@@ -46,7 +46,7 @@ fun DefaultThemePicker(
     filterLabel: String = "Filter",
     filterPlaceholder: String = "Search in themes",
     imageVectorSystem: ImageVector? = Icons.Default.LaptopWindows,
-    baseThemeNameProvider: ((item: ComposeTheme.BaseTheme) -> String?) = { it.name },
+    baseThemeNameProvider: (@Composable (item: ComposeTheme.BaseTheme) -> String?) = { it.name },
     baseThemeIconProvider: ((item: ComposeTheme.BaseTheme) -> ImageVector?)? = {
         when (it) {
             ComposeTheme.BaseTheme.Dark -> Icons.Default.DarkMode
@@ -54,7 +54,7 @@ fun DefaultThemePicker(
             ComposeTheme.BaseTheme.System -> imageVectorSystem
         }
     },
-    contrastNameProvider: ((item: ComposeTheme.Contrast) -> String?) = { it.name },
+    contrastNameProvider: (@Composable (item: ComposeTheme.Contrast) -> String?) = { it.name },
     contrastIconProvider: ((item: ComposeTheme.Contrast) -> ImageVector?)? = {
         when (it) {
             ComposeTheme.Contrast.Normal -> Icons.Default.BrightnessLow

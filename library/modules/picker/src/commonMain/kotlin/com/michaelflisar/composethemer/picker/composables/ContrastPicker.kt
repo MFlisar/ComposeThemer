@@ -17,7 +17,7 @@ fun ContrastPicker(
     state: ThemePicker.State,
     isSystemContrastSupported: Boolean,
     modifier: Modifier = Modifier,
-    labelProvider: (item: ComposeTheme.Contrast) -> String? = { it.name },
+    labelProvider: @Composable (item: ComposeTheme.Contrast) -> String? = { it.name },
     iconProvider: ((item: ComposeTheme.Contrast) -> ImageVector?)? = null,
 ) {
     ContrastPicker(
@@ -25,8 +25,7 @@ fun ContrastPicker(
         isSystemContrastSupported = isSystemContrastSupported,
         modifier = modifier,
         label = {
-            val text by remember { derivedStateOf { labelProvider(it) } }
-            text?.let {
+            labelProvider(it)?.let {
                 Text(it)
             }
         },
