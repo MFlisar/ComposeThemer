@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,6 +21,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -53,11 +56,13 @@ internal fun <T : Any> Spinner(
         // no need to show a spinner if we only have one item
         val item = items.first()
         Box(
-            modifier = modifier,
+            modifier = modifier.height(LocalMinimumInteractiveComponentSize.current),
             contentAlignment = Alignment.Center
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(LocalMinimumInteractiveComponentSize.current)
                     .clip(MaterialTheme.shapes.small)
                     .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.small)
                     .background(MaterialTheme.colorScheme.surface)
@@ -95,16 +100,11 @@ internal fun <T : Any> Spinner(
             }
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-                .clip(MaterialTheme.shapes.small)
-                .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.small)
-                .background(MaterialTheme.colorScheme.surface)
-                .clickable(enabled) {
-                    expanded = !expanded
-                }
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+        SpinnerRow(
+            onClick = {
+                expanded = !expanded
+            },
+            enabled = enabled
         ) {
             content(selected, false, Modifier.weight(1f))
             Icon(
@@ -185,5 +185,32 @@ internal fun SpinnerText(
         text = text ?: "",
         color = if (selected && dropdown) MaterialTheme.colorScheme.primary else Color.Unspecified,
         maxLines = 1
+    )
+}
+
+@Composable
+private fun SpinnerRow(
+    onClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    content: @Composable RowScope.() -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(LocalMinimumInteractiveComponentSize.current)
+            .clip(MaterialTheme.shapes.small)
+            .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.surface)
+            .then(
+                onClick?.let {
+                    Modifier.clickable(
+                        enabled = true,
+                        onClick = it
+                    )
+                } ?: Modifier
+            )
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        content = content
     )
 }
