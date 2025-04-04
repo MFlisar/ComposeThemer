@@ -204,7 +204,7 @@ private fun SpinnerRow(
             .then(
                 onClick?.let {
                     Modifier.clickable(
-                        enabled = true,
+                        enabled = enabled,
                         onClick = it
                     )
                 } ?: Modifier
