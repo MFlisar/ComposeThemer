@@ -38,6 +38,7 @@ fun DefaultThemePicker(
     theme: MutableState<String>,
     singleLevelThemePicker: Boolean,
     isDynamicColorsSupported: Boolean,
+    isSystemContrastSupported: Boolean,
     labelWidth: Dp = 128.dp,
     labelBaseTheme: String = "Base Theme",
     labelContrast: String = "Contrast",
@@ -118,7 +119,7 @@ fun DefaultThemePicker(
             ContrastPicker(
                 modifier = Modifier.fillMaxWidth(),
                 state = pickerState,
-                isSystemContrastSupported = true,
+                isSystemContrastSupported = isSystemContrastSupported,
                 labelProvider = contrastNameProvider,
                 iconProvider = contrastIconProvider
             )

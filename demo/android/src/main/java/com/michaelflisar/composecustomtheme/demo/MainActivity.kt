@@ -217,6 +217,7 @@ class MainActivity : ComponentActivity() {
                     dynamic = dynamic,
                     theme = theme,
                     singleLevelThemePicker = false,
+                    isSystemContrastSupported = true, // only android supports system contrast
                     isDynamicColorsSupported = true, // only android supports dynamic colors
                     labelWidth = 72.dp,
                     imageVectorSystem = null,//Icons.Default.PhoneAndroid,
