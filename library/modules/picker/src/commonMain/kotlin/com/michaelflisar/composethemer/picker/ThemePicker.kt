@@ -119,7 +119,7 @@ fun rememberMultiLevelThemePicker(
     if (showCollectionPicker) {
         LaunchedEffect(selectedCollection.value) {
             val collection = selectedCollection.value
-            val g = collection?.allGroups?.first()
+            val g = selectedGroup.value?.takeIf { it.collection == collection } ?: collection?.allGroups?.first()
             if (g != null) {
                 selectedGroup.value = g
                 val v = selectedVariant.value
