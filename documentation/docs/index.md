@@ -14,9 +14,9 @@ icon: material/information-variant
 * build on top of `MaterialTheme`
 * supports *dynamic theming* as well as system and user *contrast* settings
 * comes with optional collections of predefined themes
-  * based on Metro colors
-  * based on Flat UI colors
-  * based on material colors (500)
+    * metro colors based theme collection
+    * flat UI based theme collection
+    * material 500 colors based theme collection
 * offers some edgeToEdge helper functions
 
 !!! info
