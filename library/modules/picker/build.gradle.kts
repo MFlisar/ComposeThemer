@@ -17,7 +17,7 @@ plugins {
 // Informations
 // -------------------
 
-val description = "provides a theme picker for your UI"
+val description = "provides states and composables to create a theme picker UI"
 
 // Module
 val artifactId = "modules-picker"
@@ -92,9 +92,6 @@ kotlin {
 
             // Library
             implementation(project(":composethemer:core"))
-			
-			implementation(libs.compose.material.icons.core)
-            implementation(libs.compose.material.icons.extended)
 
         }
 

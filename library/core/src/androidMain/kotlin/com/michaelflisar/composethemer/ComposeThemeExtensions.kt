@@ -170,7 +170,7 @@ fun isContrastAvailable(): Boolean {
 }
 
 @Composable
-private fun ComposeTheme.Theme<*>.selectSchemeForContrast(
+private fun ComposeTheme.Theme.selectSchemeForContrast(
     isDark: Boolean,
     contrast: ComposeTheme.Contrast
 ): ColorScheme {

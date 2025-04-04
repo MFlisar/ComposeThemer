@@ -1,22 +1,36 @@
 package com.michaelflisar.composethemer
 
-import com.michaelflisar.composethemer.themes.MetroThemeGreen
-import com.michaelflisar.composethemer.themes.MetroThemeLime
+import com.michaelflisar.composethemer.ComposeTheme.Key
+import com.michaelflisar.composethemer.themes.*
 
-object MetroThemes {
+object MetroThemes : ComposeTheme.Collection {
 
-    const val GROUP_NAME = "Metro Themes"
+    override val key = Key("metro", "Metro")
 
-    private const val KEY_PREFIX = "metro"
+    override val defaultVariantId = "triade"
 
-    internal fun getKey(name: String): String {
-        return "${KEY_PREFIX}_${name.replace(" ", "_").lowercase()}"
-    }
-
-    val ALL_GROUPS = listOf(
-        MetroThemeLime,
-        MetroThemeGreen
+    override val allGroups = listOf(
+        // Themes Begin
+        ThemeMetroAmber,
+        ThemeMetroBrown,
+        ThemeMetroCobalt,
+        ThemeMetroCrimson,
+        ThemeMetroCyan,
+        ThemeMetroEmerald,
+        ThemeMetroGreen,
+        ThemeMetroIndogo,
+        ThemeMetroLime,
+        ThemeMetroMagenta,
+        ThemeMetroMauve,
+        ThemeMetroOlive,
+        ThemeMetroOrange,
+        ThemeMetroPink,
+        ThemeMetroRed,
+        ThemeMetroSienna,
+        ThemeMetroSteel,
+        ThemeMetroTeal,
+        ThemeMetroViolet,
+        ThemeMetroYellow,
+        // Themes End
     )
-
-    val ALL = ALL_GROUPS.map { it.themes }.flatten()
 }

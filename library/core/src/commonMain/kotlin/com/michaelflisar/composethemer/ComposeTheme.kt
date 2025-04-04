@@ -7,22 +7,16 @@ import com.michaelflisar.composethemer.themes.ThemeDefault
 
 object ComposeTheme {
 
-    private val themes = mutableMapOf<String, Theme<*>>()
-
-    val DEFAULT_GROUPS = listOf(
-        ThemeDefault
-    )
-
-    val DEFAULT_ALL = DEFAULT_GROUPS.map { it.themes }.flatten()
+    private val themes = mutableMapOf<String, Theme>()
 
     /**
      * register a theme so that [ComposeThemer] can find it by its key
      */
-    fun register(vararg theme: Theme<*>) {
-        theme.forEach { it ->
-            if (themes.containsKey(it.key))
-                throw RuntimeException("Key '${it.key}' was provided multiple times! Please provide unique keys for your themes!")
-            themes[it.key] = it
+    fun register(vararg theme: Theme) {
+        theme.forEach {
+            if (themes.containsKey(it.id))
+                throw RuntimeException("Key with id '${it.id}' was provided multiple times! Please provide unique keys for your themes!")
+            themes[it.id] = it
         }
 
     }
@@ -33,17 +27,54 @@ object ComposeTheme {
     fun getRegisteredThemes() = themes.map { it.value }
     fun getRegisteredThemeGroups() = themes.map { it.value.group }.distinct()
 
-    internal fun find(key: String): Theme<*> {
-        return themes.getOrElse(key) { ThemeDefault.Default }
+    internal fun find(key: String): Theme {
+        return themes.getOrElse(key) { ThemeDefault.Theme }
     }
 
-    interface Group<E : Enum<E>> {
+    data class Key(
+        val id: String,
         val name: String
-        val themes: List<Theme<E>>
+    ) {
+        fun subId(sub: Key): Key {
+            val newId = if (id.isEmpty()) sub.id else "${id}::${sub.id}"
+            val newName = if (name != sub.name) "$name ${sub.name}" else name
+            return Key(
+                id = newId,
+                name = newName
+            )
+        }
+    }
 
-        fun getVariants() = themes.map { it.variant }
-        val defaultVariant: E
+    interface KeyProvider {
+        val key: Key
+        val id: String
+            get() = key.id
+        val name: String
+        val fullName: String
+            get() = key.name
+    }
 
+    interface Collection : KeyProvider {
+        val allGroups: List<Group>
+        val defaultVariantId: String
+        fun getAllThemes() = allGroups.map { it.themes }.flatten()
+        override val name: String
+            get() = key.name
+    }
+
+    interface Group : KeyProvider {
+
+        val collection: Collection
+        val groupKey: Key
+
+        val themes: List<Theme>
+
+        fun getVariantIds() = themes.map { it.variantId() }
+
+        override val key: Key
+            get() = collection.key.subId(groupKey)
+        override val name: String
+            get() = groupKey.name
     }
 
     /**
@@ -53,12 +84,15 @@ object ComposeTheme {
      * @param lightScheme the light color scheme
      * @param darkScheme the dark color scheme
      */
-    interface Theme<E : Enum<E>> {
+    interface Theme : KeyProvider {
 
-        val group: Group<E>
-        val variant: E
-        val name: String
-        val key: String
+        val group: Group
+        val themeKey: Key
+
+        override val key: Key
+            get() = group.key.subId(themeKey)
+        override val name: String
+            get() = themeKey.name
 
         val lightScheme: ColorScheme
         val darkScheme: ColorScheme
@@ -67,6 +101,9 @@ object ComposeTheme {
         val darkSchemeMediumContrast: ColorScheme
         val lightSchemeHighContrast: ColorScheme
         val darkSchemeHighContrast: ColorScheme
+
+        fun variantId() =  themeKey.id
+        fun variantName() = themeKey.name
 
         fun supportsContrast() = lightScheme != lightSchemeMediumContrast
 
@@ -102,7 +139,7 @@ object ComposeTheme {
         val dynamic: androidx.compose.runtime.State<Boolean>,
         val theme: androidx.compose.runtime.State<String>
     ) {
-        val composeTheme: Theme<*>
+        val composeTheme: Theme
             get() = find(theme.value)
     }
 

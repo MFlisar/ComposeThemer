@@ -9,18 +9,24 @@ You must register your themes. In an android app the `Application` is the perfec
 ```kotlin
 
 // register available themes
-ComposeTheme.register(*ComposeThemes.ALL.toTypedArray())
+val allThemes: List<ComposeTheme.Theme<*>> = ComposeTheme.DEFAULT_ALL + MetroThemes.ALL
+    // optionally filter themes based on their variants or whatever you want
+    // .filter { it.variant == MetroThemeVariant.Triade }
+ComposeTheme.register(*allThemes.toTypedArray())
 
 // or register some of them
 // ComposeTheme.register(
-//     ThemeAmberBlue.get(),
-//     ThemeAquaBlue.get(),
-//     ThemeBahamaAndTrinidad.get(),
+//     ThemeDefault.Default,
+//     MetroThemeGreen.Analogic,
+//     MetroThemeGreen.Mono,
+//     MetroThemeGreen.Triade,
+//     MetroThemeGreen.Complementary,
+//     MetroThemeGreen.Tetrade,
 //     // ...
 // )
 
 // get a single theme
-// val theme = ThemeAmberBlue.get()
+// val theme =MetroThemeGreen.Analogic
 
 // or register your own themes...
 // ...
@@ -36,9 +42,10 @@ ComposeTheme.register(*ComposeThemes.ALL.toTypedArray())
     ```kotlin
     // simply wrap your composable content inside ComposeTheme as if you would use MaterialTheme directly
     val baseTheme = remember { mutableStateOf(ComposeTheme.BaseTheme.System) }
+    val contrast = remember { mutableStateOf(ComposeTheme.Contrast.Normal) }
     val dynamic = remember { mutableStateOf(false) }
-    val theme = remember { mutableStateOf(ThemeGreenForest.KEY) } // the key of a registered theme
-    val state = ComposeTheme.State(baseTheme, dynamic, theme)
+    val theme = remember { mutableStateOf(ThemeDefault.Default.key) } // the key of a registered theme
+    val state = ComposeTheme.State(baseTheme, contrast, dynamic, theme)
     ComposeTheme(state = state) {
 
         // update edgeToEdge to the correct styles with the provided helper functions
@@ -64,9 +71,10 @@ ComposeTheme.register(*ComposeThemes.ALL.toTypedArray())
     ```kotlin
     // simply wrap your composable content inside ComposeTheme as if you would use MaterialTheme directly
     val baseTheme = remember { mutableStateOf(ComposeTheme.BaseTheme.System) }
+    val contrast = remember { mutableStateOf(ComposeTheme.Contrast.Normal) }
     val dynamic = remember { mutableStateOf(false) }
-    val theme = remember { mutableStateOf(ThemeGreenForest.KEY) } // the key of a registered theme
-    val state = ComposeTheme.State(baseTheme, dynamic, theme)
+    val theme = remember { mutableStateOf(ThemeDefault.Default.key) } // the key of a registered theme
+    val state = ComposeTheme.State(baseTheme, contrast, dynamic, theme)
     ComposeTheme(state = state) {
         // content
     }

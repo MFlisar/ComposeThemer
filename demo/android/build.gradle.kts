@@ -63,7 +63,11 @@ dependencies {
 
     implementation(project(":composethemer:core"))
     implementation(project(":composethemer:modules:picker"))
+    implementation(project(":composethemer:modules:defaultpicker"))
     implementation(project(":composethemer:modules:themes:metro"))
+    implementation(project(":composethemer:modules:themes:flatui"))
+    implementation(project(":composethemer:modules:themes:material500"))
+
 
     // KotPreferences
     implementation(deps.kotpreferences.core)

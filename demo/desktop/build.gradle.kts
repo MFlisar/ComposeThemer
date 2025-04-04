@@ -18,9 +18,15 @@ kotlin {
 
                 implementation(compose.desktop.currentOs)
 
+                implementation(libs.compose.material.icons.core)
+                implementation(libs.compose.material.icons.extended)
+
                 implementation(project(":composethemer:core"))
                 implementation(project(":composethemer:modules:picker"))
+                implementation(project(":composethemer:modules:defaultpicker"))
                 implementation(project(":composethemer:modules:themes:metro"))
+                implementation(project(":composethemer:modules:themes:flatui"))
+                implementation(project(":composethemer:modules:themes:material500"))
 
                 implementation(deps.toolbox.core)
                 implementation(deps.toolbox.ui)

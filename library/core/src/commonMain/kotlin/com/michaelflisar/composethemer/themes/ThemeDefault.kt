@@ -5,18 +5,16 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import com.michaelflisar.composethemer.ComposeTheme
 
-object ThemeDefault : ComposeTheme.Group<ThemeDefaultVariant> {
+object ThemeDefault : ComposeTheme.Group {
 
-    override val name = "Default"
-    override val themes = listOf(Default)
-    override val defaultVariant = ThemeDefaultVariant.Default
+    override val collection = DefaultThemes
+    override val groupKey = ComposeTheme.Key("", "Default")
+    override val themes = listOf(Theme)
 
-    object Default : ComposeTheme.Theme<ThemeDefaultVariant> {
+    object Theme : ComposeTheme.Theme {
 
+        override val themeKey = ComposeTheme.Key("", "Default")
         override val group = ThemeDefault
-        override val variant = ThemeDefaultVariant.Default
-        override val name = ThemeDefault.name
-        override val key = ""
 
         override val lightScheme: ColorScheme = lightColorScheme()
         override val darkScheme: ColorScheme = darkColorScheme()
@@ -33,3 +31,4 @@ object ThemeDefault : ComposeTheme.Group<ThemeDefaultVariant> {
 
     }
 }
+

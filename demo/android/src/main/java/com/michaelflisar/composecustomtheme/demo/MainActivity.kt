@@ -16,8 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BrightnessHigh
+import androidx.compose.material.icons.filled.BrightnessLow
+import androidx.compose.material.icons.filled.BrightnessMedium
+import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -49,7 +55,7 @@ import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.UpdateEdgeToEdgeDefault
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
-import com.michaelflisar.composethemer.picker.ThemePicker
+import com.michaelflisar.composethemer.picker.DefaultThemePicker
 import com.michaelflisar.kotpreferences.compose.asMutableState
 import com.michaelflisar.toolbox.androiddemoapp.composables.DemoCollapsibleRegion
 import com.michaelflisar.toolbox.androiddemoapp.composables.rememberDemoExpandedRegions
@@ -165,6 +171,7 @@ class MainActivity : ComponentActivity() {
                             baseTheme,
                             contrast,
                             dynamic,
+                            theme,
                             statusBarColorPrimary,
                             navigationBarColorPrimary
                         )
@@ -184,6 +191,7 @@ class MainActivity : ComponentActivity() {
         baseTheme: MutableState<ComposeTheme.BaseTheme>,
         contrast: MutableState<ComposeTheme.Contrast>,
         dynamic: MutableState<Boolean>,
+        theme: MutableState<String>,
         statusBarColorPrimary: MutableState<Boolean>,
         navigationBarColorPrimary: MutableState<Boolean>
     ) {
@@ -199,17 +207,34 @@ class MainActivity : ComponentActivity() {
                 regionId = 0,
                 state = regions
             ) {
-                val themeKey = DemoPrefs.themeKey.asMutableState()
-                ThemePicker(
-                    setup = ThemePicker.Setup(
-                        supportsDynamic = true,
-                        labelWidth = 72.dp
-                    ),
+                // check out the source code of [DefaultThemePicker] to see how to design your own layout
+                // I do provide states for easy implementations of your own layouts
+                // DefaultThemePicker is just an example...
+                DefaultThemePicker(
+                    modifier = Modifier.fillMaxWidth(),
                     baseTheme = baseTheme,
                     contrast = contrast,
                     dynamic = dynamic,
-                    themeKey = themeKey,
-                    modifier = Modifier.fillMaxWidth()
+                    theme = theme,
+                    singleLevelThemePicker = false,
+                    isDynamicColorsSupported = true, // only android supports dynamic colors
+                    labelWidth = 72.dp,
+                    imageVectorSystem = null,//Icons.Default.PhoneAndroid,
+                    baseThemeNameProvider = {
+                        when (it) {
+                            ComposeTheme.BaseTheme.Dark,
+                            ComposeTheme.BaseTheme.Light -> null
+                            ComposeTheme.BaseTheme.System -> "System"
+                        }
+                    },
+                    contrastNameProvider = {
+                        when (it) {
+                            ComposeTheme.Contrast.System -> "System"
+                            ComposeTheme.Contrast.Normal,
+                            ComposeTheme.Contrast.Medium,
+                            ComposeTheme.Contrast.High -> null
+                        }
+                    }
                 )
             }
             DemoCollapsibleRegion(

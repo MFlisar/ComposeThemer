@@ -49,8 +49,14 @@ project(":composethemer:core").projectDir = file("library/core")
 // Android + JVM + iOS + js + wasm
 include(":composethemer:modules:picker")
 project(":composethemer:modules:picker").projectDir = file("library/modules/picker")
+include(":composethemer:modules:defaultpicker")
+project(":composethemer:modules:defaultpicker").projectDir = file("library/modules/defaultpicker")
 include(":composethemer:modules:themes:metro")
 project(":composethemer:modules:themes:metro").projectDir = file("library/modules/themes/metro")
+include(":composethemer:modules:themes:flatui")
+project(":composethemer:modules:themes:flatui").projectDir = file("library/modules/themes/flatui")
+include(":composethemer:modules:themes:material500")
+project(":composethemer:modules:themes:material500").projectDir = file("library/modules/themes/material500")
 
 // --------------
 // App

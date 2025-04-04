@@ -1,0 +1,20 @@
+Turquoise;1ABC9C
+Emerald;2ECC71
+Peterriver;3498DB
+Amethyst;9B59B6
+Wetasphalt;34495E
+Greensea;16A085
+Nephritis;27AE60
+Belizehole;2980B9
+Wisteria;8E44AD
+Midnight Blue;2C3E50
+Sunflower;F1C40F
+Carrot;E67E22
+Alizarin;E74C3C
+Clouds;ECF0F1
+Concrete;95A5A6
+Orange;F39C12
+Pumpkin;D35400
+Pomegranate;C0392B
+Silver;BDC3C7
+Asbestos;7F8C8D

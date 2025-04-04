@@ -2,7 +2,10 @@ package com.michaelflisar.composecustomtheme.demo
 
 import android.app.Application
 import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.FlatUIThemes
+import com.michaelflisar.composethemer.Material500Themes
 import com.michaelflisar.composethemer.MetroThemes
+import com.michaelflisar.composethemer.themes.DefaultThemes
 
 class DemoApp : Application() {
 
@@ -10,9 +13,10 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        val allThemes: List<ComposeTheme.Theme<*>> = ComposeTheme.DEFAULT_ALL +
-                MetroThemes.ALL.map { it }
-        //.filter { it.subGroupType == MetroThemes.SubGroup.Analogic }
+        val allThemes: List<ComposeTheme.Theme> = DefaultThemes.getAllThemes() +
+                MetroThemes.getAllThemes() +
+                FlatUIThemes.getAllThemes() +
+                Material500Themes.getAllThemes()
         ComposeTheme.register(*allThemes.toTypedArray())
 
         // or register some of them

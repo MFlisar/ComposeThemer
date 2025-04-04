@@ -1,0 +1,95 @@
+Red;analogic;#F44336;#ab2d26;#f48736;#f436b3;#ab267d
+Red;mono;#F44336;#ab2d26;#ffd0cd;#ffa19c;#ffffff
+Red;triade;#F44336;#ab2d26;#eaf436;#a3ab26;#3d60f4
+Red;complementary;#F44336;#ab2d26;#ffd0cd;#36f450;#26ab38
+Red;tetrade;#F44336;#36f450;#26ab38;#f49b36;#ab6c26
+Pink;analogic;#E91E63;#a31562;#e9391e;#d21ee9;#9315a3
+Pink;mono;#E91E63;#a31562;#ffc7e5;#ff90cc;#ffffff
+Pink;triade;#E91E63;#a31562;#e9ce1e;#a39015;#1eace9
+Pink;complementary;#E91E63;#a31562;#ffc7e5;#62e91e;#44a315
+Pink;tetrade;#E91E63;#62e91e;#44a315;#e9621e;#a34415
+Purple;analogic;#9C27B0;#4d1b7b;#b027a0;#4433b0;#2f247b
+Purple;mono;#9C27B0;#4d1b7b;#e7cdff;#cf9cff;#ffffff
+Purple;triade;#9C27B0;#4d1b7b;#b07127;#7b4f1b;#39b027
+Purple;complementary;#9C27B0;#4d1b7b;#e7cdff;#b0a727;#7b751b
+Purple;tetrade;#9C27B0;#b0a727;#7b751b;#b0277c;#7b1b57
+Deep Purple;analogic;#673AB7;#3c2f80;#7d3ab7;#3a6db7;#294d80
+Deep Purple;mono;#673AB7;#3c2f80;#ddd7ff;#bbafff;#ffffff
+Deep Purple;triade;#673AB7;#3c2f80;#b75f3a;#804229;#92b73a
+Deep Purple;complementary;#673AB7;#3c2f80;#ddd7ff;#b7973a;#806a29
+Deep Purple;tetrade;#673AB7;#b7973a;#806a29;#a13ab7;#712980
+Indigo;analogic;#3F51B5;#2c4e7f;#5948b5;#3fb599;#2c7f6b
+Indigo;mono;#3F51B5;#2c4e7f;#d5e7ff;#acceff;#ffffff
+Indigo;triade;#3F51B5;#2c4e7f;#b53f59;#7f2c3f;#b5af3f
+Indigo;complementary;#3F51B5;#2c4e7f;#d5e7ff;#b5803f;#7f592c
+Indigo;tetrade;#3F51B5;#b5803f;#7f592c;#6b3fb5;#4b2c7f
+Blue;analogic;#2196F3;#1782aa;#3248f3;#21f365;#17aa47
+Blue;mono;#2196F3;#1782aa;#c8f0ff;#91e1ff;#ffffff
+Blue;triade;#2196F3;#1782aa;#f32196;#aa1769;#f3d521
+Blue;complementary;#2196F3;#1782aa;#c8f0ff;#f38221;#aa5b17
+Blue;tetrade;#2196F3;#f38221;#aa5b17;#562ef3;#3c20aa
+Light Blue;analogic;#03A9F4;#028baa;#0f36f3;#03f336;#02aa26
+Light Blue;mono;#03A9F4;#028baa;#c0f3ff;#81e8ff;#ffffff
+Light Blue;triade;#03A9F4;#028baa;#f30398;#aa026b;#f3cc03
+Light Blue;complementary;#03A9F4;#028baa;#c0f3ff;#f36c03;#aa4c02
+Light Blue;tetrade;#03A9F4;#f36c03;#aa4c02;#3518f3;#2511aa
+Cyan;analogic;#00BCD4;#008b94;#0333d4;#00d40f;#00940a
+Cyan;mono;#00BCD4;#008b94;#bffbff;#80f7ff;#ffffff
+Cyan;triade;#00BCD4;#008b94;#d40096;#940069;#d4ac00
+Cyan;complementary;#00BCD4;#008b94;#bffbff;#d45700;#943d00
+Cyan;tetrade;#00BCD4;#d45700;#943d00;#221bd4;#181394
+Teal;analogic;#009688;#006966;#002896;#029600;#026900
+Teal;mono;#009688;#006966;#bffffd;#80fffb;#ffffff
+Teal;triade;#009688;#006966;#960072;#690050;#967700
+Teal;complementary;#009688;#006966;#bffffd;#963a00;#692900
+Teal;tetrade;#009688;#963a00;#692900;#131796;#0d1069
+Green;analogic;#4CAF50;#357a3a;#4ca9af;#82af4c;#5b7a35
+Green;mono;#4CAF50;#357a3a;#dbffdd;#b7ffbc;#ffffff
+Green;triade;#4CAF50;#357a3a;#934caf;#67357a;#af894c
+Green;complementary;#4CAF50;#357a3a;#dbffdd;#af4f4c;#7a3735
+Green;tetrade;#4CAF50;#af4f4c;#7a3735;#4c80af;#355a7a
+Light Green;analogic;#8BC34A;#698834;#4ec34a;#c3c24a;#888834
+Light Green;mono;#8BC34A;#698834;#f0ffd7;#e2ffb0;#ffffff
+Light Green;triade;#8BC34A;#698834;#6f4cc3;#4e3588;#c3774a
+Light Green;complementary;#8BC34A;#698834;#f0ffd7;#c34aa8;#883476
+Light Green;tetrade;#8BC34A;#c34aa8;#883476;#4ac385;#34885d
+Lime;analogic;#CDDC39;#919a28;#81dc39;#dcc239;#9a8828
+Lime;mono;#CDDC39;#919a28;#fbffd0;#f8ffa1;#ffffff
+Lime;triade;#CDDC39;#919a28;#415bdc;#2e409a;#dc4639
+Lime;complementary;#CDDC39;#919a28;#fbffd0;#bb39dc;#83289a
+Lime;tetrade;#CDDC39;#bb39dc;#83289a;#4fdc39;#379a28
+Yellow;analogic;#FFEB3B;#b2ab29;#c2fe3b;#fece3b;#b29029
+Yellow;mono;#FFEB3B;#b2ab29;#fffdce;#fffa9d;#ffffff
+Yellow;triade;#FFEB3B;#b2ab29;#3b87fe;#295fb2;#fe3b62
+Yellow;complementary;#FFEB3B;#b2ab29;#fffdce;#a63bfe;#7429b2
+Yellow;tetrade;#FFEB3B;#a63bfe;#7429b2;#87fe3b;#5eb229
+Amber;analogic;#FFC107;#b39b05;#deff07;#ffac07;#b37905
+Amber;mono;#FFC107;#b39b05;#fff7c1;#ffee83;#ffffff
+Amber;triade;#FFC107;#b39b05;#07b5ff;#057eb3;#ff078d
+Amber;complementary;#FFC107;#b39b05;#fff7c1;#6807ff;#4905b3
+Amber;tetrade;#FFC107;#6807ff;#4905b3;#acff07;#79b305
+Orange;analogic;#FF9800;#b38300;#ffee00;#ff8800;#b35f00
+Orange;mono;#FF9800;#b38300;#ffeebf;#ffdd80;#ffffff
+Orange;triade;#FF9800;#b38300;#00ffb3;#00b37d;#ff00e6
+Orange;complementary;#FF9800;#b38300;#ffeebf;#331aff;#2412b3
+Orange;tetrade;#FF9800;#331aff;#2412b3;#eeff00;#a7b300
+Deep Orange;analogic;#FF5722;#b33f18;#ff9722;#ff2268;#b31849
+Deep Orange;mono;#FF5722;#b33f18;#ffd6c8;#ffad91;#ffffff
+Deep Orange;triade;#FF5722;#b33f18;#c7ff22;#8bb318;#4b39ff
+Deep Orange;complementary;#FF5722;#b33f18;#ffd6c8;#22ffb8;#18b281
+Deep Orange;tetrade;#FF5722;#22ffb8;#18b281;#ffad22;#b37918
+Brown;analogic;#795548;#553c32;#796348;#794855;#55323b
+Brown;mono;#795548;#553c32;#ffece5;#ffdacb;#ffffff
+Brown;triade;#795548;#553c32;#6b7948;#4b5532;#524c79
+Brown;complementary;#795548;#553c32;#ffece5;#48796c;#32554b
+Brown;tetrade;#795548;#48796c;#32554b;#796748;#554832
+Grey;analogic;#9E9E9E;#6f6f6f;#9e9e9e;#9e9e9e;#6f6f6f
+Grey;mono;#9E9E9E;#6f6f6f;#ffffff;#ffffff;#ffffff
+Grey;triade;#9E9E9E;#6f6f6f;#9e9e9e;#6f6f6f;#9e9e9e
+Grey;complementary;#9E9E9E;#6f6f6f;#ffffff;#9e9e9e;#6f6f6f
+Grey;tetrade;#9E9E9E;#9e9e9e;#6f6f6f;#9e9e9e;#6f6f6f
+Blue Grey;analogic;#607D8B;#435c61;#62698b;#608b69;#43614a
+Blue Grey;mono;#607D8B;#435c61;#ebfbff;#d8f8ff;#ffffff
+Blue Grey;triade;#607D8B;#435c61;#8b607b;#614356;#8b8460
+Blue Grey;complementary;#607D8B;#435c61;#ebfbff;#8b7360;#615043
+Blue Grey;tetrade;#607D8B;#8b7360;#615043;#69648b;#494661

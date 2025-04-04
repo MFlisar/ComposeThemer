@@ -7,7 +7,7 @@ import com.michaelflisar.kotpreferences.storage.datastore.DataStoreStorage
 import com.michaelflisar.kotpreferences.storage.datastore.create
 
 object DemoPrefs : SettingsModel(DataStoreStorage.create(name = "demo_prefs")) {
-    val themeKey by stringPref(com.michaelflisar.composethemer.themes.ThemeDefault.Default.key)
+    val themeKey by stringPref(com.michaelflisar.composethemer.themes.ThemeDefault.id)
     val baseTheme by enumPref(ComposeTheme.BaseTheme.System)
     val contrast by enumPref(ComposeTheme.Contrast.System)
     val dynamic by boolPref(false)

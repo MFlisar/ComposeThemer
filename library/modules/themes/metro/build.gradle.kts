@@ -164,4 +164,3 @@ mavenPublishing {
     // Enable GPG signing for all publications
     signAllPublications()
 }
-
