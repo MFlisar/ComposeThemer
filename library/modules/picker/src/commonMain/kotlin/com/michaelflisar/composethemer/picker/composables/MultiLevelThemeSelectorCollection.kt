@@ -1,25 +1,36 @@
 package com.michaelflisar.composethemer.picker.composables
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.picker.ThemePicker
-import com.michaelflisar.composethemer.picker.internal.spinners.CollectionSpinner
+import com.michaelflisar.composethemer.picker.internal.SingleChoice
 
 @Composable
 fun MultiLevelThemeSelectorCollection(
     state: ThemePicker.State,
     multiState: ThemePicker.MultiLevelState,
     modifier: Modifier = Modifier,
-    spinnerSetup: ThemePicker.SpinnerSetup<ComposeTheme.Collection> = ThemePicker.SpinnerSetup.Default()
+    style: SingleChoice.Style<ComposeTheme.Collection> = SingleChoice.Style.Dropdown(
+        SingleChoice.SpinnerSetup.Default()
+    )
 ) {
     if (multiState.showCollectionPicker) {
-        CollectionSpinner(
+        SingleChoice(
             modifier = modifier,
-            collections = multiState.collections,
-            selectedCollection = multiState.selectedCollection,
-            setup = spinnerSetup,
+            items = multiState.collections,
+            selected = multiState.selectedCollection.value,
+            onSelect = { multiState.selectedCollection.value = it },
+            style = style,
             enabled = state.isThemeEnabled.value
-        )
+        ) { item, data ->
+            Text(
+                modifier = modifier,
+                text = item?.name ?: "",
+                color = data.textColor(),
+                maxLines = 1
+            )
+        }
     }
 }

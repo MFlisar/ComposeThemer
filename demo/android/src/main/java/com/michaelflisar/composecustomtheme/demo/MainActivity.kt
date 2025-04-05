@@ -23,7 +23,6 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -56,6 +55,7 @@ import com.michaelflisar.composethemer.UpdateEdgeToEdgeDefault
 import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.R
 import com.michaelflisar.composethemer.picker.DefaultThemePicker
+import com.michaelflisar.composethemer.picker.DefaultThemePickerIconTextContent
 import com.michaelflisar.kotpreferences.compose.asMutableState
 import com.michaelflisar.toolbox.androiddemoapp.composables.DemoCollapsibleRegion
 import com.michaelflisar.toolbox.androiddemoapp.composables.rememberDemoExpandedRegions
@@ -193,7 +193,7 @@ class MainActivity : ComponentActivity() {
         dynamic: MutableState<Boolean>,
         theme: MutableState<String>,
         statusBarColorPrimary: MutableState<Boolean>,
-        navigationBarColorPrimary: MutableState<Boolean>
+        navigationBarColorPrimary: MutableState<Boolean>,
     ) {
         val regions = rememberDemoExpandedRegions(listOf(0, 2))
 
@@ -221,21 +221,38 @@ class MainActivity : ComponentActivity() {
                     isDynamicColorsSupported = true, // only android supports dynamic colors
                     labelWidth = 72.dp,
                     imageVectorSystem = null,//Icons.Default.PhoneAndroid,
-                    baseThemeNameProvider = {
-                        when (it) {
-                            ComposeTheme.BaseTheme.Dark,
+                    baseThemeContent = { item, data ->
+                        val icon = when (item) {
+                            ComposeTheme.BaseTheme.Dark -> Icons.Default.DarkMode
+                            ComposeTheme.BaseTheme.Light -> Icons.Default.LightMode
+                            ComposeTheme.BaseTheme.System -> null
+                            else -> null
+                        }
+                        val text = when (item) {
+                            ComposeTheme.BaseTheme.Dark -> null
                             ComposeTheme.BaseTheme.Light -> null
                             ComposeTheme.BaseTheme.System -> "System"
+                            else -> null
                         }
+                        DefaultThemePickerIconTextContent(data, icon = icon, text = text)
                     },
-                    contrastNameProvider = {
-                        when (it) {
-                            ComposeTheme.Contrast.System -> "System"
-                            ComposeTheme.Contrast.Normal,
-                            ComposeTheme.Contrast.Medium,
-                            ComposeTheme.Contrast.High -> null
+                    contrastContent = { item, data ->
+                        val icon = when (item) {
+                            ComposeTheme.Contrast.Normal -> Icons.Default.BrightnessLow
+                            ComposeTheme.Contrast.Medium -> Icons.Default.BrightnessMedium
+                            ComposeTheme.Contrast.High -> Icons.Default.BrightnessHigh
+                            ComposeTheme.Contrast.System -> null
+                            else -> null
                         }
-                    }
+                        val text = when (item) {
+                            ComposeTheme.Contrast.Normal -> null
+                            ComposeTheme.Contrast.Medium -> null
+                            ComposeTheme.Contrast.High -> null
+                            ComposeTheme.Contrast.System -> "System"
+                            else -> null
+                        }
+                        DefaultThemePickerIconTextContent(data, icon = icon, text = text)
+                    },
                 )
             }
             DemoCollapsibleRegion(

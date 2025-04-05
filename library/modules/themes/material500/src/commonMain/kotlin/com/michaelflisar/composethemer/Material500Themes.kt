@@ -7,7 +7,7 @@ object Material500Themes : ComposeTheme.Collection {
 
     override val key = Key("material500", "Material 500")
 
-    override val defaultVariantId = "triade"
+    override val defaultVariantId = "tetrade"
 
     override val allGroups = listOf(
         // Themes Begin

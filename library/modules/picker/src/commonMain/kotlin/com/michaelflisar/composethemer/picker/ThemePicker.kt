@@ -35,17 +35,7 @@ object ThemePicker {
         val themesOfSelectedGroup: List<ComposeTheme.Theme>
     )
 
-    sealed class SpinnerSetup<T: Any> {
-        abstract val showSpinnerForSingleItem: Boolean
-        class Default<T: Any>(override val showSpinnerForSingleItem: Boolean = false) : SpinnerSetup<T>()
-        class Filterable<T: Any>(
-            val label: String?,
-            val placeholder: String?,
-            override val showSpinnerForSingleItem: Boolean = false,
-            val minItemsToShowFilter: Int = 0,
-            val filter: (item: T, filter: String) -> Boolean
-        ) : SpinnerSetup<T>()
-    }
+
 }
 
 @Composable

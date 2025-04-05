@@ -7,7 +7,7 @@ object FlatUIThemes : ComposeTheme.Collection {
 
     override val key = Key("flatui", "Flat UI")
 
-    override val defaultVariantId = "triade"
+    override val defaultVariantId = "tetrade"
 
     override val allGroups = listOf(
         // Themes Begin

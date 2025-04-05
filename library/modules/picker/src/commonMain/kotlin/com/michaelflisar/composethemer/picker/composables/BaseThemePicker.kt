@@ -1,10 +1,7 @@
 package com.michaelflisar.composethemer.picker.composables
 
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.picker.ThemePicker
 import com.michaelflisar.composethemer.picker.internal.SingleChoice
@@ -13,31 +10,8 @@ import com.michaelflisar.composethemer.picker.internal.SingleChoice
 fun BaseThemePicker(
     state: ThemePicker.State,
     modifier: Modifier = Modifier,
-    labelProvider: @Composable (item: ComposeTheme.BaseTheme) -> String? = { it.name },
-    iconProvider: ((item: ComposeTheme.BaseTheme) -> ImageVector?)? = null
-) {
-    BaseThemePicker(
-        state = state,
-        modifier = modifier,
-        label = {
-            labelProvider(it)?.let {
-                Text(it)
-            }
-        },
-        icon = {
-            iconProvider?.invoke(it)?.let {
-                Icon(it, null)
-            }
-        }
-    )
-}
-
-@Composable
-fun BaseThemePicker(
-    state: ThemePicker.State,
-    modifier: Modifier = Modifier,
-    label: @Composable (item: ComposeTheme.BaseTheme) -> Unit = {},
-    icon: @Composable (item: ComposeTheme.BaseTheme) -> Unit = {}
+    style: SingleChoice.Style<ComposeTheme.BaseTheme> = SingleChoice.Style.SegmentedButton(),
+    content: @Composable (item: ComposeTheme.BaseTheme?, data: SingleChoice.ItemData) -> Unit,
 ) {
     SingleChoice(
         modifier = modifier,
@@ -46,8 +20,11 @@ fun BaseThemePicker(
             ComposeTheme.BaseTheme.Dark,
             ComposeTheme.BaseTheme.System
         ),
-        selected = state.baseTheme,
-        labelProvider = label,
-        iconProvider = icon
+        selected = state.baseTheme.value,
+        onSelect = {
+            state.baseTheme.value = it
+        },
+        style = style,
+        content = content
     )
 }

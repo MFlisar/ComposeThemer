@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrightnessHigh
 import androidx.compose.material.icons.filled.BrightnessLow
@@ -12,7 +11,9 @@ import androidx.compose.material.icons.filled.BrightnessMedium
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LaptopWindows
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -28,6 +29,7 @@ import com.michaelflisar.composethemer.picker.composables.MultiLevelThemeSelecto
 import com.michaelflisar.composethemer.picker.composables.MultiLevelThemeSelectorVariant
 import com.michaelflisar.composethemer.picker.composables.SingleLevelThemeSelector
 import com.michaelflisar.composethemer.picker.composables.ThemePickerRow
+import com.michaelflisar.composethemer.picker.internal.SingleChoice
 
 @Composable
 fun DefaultThemePicker(
@@ -47,23 +49,25 @@ fun DefaultThemePicker(
     filterLabel: String = "Filter",
     filterPlaceholder: String = "Search in themes",
     imageVectorSystem: ImageVector? = Icons.Default.LaptopWindows,
-    baseThemeNameProvider: (@Composable (item: ComposeTheme.BaseTheme) -> String?) = { it.name },
-    baseThemeIconProvider: ((item: ComposeTheme.BaseTheme) -> ImageVector?)? = {
-        when (it) {
+    baseThemeContent: @Composable (item: ComposeTheme.BaseTheme?, data: SingleChoice.ItemData) -> Unit = { item, data ->
+        val icon = when (item) {
             ComposeTheme.BaseTheme.Dark -> Icons.Default.DarkMode
             ComposeTheme.BaseTheme.Light -> Icons.Default.LightMode
             ComposeTheme.BaseTheme.System -> imageVectorSystem
+            else -> null
         }
+        DefaultThemePickerIconTextContent(data, icon = icon, text = item?.name)
     },
-    contrastNameProvider: (@Composable (item: ComposeTheme.Contrast) -> String?) = { it.name },
-    contrastIconProvider: ((item: ComposeTheme.Contrast) -> ImageVector?)? = {
-        when (it) {
+    contrastContent: @Composable (item: ComposeTheme.Contrast?, data: SingleChoice.ItemData) -> Unit = { item, data ->
+        val icon = when (item) {
             ComposeTheme.Contrast.Normal -> Icons.Default.BrightnessLow
             ComposeTheme.Contrast.Medium -> Icons.Default.BrightnessMedium
             ComposeTheme.Contrast.High -> Icons.Default.BrightnessHigh
             ComposeTheme.Contrast.System -> imageVectorSystem
+            else -> null
         }
-    }
+        DefaultThemePickerIconTextContent(data, icon = icon, text = item?.name)
+    },
 ) {
 
     Column(
@@ -87,8 +91,7 @@ fun DefaultThemePicker(
             BaseThemePicker(
                 modifier = Modifier.fillMaxWidth(),
                 state = pickerState,
-                labelProvider = baseThemeNameProvider,
-                iconProvider = baseThemeIconProvider
+                content = baseThemeContent
             )
         }
 
@@ -120,8 +123,7 @@ fun DefaultThemePicker(
                 modifier = Modifier.fillMaxWidth(),
                 state = pickerState,
                 isSystemContrastSupported = isSystemContrastSupported,
-                labelProvider = contrastNameProvider,
-                iconProvider = contrastIconProvider
+                content = contrastContent
             )
         }
 
@@ -141,11 +143,13 @@ fun DefaultThemePicker(
                 SingleLevelThemeSelector(
                     state = pickerState,
                     modifier = Modifier.fillMaxWidth(),
-                    spinnerSetup = ThemePicker.SpinnerSetup.Filterable(
-                        filter = { item, filter -> item.name.lowercase().contains(filter) },
-                        label = filterLabel,
-                        placeholder = filterPlaceholder,
-                        showSpinnerForSingleItem = false
+                    style = SingleChoice.Style.Dropdown(
+                        SingleChoice.SpinnerSetup.Filterable(
+                            filter = { item, filter -> item.name.lowercase().contains(filter) },
+                            label = filterLabel,
+                            placeholder = filterPlaceholder,
+                            showSpinnerForSingleItem = false
+                        )
                     ),
                 )
             } else {
@@ -157,30 +161,58 @@ fun DefaultThemePicker(
                 ) {
                     MultiLevelThemeSelectorCollection(
                         state = pickerState,
-                        spinnerSetup = ThemePicker.SpinnerSetup.Default(showSpinnerForSingleItem = false),
+                        style = SingleChoice.Style.Dropdown(
+                            SingleChoice.SpinnerSetup.Default(showSpinnerForSingleItem = false)
+                        ),
                         multiState = multiLevelState,
                         modifier = Modifier.weight(1f)
                     )
                     MultiLevelThemeSelectorTheme(
                         state = pickerState,
                         multiState = multiLevelState,
-                        spinnerSetup = ThemePicker.SpinnerSetup.Filterable(
-                            filter = { item, filter -> item.name.lowercase().contains(filter) },
-                            label = filterLabel,
-                            placeholder = filterPlaceholder,
-                            minItemsToShowFilter = 10,
-                            showSpinnerForSingleItem = false
+                        style = SingleChoice.Style.Dropdown(
+                            SingleChoice.SpinnerSetup.Filterable(
+                                filter = { item, filter -> item.name.lowercase().contains(filter) },
+                                label = filterLabel,
+                                placeholder = filterPlaceholder,
+                                minItemsToShowFilter = 10,
+                                showSpinnerForSingleItem = false
+                            )
                         ),
                         modifier = Modifier.weight(1f)
                     )
                     MultiLevelThemeSelectorVariant(
                         state = pickerState,
-                        spinnerSetup = ThemePicker.SpinnerSetup.Default(showSpinnerForSingleItem = false),
+                        style = SingleChoice.Style.Dropdown(
+                            SingleChoice.SpinnerSetup.Default(showSpinnerForSingleItem = false)
+                        ),
                         multiState = multiLevelState,
                         modifier = Modifier.weight(1f)
                     )
                 }
             }
         }
+    }
+}
+
+@Composable
+fun DefaultThemePickerIconTextContent(
+    data: SingleChoice.ItemData,
+    icon: ImageVector?,
+    text: String?
+) {
+    Row(
+        modifier = data.modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        icon?.let {
+            Icon(it, null)
+        }
+        Text(
+            text = text ?: "",
+            color = data.textColor(),
+            maxLines = 1
+        )
     }
 }

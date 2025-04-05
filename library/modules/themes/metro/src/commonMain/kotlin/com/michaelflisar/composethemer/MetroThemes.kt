@@ -7,7 +7,7 @@ object MetroThemes : ComposeTheme.Collection {
 
     override val key = Key("metro", "Metro")
 
-    override val defaultVariantId = "triade"
+    override val defaultVariantId = "tetrade"
 
     override val allGroups = listOf(
         // Themes Begin
