@@ -30,7 +30,7 @@ fun MultiLevelThemeSelectorTheme(
     ) { item, data ->
         val colorScheme = item?.themes?.find { it.variantId() == item.collection.defaultVariantId }
         Row(
-            modifier = modifier,
+            modifier = data.modifier,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

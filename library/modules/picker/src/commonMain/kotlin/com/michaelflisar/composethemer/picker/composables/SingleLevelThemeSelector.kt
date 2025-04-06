@@ -39,7 +39,7 @@ fun SingleLevelThemeSelector(
         val colorScheme =
             item?.getScheme(state.baseTheme.value.isDark(), ComposeTheme.BaseContrast.Normal)
         Row(
-            modifier = modifier,
+            modifier = data.modifier,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

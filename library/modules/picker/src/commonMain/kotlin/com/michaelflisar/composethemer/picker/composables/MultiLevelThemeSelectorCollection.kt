@@ -26,7 +26,7 @@ fun MultiLevelThemeSelectorCollection(
             enabled = state.isThemeEnabled.value
         ) { item, data ->
             Text(
-                modifier = modifier,
+                modifier = data.modifier,
                 text = item?.name ?: "",
                 color = data.textColor(),
                 maxLines = 1

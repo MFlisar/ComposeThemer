@@ -14,7 +14,7 @@ fun ContrastPicker(
     style: SingleChoice.Style<ComposeTheme.Contrast> = SingleChoice.Style.SegmentedButton(),
     content: @Composable (item: ComposeTheme.Contrast?, data: SingleChoice.ItemData) -> Unit,
 ) {
-    SingleChoice<ComposeTheme.Contrast>(
+    SingleChoice(
         modifier = modifier,
         items = listOfNotNull(
             ComposeTheme.Contrast.Normal,
