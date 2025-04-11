@@ -7,10 +7,6 @@ import com.michaelflisar.composethemer.base.BaseTheme
 
 object ThemeMetroOlive : ComposeTheme.Group {
 
-    override val collection = MetroThemes
-    override val groupKey = ComposeTheme.Key("olive", "Olive")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
-
     private object Colors {
         // colors begin
         object Analogic : ComposeThemeColors {
@@ -870,4 +866,8 @@ object ThemeMetroOlive : ComposeTheme.Group {
     object Tetrade : BaseTheme(ComposeTheme.Key("tetrade", "Tetrade"), this, Colors.Tetrade)
     object Triade : BaseTheme(ComposeTheme.Key("triade", "Triade"), this, Colors.Triade)
     // themes end
+
+    override val collection = MetroThemes
+    override val groupKey = ComposeTheme.Key("olive", "Olive")
+    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
 }

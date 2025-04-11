@@ -7,10 +7,6 @@ import com.michaelflisar.composethemer.base.BaseTheme
 
 object ThemeFlatUIWisteria : ComposeTheme.Group {
 
-    override val collection = FlatUIThemes
-    override val groupKey = ComposeTheme.Key("wisteria", "Wisteria")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
-
     private object Colors {
         // colors begin
         object Analogic : ComposeThemeColors {
@@ -870,4 +866,8 @@ object ThemeFlatUIWisteria : ComposeTheme.Group {
     object Tetrade : BaseTheme(ComposeTheme.Key("tetrade", "Tetrade"), this, Colors.Tetrade)
     object Triade : BaseTheme(ComposeTheme.Key("triade", "Triade"), this, Colors.Triade)
     // themes end
+
+    override val collection = FlatUIThemes
+    override val groupKey = ComposeTheme.Key("wisteria", "Wisteria")
+    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
 }
