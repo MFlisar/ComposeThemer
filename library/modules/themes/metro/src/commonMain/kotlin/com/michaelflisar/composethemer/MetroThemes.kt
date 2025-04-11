@@ -9,28 +9,30 @@ object MetroThemes : ComposeTheme.Collection {
 
     override val defaultVariantId = "tetrade"
 
-    override val allGroups = listOf(
-        // Themes Begin
-        ThemeMetroAmber,
-        ThemeMetroBrown,
-        ThemeMetroCobalt,
-        ThemeMetroCrimson,
-        ThemeMetroCyan,
-        ThemeMetroEmerald,
-        ThemeMetroGreen,
-        ThemeMetroIndogo,
-        ThemeMetroLime,
-        ThemeMetroMagenta,
-        ThemeMetroMauve,
-        ThemeMetroOlive,
-        ThemeMetroOrange,
-        ThemeMetroPink,
-        ThemeMetroRed,
-        ThemeMetroSienna,
-        ThemeMetroSteel,
-        ThemeMetroTeal,
-        ThemeMetroViolet,
-        ThemeMetroYellow,
-        // Themes End
-    )
+    override val allGroups by lazy {
+        listOf(
+            // Themes Begin
+            ThemeMetroAmber,
+            ThemeMetroBrown,
+            ThemeMetroCobalt,
+            ThemeMetroCrimson,
+            ThemeMetroCyan,
+            ThemeMetroEmerald,
+            ThemeMetroGreen,
+            ThemeMetroIndogo,
+            ThemeMetroLime,
+            ThemeMetroMagenta,
+            ThemeMetroMauve,
+            ThemeMetroOlive,
+            ThemeMetroOrange,
+            ThemeMetroPink,
+            ThemeMetroRed,
+            ThemeMetroSienna,
+            ThemeMetroSteel,
+            ThemeMetroTeal,
+            ThemeMetroViolet,
+            ThemeMetroYellow,
+            // Themes End
+        )
+    }
 }

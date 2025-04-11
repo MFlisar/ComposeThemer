@@ -17,5 +17,7 @@ object <FILE_NAME> : ComposeTheme.Group {
 
     override val collection = <COLLECTION>
     override val groupKey = ComposeTheme.Key("<GROUP_KEY>", "<GROUP_NAME>")
-    override val themes = listOf(<THEMES>)
+    override val themes by lazy {
+        listOf(<THEMES>)
+    }
 }

@@ -869,5 +869,7 @@ object ThemeFlatUINephritis : ComposeTheme.Group {
 
     override val collection = FlatUIThemes
     override val groupKey = ComposeTheme.Key("nephritis", "Nephritis")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
+    override val themes by lazy {
+        listOf(Analogic, Mono, Tetrade, Triade)
+    }
 }

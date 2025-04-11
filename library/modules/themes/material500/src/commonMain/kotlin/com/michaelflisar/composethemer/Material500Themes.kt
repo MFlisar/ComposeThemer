@@ -9,27 +9,29 @@ object Material500Themes : ComposeTheme.Collection {
 
     override val defaultVariantId = "tetrade"
 
-    override val allGroups = listOf(
-        // Themes Begin
-        ThemeMaterial500Amber,
-        ThemeMaterial500Blue,
-        ThemeMaterial500BlueGrey,
-        ThemeMaterial500Brown,
-        ThemeMaterial500Cyan,
-        ThemeMaterial500DeepOrange,
-        ThemeMaterial500DeepPurple,
-        ThemeMaterial500Green,
-        ThemeMaterial500Grey,
-        ThemeMaterial500Indigo,
-        ThemeMaterial500LightBlue,
-        ThemeMaterial500LightGreen,
-        ThemeMaterial500Lime,
-        ThemeMaterial500Orange,
-        ThemeMaterial500Pink,
-        ThemeMaterial500Purple,
-        ThemeMaterial500Red,
-        ThemeMaterial500Teal,
-        ThemeMaterial500Yellow,
-        // Themes End
-    )
+    override val allGroups by lazy {
+        listOf(
+            // Themes Begin
+            ThemeMaterial500Amber,
+            ThemeMaterial500Blue,
+            ThemeMaterial500BlueGrey,
+            ThemeMaterial500Brown,
+            ThemeMaterial500Cyan,
+            ThemeMaterial500DeepOrange,
+            ThemeMaterial500DeepPurple,
+            ThemeMaterial500Green,
+            ThemeMaterial500Grey,
+            ThemeMaterial500Indigo,
+            ThemeMaterial500LightBlue,
+            ThemeMaterial500LightGreen,
+            ThemeMaterial500Lime,
+            ThemeMaterial500Orange,
+            ThemeMaterial500Pink,
+            ThemeMaterial500Purple,
+            ThemeMaterial500Red,
+            ThemeMaterial500Teal,
+            ThemeMaterial500Yellow,
+            // Themes End
+        )
+    }
 }

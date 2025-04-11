@@ -869,5 +869,7 @@ object ThemeMetroEmerald : ComposeTheme.Group {
 
     override val collection = MetroThemes
     override val groupKey = ComposeTheme.Key("emerald", "Emerald")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
+    override val themes by lazy {
+        listOf(Analogic, Mono, Tetrade, Triade)
+    }
 }

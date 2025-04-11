@@ -1,6 +1,7 @@
 package com.michaelflisar.composecustomtheme.demo
 
 import android.app.Application
+import com.michaelflisar.composecustomtheme.demo.classes.DemoPrefs
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.FlatUIThemes
 import com.michaelflisar.composethemer.Material500Themes
@@ -13,10 +14,12 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        val allThemes: List<ComposeTheme.Theme> = DefaultThemes.getAllThemes() +
-                MetroThemes.getAllThemes() +
-                FlatUIThemes.getAllThemes() +
-                Material500Themes.getAllThemes()
+        val theme = DemoPrefs.themeKey.value // this leads to NPE below as it somehow removes the ThemeFlatUIEmerald.Tetrade and replaces it with null
+        val allThemes: List<ComposeTheme.Theme> =
+            DefaultThemes.getAllThemes() +
+                    MetroThemes.getAllThemes() +
+                    FlatUIThemes.getAllThemes() +
+                    Material500Themes.getAllThemes()
         ComposeTheme.register(*allThemes.toTypedArray())
 
         // or register some of them

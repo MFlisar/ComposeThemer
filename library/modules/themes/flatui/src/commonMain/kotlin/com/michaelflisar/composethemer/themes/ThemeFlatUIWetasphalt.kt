@@ -869,5 +869,7 @@ object ThemeFlatUIWetasphalt : ComposeTheme.Group {
 
     override val collection = FlatUIThemes
     override val groupKey = ComposeTheme.Key("wetasphalt", "Wetasphalt")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
+    override val themes by lazy {
+        listOf(Analogic, Mono, Tetrade, Triade)
+    }
 }

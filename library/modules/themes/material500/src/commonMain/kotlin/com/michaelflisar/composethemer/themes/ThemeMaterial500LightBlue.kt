@@ -869,5 +869,7 @@ object ThemeMaterial500LightBlue : ComposeTheme.Group {
 
     override val collection = Material500Themes
     override val groupKey = ComposeTheme.Key("light_blue", "Light Blue")
-    override val themes = listOf(Analogic, Mono, Tetrade, Triade)
+    override val themes by lazy {
+        listOf(Analogic, Mono, Tetrade, Triade)
+    }
 }

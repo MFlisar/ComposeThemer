@@ -319,7 +319,7 @@ tasks.register("create_themes") {
                     .toMutableList()
                     .also {
                         it.addAll(indexAllGroupsFrom + 1, themeNames.sorted().map {
-                            "        $it,"
+                            "            $it,"
                         })
                     }
 
