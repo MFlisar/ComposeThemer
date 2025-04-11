@@ -14,7 +14,6 @@ class DemoApp : Application() {
         super.onCreate()
 
         // register available themes
-        val theme = DemoPrefs.themeKey.value // this leads to NPE below as it somehow removes the ThemeFlatUIEmerald.Tetrade and replaces it with null
         val allThemes: List<ComposeTheme.Theme> =
             DefaultThemes.getAllThemes() +
                     MetroThemes.getAllThemes() +
