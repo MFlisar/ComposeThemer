@@ -1,30 +1,18 @@
 import com.michaelflisar.kmptemplate.BuildFilePlugin
 import com.michaelflisar.kmptemplate.Targets
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinMultiplatform
-import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.gradle.maven.publish.plugin)
+    alias(libs.plugins.compose)
     alias(deps.plugins.kmp.template.gradle.plugin)
 }
 
-// get build file plugin
+// get build logic plugin
 val buildFilePlugin = project.plugins.getPlugin(BuildFilePlugin::class.java)
 
-// -------------------
-// Informations
-// -------------------
-
-val androidNamespace = "com.michaelflisar.composethemer.themes.material500"
-
+// targets
 val buildTargets = Targets(
     // mobile
     android = true,
@@ -35,6 +23,8 @@ val buildTargets = Targets(
     // web
     wasm = true
 )
+
+val androidNamespace = "com.michaelflisar.composethemer.demo.shared"
 
 // -------------------
 // Setup
@@ -54,22 +44,27 @@ kotlin {
 
     sourceSets {
 
+
         commonMain.dependencies {
 
             // Kotlin
             implementation(kotlinx.coroutines.core)
 
-            // AndroidX / Google
+            // Compose
             implementation(libs.compose.material3)
-            //implementation(libs.compose.activity)
+            implementation(libs.compose.material.icons.core)
+            implementation(libs.compose.material.icons.extended)
 
-            // Library
+            // library
             implementation(project(":composethemer:core"))
+            implementation(project(":composethemer:modules:picker"))
+            implementation(project(":composethemer:modules:defaultpicker"))
+            implementation(project(":composethemer:modules:themes:metro"))
+            implementation(project(":composethemer:modules:themes:flatui"))
+            implementation(project(":composethemer:modules:themes:material500"))
 
-        }
+            //implementation(deps.kmp.template.open.source.demo)
 
-        androidMain.dependencies {
-            //implementation(libs.androidx.lifecycle.compose)
         }
     }
 }
@@ -88,6 +83,3 @@ android {
         buildConfig = false
     )
 }
-
-// maven publish configuration
-buildFilePlugin.setupMavenPublish()

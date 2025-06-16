@@ -62,5 +62,6 @@ project(":composethemer:modules:themes:material500").projectDir = file("library/
 // App
 // --------------
 
-include(":demo:android")
-include(":demo:desktop")
+include(":demo:shared")
+include(":demo:app:android")
+include(":demo:app:windows")

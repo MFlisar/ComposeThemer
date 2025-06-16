@@ -31,6 +31,7 @@ import com.michaelflisar.composethemer.picker.composables.SingleLevelThemeSelect
 import com.michaelflisar.composethemer.picker.composables.ThemePickerRow
 import com.michaelflisar.composethemer.picker.internal.SingleChoice
 
+/* --8<-- [start: constructor] */
 @Composable
 fun DefaultThemePicker(
     modifier: Modifier,
@@ -68,7 +69,9 @@ fun DefaultThemePicker(
         }
         DefaultThemePickerIconTextContent(data, icon = icon, text = item?.name)
     },
-) {
+)
+        /* --8<-- [end: constructor] */
+{
 
     Column(
         modifier = modifier

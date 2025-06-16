@@ -1,3 +1,5 @@
+import com.michaelflisar.kmptemplate.BuildFilePlugin
+import com.michaelflisar.kmptemplate.Targets
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
@@ -11,37 +13,28 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dokka)
     alias(libs.plugins.gradle.maven.publish.plugin)
+    alias(deps.plugins.kmp.template.gradle.plugin)
 }
+
+// get build file plugin
+val buildFilePlugin = project.plugins.getPlugin(BuildFilePlugin::class.java)
 
 // -------------------
 // Informations
 // -------------------
 
-val description = "provides a list of themes based on the 20 metro colors (each one in 5 variations)"
-
-// Module
-val artifactId = "themes-metro"
 val androidNamespace = "com.michaelflisar.composethemer.themes.metro"
 
-// Library
-val libraryName = "ComposeThemer"
-val libraryDescription = "ComposeThemer - $artifactId module - $description"
-val groupID = "io.github.mflisar.composethemer"
-val release = 2021
-val github = "https://github.com/MFlisar/ComposeThemer"
-val license = "Apache License 2.0"
-val licenseUrl = "$github/blob/main/LICENSE"
-
-// -------------------
-// Variables for Documentation Generator
-// -------------------
-
-// # DEP is an optional arrays!
-
-// OPTIONAL = "true"                // defines if this module is optional or not
-// GROUP_ID = "themes"             // defines the "grouping" in the documentation this module belongs to
-// #DEP = "deps.kotbilling|KotBilling|https://github.com/MFlisar/Kotbilling"
-// PLATFORM_INFO = ""               // defines a comment that will be shown in the documentation for this modules platform support
+val buildTargets = Targets(
+    // mobile
+    android = true,
+    iOS = true,
+    // desktop
+    windows = true,
+    macOS = true,
+    // web
+    wasm = true
+)
 
 // -------------------
 // Setup
@@ -49,31 +42,11 @@ val licenseUrl = "$github/blob/main/LICENSE"
 
 kotlin {
 
-    // Java
-    jvm()
+    //-------------
+    // Targets
+    //-------------
 
-    // Android
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-
-    // iOS
-    macosX64()
-    macosArm64()
-    iosArm64()
-    iosX64()
-    iosSimulatorArm64()
-
-    // js
-    js(IR) {
-        browser()
-    }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs { browser() }
+    buildFilePlugin.setupTargets(buildTargets)
 
     // -------
     // Sources
@@ -101,66 +74,20 @@ kotlin {
     }
 }
 
+// -------------------
+// Configurations
+// -------------------
+
+// android configuration
 android {
-
-    namespace = androidNamespace
-
-    compileSdk = app.versions.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = app.versions.minSdk.get().toInt()
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    buildFilePlugin.setupAndroid(
+        androidNamespace = androidNamespace,
+        compileSdk = app.versions.compileSdk,
+        minSdk = app.versions.minSdk,
+        compose = false,
+        buildConfig = false
+    )
 }
 
-mavenPublishing {
-
-    configure(
-        KotlinMultiplatform(
-            javadocJar = JavadocJar.Dokka("dokkaHtml"),
-            sourcesJar = true
-        )
-    )
-
-    coordinates(
-        groupId = groupID,
-        artifactId = artifactId,
-        version = System.getenv("TAG")
-    )
-
-    pom {
-        name.set(libraryName)
-        description.set(libraryDescription)
-        inceptionYear.set("$release")
-        url.set(github)
-
-        licenses {
-            license {
-                name.set(license)
-                url.set(licenseUrl)
-            }
-        }
-
-        developers {
-            developer {
-                id.set("mflisar")
-                name.set("Michael Flisar")
-                email.set("mflisar.development@gmail.com")
-            }
-        }
-
-        scm {
-            url.set(github)
-        }
-    }
-
-    // Configure publishing to Maven Central
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
-
-    // Enable GPG signing for all publications
-    signAllPublications()
-}
+// maven publish configuration
+buildFilePlugin.setupMavenPublish()

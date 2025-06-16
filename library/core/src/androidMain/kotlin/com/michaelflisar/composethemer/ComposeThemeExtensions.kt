@@ -1,6 +1,5 @@
 package com.michaelflisar.composethemer
 
-import android.app.Activity
 import android.app.UiModeManager
 import android.content.Context
 import android.content.res.Configuration
@@ -16,15 +15,11 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
 
 /**
  * this is the main composable that simple applies the correct theme
@@ -40,7 +35,6 @@ fun ComposeTheme(
     state: ComposeTheme.State,
     shapes: Shapes = MaterialTheme.shapes,
     typography: Typography = MaterialTheme.typography,
-    edgeToEdge: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val theme = ComposeTheme.find(state.theme.value)
@@ -53,19 +47,6 @@ fun ComposeTheme(
         }
 
         else -> theme.selectSchemeForContrast(state.base.value.isDark(), state.contrast.value)
-    }
-    val darkTheme = state.base.value.isDark()
-
-    if (!edgeToEdge) {
-        val view = LocalView.current
-        if (!view.isInEditMode) {
-            SideEffect {
-                val window = (view.context as Activity).window
-                window.statusBarColor = colorScheme.primary.toArgb()
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
-                    darkTheme
-            }
-        }
     }
 
     MaterialTheme(
