@@ -46,10 +46,10 @@ groups:
   - id: core
     label: Core
     gradle-comment: core
-  - id: Modules
+  - id: modules
     label: Modules
     gradle-comment: Modules
-  - id: Themes
+  - id: themes
     label: Themes
     gradle-comment: Themes
 
