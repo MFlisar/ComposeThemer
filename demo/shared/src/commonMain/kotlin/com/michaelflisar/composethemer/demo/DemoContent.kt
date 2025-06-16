@@ -66,7 +66,7 @@ fun DemoContent(
                 modifier = Modifier.padding(16.dp).fillMaxWidth()
             ) {
                 Text(
-                    "Selected theme: ${selectedTheme?.fullName})",
+                    "Selected theme: ${selectedTheme?.fullName}",
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text("Theme supports contrast: ${selectedTheme?.supportsContrast()}")
