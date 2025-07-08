@@ -16,10 +16,10 @@ import androidx.compose.runtime.Composable
  * @param content the content
  */
 @Composable
-fun ComposeTheme(
+actual fun ComposeTheme(
     state: ComposeTheme.State,
-    shapes: Shapes = MaterialTheme.shapes,
-    typography: Typography = MaterialTheme.typography,
+    shapes: Shapes,
+    typography: Typography,
     content: @Composable () -> Unit
 ) {
     val theme = ComposeTheme.find(state.theme.value)
