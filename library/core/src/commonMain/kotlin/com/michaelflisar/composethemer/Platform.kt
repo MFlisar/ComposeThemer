@@ -12,3 +12,10 @@ expect fun ComposeTheme(
     typography: Typography = MaterialTheme.typography,
     content: @Composable () -> Unit
 )
+
+// only on android 31+
+expect val ComposeTheme.isDynamicColorsSupported : Boolean
+
+// only on android 34+
+expect val ComposeTheme.isContrastAvailable : Boolean
+expect val ComposeTheme.isSystemContrastSupported : Boolean

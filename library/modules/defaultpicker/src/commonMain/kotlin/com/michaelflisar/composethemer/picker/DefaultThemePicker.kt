@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.michaelflisar.composethemer.ComposeTheme
+import com.michaelflisar.composethemer.isContrastAvailable
+import com.michaelflisar.composethemer.isDynamicColorsSupported
 import com.michaelflisar.composethemer.picker.composables.BaseThemePicker
 import com.michaelflisar.composethemer.picker.composables.ContrastPicker
 import com.michaelflisar.composethemer.picker.composables.MultiLevelThemeSelectorCollection
@@ -40,8 +42,6 @@ fun DefaultThemePicker(
     dynamic: MutableState<Boolean>,
     theme: MutableState<String>,
     singleLevelThemePicker: Boolean,
-    isDynamicColorsSupported: Boolean,
-    isSystemContrastSupported: Boolean,
     labelWidth: Dp = 128.dp,
     labelBaseTheme: String = "Base Theme",
     labelContrast: String = "Contrast",
@@ -99,7 +99,7 @@ fun DefaultThemePicker(
         }
 
         // 2) row to enabled / disable dynamic colors
-        if (isDynamicColorsSupported) {
+        if (ComposeTheme.isDynamicColorsSupported) {
             ThemePickerRow(
                 modifier = Modifier.fillMaxWidth(),
                 label = labelDynamic,
@@ -116,18 +116,19 @@ fun DefaultThemePicker(
 
         // 3) row to pick contrast (normal/medium/high/system)
         // if this setting is currently enabled or not can be checked via the state
-        ThemePickerRow(
-            modifier = Modifier.fillMaxWidth(),
-            label = labelContrast,
-            labelWidth = labelWidth,
-            enabled = pickerState.isContrastEnabled.value
-        ) {
-            ContrastPicker(
+        if (ComposeTheme.isContrastAvailable) {
+            ThemePickerRow(
                 modifier = Modifier.fillMaxWidth(),
-                state = pickerState,
-                isSystemContrastSupported = isSystemContrastSupported,
-                content = contrastContent
-            )
+                label = labelContrast,
+                labelWidth = labelWidth,
+                enabled = pickerState.isContrastEnabled.value
+            ) {
+                ContrastPicker(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = pickerState,
+                    content = contrastContent
+                )
+            }
         }
 
         // 4) row to pick theme

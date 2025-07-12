@@ -28,9 +28,7 @@ fun DemoContent(
     baseTheme: MutableState<ComposeTheme.BaseTheme>,
     contrast: MutableState<ComposeTheme.Contrast>,
     dynamic: MutableState<Boolean>,
-    theme: MutableState<String>,
-    isSystemContrastSupported: Boolean, // only android supports system contrast
-    isDynamicColorsSupported: Boolean // only android supports dynamic colors
+    theme: MutableState<String>
 ) {
 
     Column(
@@ -48,9 +46,7 @@ fun DemoContent(
                 contrast = contrast,
                 dynamic = dynamic,
                 theme = theme,
-                singleLevelThemePicker = false,
-                isSystemContrastSupported = isSystemContrastSupported,
-                isDynamicColorsSupported = isDynamicColorsSupported
+                singleLevelThemePicker = false
             )
         }
         val selectedTheme by remember(theme.value) {

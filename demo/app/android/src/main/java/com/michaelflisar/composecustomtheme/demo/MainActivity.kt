@@ -189,9 +189,7 @@ class MainActivity : ComponentActivity() {
                     baseTheme = baseTheme,
                     contrast = contrast,
                     dynamic = dynamic,
-                    theme = theme,
-                    isSystemContrastSupported = true, // only android supports system contrast
-                    isDynamicColorsSupported = true // only android supports dynamic colors
+                    theme = theme
                 )
             }
             DemoCollapsibleRegion(

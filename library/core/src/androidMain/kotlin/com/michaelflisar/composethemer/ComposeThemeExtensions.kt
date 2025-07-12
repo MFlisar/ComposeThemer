@@ -146,10 +146,6 @@ fun UpdateEdgeToEdgeDefault(
     }
 }
 
-fun isContrastAvailable(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
-}
-
 @Composable
 private fun ComposeTheme.Theme.selectSchemeForContrast(
     isDark: Boolean,
@@ -164,7 +160,7 @@ private fun ComposeTheme.Theme.selectSchemeForContrast(
     if (!isPreview) {
         val baseContrast = when (contrast) {
             ComposeTheme.Contrast.System -> {
-                if (isContrastAvailable()) {
+                if (ComposeTheme.isContrastAvailable) {
                     val uiModeManager =
                         context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
                     val contrastLevel = uiModeManager.contrast

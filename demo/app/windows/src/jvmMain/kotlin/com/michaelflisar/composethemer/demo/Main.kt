@@ -58,9 +58,7 @@ fun main() {
                         baseTheme = baseTheme,
                         contrast = contrast,
                         dynamic = dynamic,
-                        theme = theme,
-                        isDynamicColorsSupported = false, // only android supports dynamic colors
-                        isSystemContrastSupported = false // only android supports system contrast
+                        theme = theme
                     )
                 }
             }
