@@ -61,8 +61,7 @@ class MainActivity : ComponentActivity() {
             val baseTheme = rememberSaveable { mutableStateOf(ComposeTheme.BaseTheme.System) }
             val contrast = rememberSaveable { mutableStateOf(ComposeTheme.Contrast.Normal) }
             val dynamic = rememberSaveable { mutableStateOf(false) }
-            val theme =
-                rememberSaveable { mutableStateOf(ThemeDefault.Theme.id) } // id of the current theme
+            val theme = rememberSaveable { mutableStateOf(ThemeDefault.Theme.id) } // id of the current theme
 
             val state = ComposeTheme.State(baseTheme, contrast, dynamic, theme)
 
@@ -92,8 +91,7 @@ class MainActivity : ComponentActivity() {
 
                     // this app draws a bottom navigation behind the navigation bar in portrait only, in landscape mode it doesn't
                     // => landscape may
-                    val landscape =
-                        LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+                    val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
                     val isDark = state.base.value.isDark()
 
                     UpdateEdgeToEdgeDefault(

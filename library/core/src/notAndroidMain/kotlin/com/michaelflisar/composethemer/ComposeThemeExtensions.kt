@@ -24,7 +24,8 @@ actual fun ComposeTheme(
 ) {
     val theme = ComposeTheme.find(state.theme.value)
     val colorScheme = theme.selectSchemeForContrast(state.base.value.isDark(), state.contrast.value)
-    MaterialTheme(
+    ComposeThemeWrapper(
+        state = state,
         colorScheme = colorScheme,
         shapes = shapes,
         typography = typography,

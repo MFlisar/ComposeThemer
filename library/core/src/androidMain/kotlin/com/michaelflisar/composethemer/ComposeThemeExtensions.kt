@@ -49,7 +49,8 @@ actual fun ComposeTheme(
         else -> theme.selectSchemeForContrast(state.base.value.isDark(), state.contrast.value)
     }
 
-    MaterialTheme(
+    ComposeThemeWrapper(
+        state = state,
         colorScheme = colorScheme,
         shapes = shapes,
         typography = typography,
