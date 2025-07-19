@@ -38,42 +38,27 @@ ComposeTheme(state = state) {
 On android you can use `ComposeTheme` to set the status bar and navigation bar colors based on the current theme.
 
 ```kotlin
-
-// save the desired statusbar and navigation bar colors somehow
-val statusBarColorPrimary = rememberSaveable { mutableStateOf(true) }
-val navigationBarColorPrimary = rememberSaveable { mutableStateOf(true) }
-
 ComposeTheme(
     state = state
 ) {
-    val primary = MaterialTheme.colorScheme.primary
-    val background = MaterialTheme.colorScheme.background
-
-    val statusBarColor = remember(statusBarColorPrimary.value, primary, background) {
-        derivedStateOf { if (statusBarColorPrimary.value) primary else background }
-    }
-    val navigationBarColor =
-        remember(navigationBarColorPrimary.value, primary, background) {
-            derivedStateOf { if (navigationBarColorPrimary.value) primary else background }
-        }
-
-    // Statusbar and Navigation Bar is drawn in primary color -> we use this to detect the dark mode for the system bars
+    // set the color that you use behind the status bar and navigation bar (e.g. primary toolbar + surface bottom navigation)
+    val statusBarColor = ...
+    val navigationBarColor = ...
     
     // UpdateEdgeToEdgeDefault...helper function to easily enable edgeToEdge
     // SystemBarStyle also offers some extensions (statusBar, navigationBar, transparent) that can be used
 
     // this app draws a bottom navigation behind the navigation bar in portrait only, in landscape mode it doesn't
-    // => landscape may
     val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
     val isDark = state.base.value.isDark()
 
     UpdateEdgeToEdgeDefault(
         activity = this,
         themeState = state,
-        statusBarColor = statusBarColor.value,
+        statusBarColor = statusBarColor,
         navigationBarColor = if (landscape) {
             SystemBarStyle.defaultScrim(resources, isDark)
-        } else navigationBarColor.value,
+        } else navigationBarColor,
         isNavigationBarContrastEnforced = landscape
     )
 }
