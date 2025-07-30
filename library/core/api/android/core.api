@@ -1,0 +1,460 @@
+public final class com/michaelflisar/composethemer/ComposeTheme {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/ComposeTheme;
+	public final fun getRegisteredThemeGroups ()Ljava/util/List;
+	public final fun getRegisteredThemes ()Ljava/util/List;
+	public final fun register ([Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)V
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$BaseContrast : java/lang/Enum {
+	public static final field High Lcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;
+	public static final field Medium Lcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;
+	public static final field Normal Lcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;
+	public static fun values ()[Lcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$BaseTheme : java/lang/Enum {
+	public static final field Dark Lcom/michaelflisar/composethemer/ComposeTheme$BaseTheme;
+	public static final field Light Lcom/michaelflisar/composethemer/ComposeTheme$BaseTheme;
+	public static final field System Lcom/michaelflisar/composethemer/ComposeTheme$BaseTheme;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isDark (Landroidx/compose/runtime/Composer;I)Z
+	public static fun valueOf (Ljava/lang/String;)Lcom/michaelflisar/composethemer/ComposeTheme$BaseTheme;
+	public static fun values ()[Lcom/michaelflisar/composethemer/ComposeTheme$BaseTheme;
+}
+
+public abstract interface class com/michaelflisar/composethemer/ComposeTheme$Collection : com/michaelflisar/composethemer/ComposeTheme$KeyProvider {
+	public abstract fun getAllGroups ()Ljava/util/List;
+	public fun getAllThemes ()Ljava/util/List;
+	public abstract fun getDefaultVariantId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$Collection$DefaultImpls {
+	public static fun getAllThemes (Lcom/michaelflisar/composethemer/ComposeTheme$Collection;)Ljava/util/List;
+	public static fun getFullName (Lcom/michaelflisar/composethemer/ComposeTheme$Collection;)Ljava/lang/String;
+	public static fun getId (Lcom/michaelflisar/composethemer/ComposeTheme$Collection;)Ljava/lang/String;
+	public static fun getName (Lcom/michaelflisar/composethemer/ComposeTheme$Collection;)Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$Contrast : java/lang/Enum {
+	public static final field High Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+	public static final field Medium Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+	public static final field Normal Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+	public static final field System Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+	public static fun values ()[Lcom/michaelflisar/composethemer/ComposeTheme$Contrast;
+}
+
+public abstract interface class com/michaelflisar/composethemer/ComposeTheme$Group : com/michaelflisar/composethemer/ComposeTheme$KeyProvider {
+	public abstract fun getCollection ()Lcom/michaelflisar/composethemer/ComposeTheme$Collection;
+	public abstract fun getGroupKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getName ()Ljava/lang/String;
+	public abstract fun getThemes ()Ljava/util/List;
+	public fun getVariantIds ()Ljava/util/List;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$Group$DefaultImpls {
+	public static fun getFullName (Lcom/michaelflisar/composethemer/ComposeTheme$Group;)Ljava/lang/String;
+	public static fun getId (Lcom/michaelflisar/composethemer/ComposeTheme$Group;)Ljava/lang/String;
+	public static fun getKey (Lcom/michaelflisar/composethemer/ComposeTheme$Group;)Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public static fun getName (Lcom/michaelflisar/composethemer/ComposeTheme$Group;)Ljava/lang/String;
+	public static fun getVariantIds (Lcom/michaelflisar/composethemer/ComposeTheme$Group;)Ljava/util/List;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$Key {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public static synthetic fun copy$default (Lcom/michaelflisar/composethemer/ComposeTheme$Key;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun subId (Lcom/michaelflisar/composethemer/ComposeTheme$Key;)Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/michaelflisar/composethemer/ComposeTheme$KeyProvider {
+	public fun getFullName ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public abstract fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$KeyProvider$DefaultImpls {
+	public static fun getFullName (Lcom/michaelflisar/composethemer/ComposeTheme$KeyProvider;)Ljava/lang/String;
+	public static fun getId (Lcom/michaelflisar/composethemer/ComposeTheme$KeyProvider;)Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$State {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/runtime/State;Landroidx/compose/runtime/State;Landroidx/compose/runtime/State;Landroidx/compose/runtime/State;)V
+	public final fun getBase ()Landroidx/compose/runtime/State;
+	public final fun getComposeTheme ()Lcom/michaelflisar/composethemer/ComposeTheme$Theme;
+	public final fun getContrast ()Landroidx/compose/runtime/State;
+	public final fun getDynamic ()Landroidx/compose/runtime/State;
+	public final fun getTheme ()Landroidx/compose/runtime/State;
+}
+
+public abstract interface class com/michaelflisar/composethemer/ComposeTheme$Theme : com/michaelflisar/composethemer/ComposeTheme$KeyProvider {
+	public abstract fun getDarkScheme ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getDarkSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getDarkSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getGroup ()Lcom/michaelflisar/composethemer/ComposeTheme$Group;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public abstract fun getLightScheme ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getLightSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getLightSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getName ()Ljava/lang/String;
+	public fun getScheme (ZLcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;)Landroidx/compose/material3/ColorScheme;
+	public abstract fun getThemeKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun supportsContrast ()Z
+	public fun variantId ()Ljava/lang/String;
+	public fun variantName ()Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/ComposeTheme$Theme$DefaultImpls {
+	public static fun getFullName (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Ljava/lang/String;
+	public static fun getId (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Ljava/lang/String;
+	public static fun getKey (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public static fun getName (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Ljava/lang/String;
+	public static fun getScheme (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;ZLcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;)Landroidx/compose/material3/ColorScheme;
+	public static fun supportsContrast (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Z
+	public static fun variantId (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Ljava/lang/String;
+	public static fun variantName (Lcom/michaelflisar/composethemer/ComposeTheme$Theme;)Ljava/lang/String;
+}
+
+public abstract interface class com/michaelflisar/composethemer/ComposeThemeColors {
+	public fun darkScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun darkSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun darkSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public abstract fun getBackgroundDark-0d7_KjU ()J
+	public abstract fun getBackgroundDarkHighContrast-0d7_KjU ()J
+	public abstract fun getBackgroundDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getBackgroundLight-0d7_KjU ()J
+	public abstract fun getBackgroundLightHighContrast-0d7_KjU ()J
+	public abstract fun getBackgroundLightMediumContrast-0d7_KjU ()J
+	public abstract fun getErrorContainerDark-0d7_KjU ()J
+	public abstract fun getErrorContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getErrorContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getErrorContainerLight-0d7_KjU ()J
+	public abstract fun getErrorContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getErrorContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getErrorDark-0d7_KjU ()J
+	public abstract fun getErrorDarkHighContrast-0d7_KjU ()J
+	public abstract fun getErrorDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getErrorLight-0d7_KjU ()J
+	public abstract fun getErrorLightHighContrast-0d7_KjU ()J
+	public abstract fun getErrorLightMediumContrast-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceDark-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceDarkHighContrast-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceLight-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceLightHighContrast-0d7_KjU ()J
+	public abstract fun getInverseOnSurfaceLightMediumContrast-0d7_KjU ()J
+	public abstract fun getInversePrimaryDark-0d7_KjU ()J
+	public abstract fun getInversePrimaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getInversePrimaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getInversePrimaryLight-0d7_KjU ()J
+	public abstract fun getInversePrimaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getInversePrimaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getInverseSurfaceDark-0d7_KjU ()J
+	public abstract fun getInverseSurfaceDarkHighContrast-0d7_KjU ()J
+	public abstract fun getInverseSurfaceDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getInverseSurfaceLight-0d7_KjU ()J
+	public abstract fun getInverseSurfaceLightHighContrast-0d7_KjU ()J
+	public abstract fun getInverseSurfaceLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnBackgroundDark-0d7_KjU ()J
+	public abstract fun getOnBackgroundDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnBackgroundDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnBackgroundLight-0d7_KjU ()J
+	public abstract fun getOnBackgroundLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnBackgroundLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnErrorContainerDark-0d7_KjU ()J
+	public abstract fun getOnErrorContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnErrorContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnErrorContainerLight-0d7_KjU ()J
+	public abstract fun getOnErrorContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnErrorContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnErrorDark-0d7_KjU ()J
+	public abstract fun getOnErrorDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnErrorDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnErrorLight-0d7_KjU ()J
+	public abstract fun getOnErrorLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnErrorLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerDark-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerLight-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryDark-0d7_KjU ()J
+	public abstract fun getOnPrimaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryLight-0d7_KjU ()J
+	public abstract fun getOnPrimaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnPrimaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerDark-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerLight-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryDark-0d7_KjU ()J
+	public abstract fun getOnSecondaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryLight-0d7_KjU ()J
+	public abstract fun getOnSecondaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnSecondaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceDark-0d7_KjU ()J
+	public abstract fun getOnSurfaceDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceLight-0d7_KjU ()J
+	public abstract fun getOnSurfaceLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantDark-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantLight-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnSurfaceVariantLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerDark-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerLight-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryDark-0d7_KjU ()J
+	public abstract fun getOnTertiaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryLight-0d7_KjU ()J
+	public abstract fun getOnTertiaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getOnTertiaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOutlineDark-0d7_KjU ()J
+	public abstract fun getOutlineDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOutlineDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOutlineLight-0d7_KjU ()J
+	public abstract fun getOutlineLightHighContrast-0d7_KjU ()J
+	public abstract fun getOutlineLightMediumContrast-0d7_KjU ()J
+	public abstract fun getOutlineVariantDark-0d7_KjU ()J
+	public abstract fun getOutlineVariantDarkHighContrast-0d7_KjU ()J
+	public abstract fun getOutlineVariantDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getOutlineVariantLight-0d7_KjU ()J
+	public abstract fun getOutlineVariantLightHighContrast-0d7_KjU ()J
+	public abstract fun getOutlineVariantLightMediumContrast-0d7_KjU ()J
+	public abstract fun getPrimaryContainerDark-0d7_KjU ()J
+	public abstract fun getPrimaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getPrimaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getPrimaryContainerLight-0d7_KjU ()J
+	public abstract fun getPrimaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getPrimaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getPrimaryDark-0d7_KjU ()J
+	public abstract fun getPrimaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getPrimaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getPrimaryLight-0d7_KjU ()J
+	public abstract fun getPrimaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getPrimaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getScrimDark-0d7_KjU ()J
+	public abstract fun getScrimDarkHighContrast-0d7_KjU ()J
+	public abstract fun getScrimDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getScrimLight-0d7_KjU ()J
+	public abstract fun getScrimLightHighContrast-0d7_KjU ()J
+	public abstract fun getScrimLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSecondaryContainerDark-0d7_KjU ()J
+	public abstract fun getSecondaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSecondaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSecondaryContainerLight-0d7_KjU ()J
+	public abstract fun getSecondaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getSecondaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSecondaryDark-0d7_KjU ()J
+	public abstract fun getSecondaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSecondaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSecondaryLight-0d7_KjU ()J
+	public abstract fun getSecondaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getSecondaryLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceBrightDark-0d7_KjU ()J
+	public abstract fun getSurfaceBrightDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceBrightDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceBrightLight-0d7_KjU ()J
+	public abstract fun getSurfaceBrightLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceBrightLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerDark-0d7_KjU ()J
+	public abstract fun getSurfaceContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighDark-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighLight-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestDark-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestLight-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerHighestLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLight-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowDark-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowLight-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestDark-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestLight-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceContainerLowestLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDark-0d7_KjU ()J
+	public abstract fun getSurfaceDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDimDark-0d7_KjU ()J
+	public abstract fun getSurfaceDimDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDimDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDimLight-0d7_KjU ()J
+	public abstract fun getSurfaceDimLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceDimLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceLight-0d7_KjU ()J
+	public abstract fun getSurfaceLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceLightMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceVariantDark-0d7_KjU ()J
+	public abstract fun getSurfaceVariantDarkHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceVariantDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getSurfaceVariantLight-0d7_KjU ()J
+	public abstract fun getSurfaceVariantLightHighContrast-0d7_KjU ()J
+	public abstract fun getSurfaceVariantLightMediumContrast-0d7_KjU ()J
+	public abstract fun getTertiaryContainerDark-0d7_KjU ()J
+	public abstract fun getTertiaryContainerDarkHighContrast-0d7_KjU ()J
+	public abstract fun getTertiaryContainerDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getTertiaryContainerLight-0d7_KjU ()J
+	public abstract fun getTertiaryContainerLightHighContrast-0d7_KjU ()J
+	public abstract fun getTertiaryContainerLightMediumContrast-0d7_KjU ()J
+	public abstract fun getTertiaryDark-0d7_KjU ()J
+	public abstract fun getTertiaryDarkHighContrast-0d7_KjU ()J
+	public abstract fun getTertiaryDarkMediumContrast-0d7_KjU ()J
+	public abstract fun getTertiaryLight-0d7_KjU ()J
+	public abstract fun getTertiaryLightHighContrast-0d7_KjU ()J
+	public abstract fun getTertiaryLightMediumContrast-0d7_KjU ()J
+	public fun lightScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun lightSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun lightSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+}
+
+public final class com/michaelflisar/composethemer/ComposeThemeColors$DefaultImpls {
+	public static fun darkScheme (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+	public static fun darkSchemeHighContrast (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+	public static fun darkSchemeMediumContrast (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+	public static fun lightScheme (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+	public static fun lightSchemeHighContrast (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+	public static fun lightSchemeMediumContrast (Lcom/michaelflisar/composethemer/ComposeThemeColors;)Landroidx/compose/material3/ColorScheme;
+}
+
+public final class com/michaelflisar/composethemer/ComposeThemeExtensionsKt {
+	public static final fun ComposeTheme (Lcom/michaelflisar/composethemer/ComposeTheme$State;Landroidx/compose/material3/Shapes;Landroidx/compose/material3/Typography;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun UpdateEdgeToEdgeDefault-D_bmR2Q (Landroidx/activity/ComponentActivity;Lcom/michaelflisar/composethemer/ComposeTheme$State;JLkotlin/jvm/functions/Function0;JZLandroidx/compose/runtime/Composer;II)V
+	public static final fun enableEdgeToEdge (Lcom/michaelflisar/composethemer/ComposeTheme;Landroidx/activity/ComponentActivity;Landroidx/activity/SystemBarStyle;Landroidx/activity/SystemBarStyle;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public static synthetic fun enableEdgeToEdge$default (Lcom/michaelflisar/composethemer/ComposeTheme;Landroidx/activity/ComponentActivity;Landroidx/activity/SystemBarStyle;Landroidx/activity/SystemBarStyle;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)V
+	public static final fun enableEdgeToEdge-t6yy7ic (Lcom/michaelflisar/composethemer/ComposeTheme;Landroidx/activity/ComponentActivity;JJLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public static synthetic fun enableEdgeToEdge-t6yy7ic$default (Lcom/michaelflisar/composethemer/ComposeTheme;Landroidx/activity/ComponentActivity;JJLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)V
+}
+
+public final class com/michaelflisar/composethemer/ComposeThemeWrapperKt {
+	public static final fun getLocalComposeThemeState ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/michaelflisar/composethemer/ExtensionsKt {
+	public static final fun defaultScrim (Landroidx/activity/SystemBarStyle$Companion;Landroid/content/res/Resources;Z)J
+	public static synthetic fun defaultScrim$default (Landroidx/activity/SystemBarStyle$Companion;Landroid/content/res/Resources;ZILjava/lang/Object;)J
+	public static final fun navigationBar (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;)Landroidx/activity/SystemBarStyle;
+	public static synthetic fun navigationBar$default (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/activity/SystemBarStyle;
+	public static final fun statusBar (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;)Landroidx/activity/SystemBarStyle;
+	public static synthetic fun statusBar$default (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/activity/SystemBarStyle;
+	public static final fun transparent (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;)Landroidx/activity/SystemBarStyle;
+	public static synthetic fun transparent$default (Landroidx/activity/SystemBarStyle$Companion;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/activity/SystemBarStyle;
+}
+
+public final class com/michaelflisar/composethemer/Platform_androidKt {
+	public static final fun isContrastAvailable (Lcom/michaelflisar/composethemer/ComposeTheme;)Z
+	public static final fun isDynamicColorsSupported (Lcom/michaelflisar/composethemer/ComposeTheme;)Z
+	public static final fun isSystemContrastSupported (Lcom/michaelflisar/composethemer/ComposeTheme;)Z
+}
+
+public abstract class com/michaelflisar/composethemer/base/BaseTheme : com/michaelflisar/composethemer/ComposeTheme$Theme {
+	public static final field $stable I
+	public fun <init> (Lcom/michaelflisar/composethemer/ComposeTheme$Key;Lcom/michaelflisar/composethemer/ComposeTheme$Group;Lcom/michaelflisar/composethemer/ComposeThemeColors;)V
+	public fun getDarkScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun getDarkSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getDarkSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getFullName ()Ljava/lang/String;
+	public fun getGroup ()Lcom/michaelflisar/composethemer/ComposeTheme$Group;
+	public fun getId ()Ljava/lang/String;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getLightScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun getLightSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getLightSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getName ()Ljava/lang/String;
+	public fun getScheme (ZLcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;)Landroidx/compose/material3/ColorScheme;
+	public fun getThemeKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun supportsContrast ()Z
+	public fun variantId ()Ljava/lang/String;
+	public fun variantName ()Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/themes/DefaultThemes : com/michaelflisar/composethemer/ComposeTheme$Collection {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/DefaultThemes;
+	public fun getAllGroups ()Ljava/util/List;
+	public fun getAllThemes ()Ljava/util/List;
+	public fun getDefaultVariantId ()Ljava/lang/String;
+	public fun getFullName ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeDefault : com/michaelflisar/composethemer/ComposeTheme$Group {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeDefault;
+	public synthetic fun getCollection ()Lcom/michaelflisar/composethemer/ComposeTheme$Collection;
+	public fun getCollection ()Lcom/michaelflisar/composethemer/themes/DefaultThemes;
+	public fun getFullName ()Ljava/lang/String;
+	public fun getGroupKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getId ()Ljava/lang/String;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getName ()Ljava/lang/String;
+	public fun getThemes ()Ljava/util/List;
+	public fun getVariantIds ()Ljava/util/List;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeDefault$Theme : com/michaelflisar/composethemer/ComposeTheme$Theme {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeDefault$Theme;
+	public fun getDarkScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun getDarkSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getDarkSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getFullName ()Ljava/lang/String;
+	public synthetic fun getGroup ()Lcom/michaelflisar/composethemer/ComposeTheme$Group;
+	public fun getGroup ()Lcom/michaelflisar/composethemer/themes/ThemeDefault;
+	public fun getId ()Ljava/lang/String;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getLightScheme ()Landroidx/compose/material3/ColorScheme;
+	public fun getLightSchemeHighContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getLightSchemeMediumContrast ()Landroidx/compose/material3/ColorScheme;
+	public fun getName ()Ljava/lang/String;
+	public fun getScheme (ZLcom/michaelflisar/composethemer/ComposeTheme$BaseContrast;)Landroidx/compose/material3/ColorScheme;
+	public fun getThemeKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun supportsContrast ()Z
+	public fun variantId ()Ljava/lang/String;
+	public fun variantName ()Ljava/lang/String;
+}
+
