@@ -7,6 +7,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,6 +35,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
@@ -43,9 +46,6 @@ import com.michaelflisar.composethemer.defaultScrim
 import com.michaelflisar.composethemer.demo.DemoContent
 import com.michaelflisar.composethemer.demo.R
 import com.michaelflisar.composethemer.themes.ThemeDefault
-import com.michaelflisar.kmptemplate.composables.DemoCheckbox
-import com.michaelflisar.kmptemplate.composables.DemoCollapsibleRegion
-import com.michaelflisar.kmptemplate.composables.rememberDemoExpandedRegions
 
 class MainActivity : ComponentActivity() {
 
@@ -61,7 +61,8 @@ class MainActivity : ComponentActivity() {
             val baseTheme = rememberSaveable { mutableStateOf(ComposeTheme.BaseTheme.System) }
             val contrast = rememberSaveable { mutableStateOf(ComposeTheme.Contrast.Normal) }
             val dynamic = rememberSaveable { mutableStateOf(false) }
-            val theme = rememberSaveable { mutableStateOf(ThemeDefault.Theme.id) } // id of the current theme
+            val theme =
+                rememberSaveable { mutableStateOf(ThemeDefault.Theme.id) } // id of the current theme
 
             val state = ComposeTheme.State(baseTheme, contrast, dynamic, theme)
 
@@ -91,7 +92,8 @@ class MainActivity : ComponentActivity() {
 
                     // this app draws a bottom navigation behind the navigation bar in portrait only, in landscape mode it doesn't
                     // => landscape may
-                    val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+                    val landscape =
+                        LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
                     val isDark = state.base.value.isDark()
 
                     UpdateEdgeToEdgeDefault(
@@ -170,48 +172,47 @@ class MainActivity : ComponentActivity() {
         statusBarColorPrimary: MutableState<Boolean>,
         navigationBarColorPrimary: MutableState<Boolean>,
     ) {
-        val regions = rememberDemoExpandedRegions(listOf(0))
-
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            DemoCollapsibleRegion(
-                title = "Theme",
-                info = "${ComposeTheme.getRegisteredThemes().size} themes available",
-                regionId = 0,
-                state = regions
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                DemoContent(
+                LabeledCheckbox(
                     modifier = Modifier.fillMaxWidth(),
-                    baseTheme = baseTheme,
-                    contrast = contrast,
-                    dynamic = dynamic,
-                    theme = theme
+                    label = "Status Bar Primary",
+                    checked = statusBarColorPrimary
+                )
+                LabeledCheckbox(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = "Navigation Bar Primary",
+                    checked = navigationBarColorPrimary
                 )
             }
-            DemoCollapsibleRegion(
-                title = "System Bar Styles",
-                regionId = 1,
-                state = regions
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    DemoCheckbox(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = "Status Bar Primary",
-                        checked = statusBarColorPrimary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    DemoCheckbox(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = "Navigation Bar Primary",
-                        checked = navigationBarColorPrimary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
+            DemoContent(
+                modifier = Modifier.fillMaxWidth(),
+                baseTheme = baseTheme,
+                contrast = contrast,
+                dynamic = dynamic,
+                theme = theme
+            )
         }
+    }
+}
+
+@Composable
+private fun LabeledCheckbox(
+    label: String,
+    checked: MutableState<Boolean>,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = label, style = MaterialTheme.typography.bodyMedium)
+        Checkbox(checked = checked.value, onCheckedChange = { checked.value = it })
     }
 }

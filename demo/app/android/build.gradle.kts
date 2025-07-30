@@ -69,6 +69,4 @@ dependencies {
     implementation(project(":composethemer:modules:themes:material500"))
 
     implementation(project(":demo:shared"))
-
-    implementation(deps.kmp.template.open.source.demo)
 }
