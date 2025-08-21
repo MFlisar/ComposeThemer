@@ -36,31 +36,32 @@ pluginManagement {
 }
 
 // --------------
+// Functions
+// --------------
+
+fun includeModule(path: String, name: String) {
+    include(name)
+    project(name).projectDir = file(path)
+}
+
+// --------------
 // Library
 // --------------
 
-// Android + JVM + iOS + js + wasm
-include(":composethemer:core")
-project(":composethemer:core").projectDir = file("library/core")
+includeModule("library/core", ":composethemer:core")
 
 // --------------
 // Modules
 // --------------
 
-// Android + JVM + iOS + js + wasm
-include(":composethemer:modules:picker")
-project(":composethemer:modules:picker").projectDir = file("library/modules/picker")
-include(":composethemer:modules:defaultpicker")
-project(":composethemer:modules:defaultpicker").projectDir = file("library/modules/defaultpicker")
-include(":composethemer:modules:themes:metro")
-project(":composethemer:modules:themes:metro").projectDir = file("library/modules/themes/metro")
-include(":composethemer:modules:themes:flatui")
-project(":composethemer:modules:themes:flatui").projectDir = file("library/modules/themes/flatui")
-include(":composethemer:modules:themes:material500")
-project(":composethemer:modules:themes:material500").projectDir = file("library/modules/themes/material500")
+includeModule("library/modules/picker", ":composethemer:modules:picker")
+includeModule("library/modules/defaultpicker", ":composethemer:modules:defaultpicker")
+includeModule("library/modules/themes/metro", ":composethemer:modules:themes:metro")
+includeModule("library/modules/themes/flatui", ":composethemer:modules:themes:flatui")
+includeModule("library/modules/themes/material500", ":composethemer:modules:themes:material500")
 
 // --------------
-// App
+// Demo
 // --------------
 
 include(":demo:shared")

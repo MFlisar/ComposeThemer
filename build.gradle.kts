@@ -13,7 +13,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.gradle.maven.publish.plugin) apply false
-    alias(deps.plugins.kmp.gradle.tools.gradle.plugin) apply false
+    alias(deps.plugins.kmplibrary.buildplugin) apply false
 }
 
 
@@ -32,22 +32,13 @@ subprojects {
 
 buildscript {
     dependencies {
-        classpath(deps.kmp.gradle.tools.docs)
+        classpath(deps.kmplibrary.docs)
     }
 }
 
-tasks.register("buildDocs") {
-    doLast {
-        // read env from build-mkdocs.yml
-        val generatedDocsDir = project.findProperty("generatedDocsDir") as String? ?: "gen/docs"
-        com.michaelflisar.kmpgradletools.docs.buildDocs(
-            relativePathDocsCustom = "documentation/custom",
-            relativePathGeneratedDocsOutput = generatedDocsDir,
-            relativeModulesPath = "library",
-            relativeDemosPath = "demo",
-            customOtherProjectsYamlUrl = "https://raw.githubusercontent.com/MFlisar/kmp-template/refs/heads/main/data/other-projects.yml"
-        )
-
-        println("Docs have been build!")
-    }
-}
+com.michaelflisar.kmplibrary.docs.registerBuildDocsTasks(
+    tasks = tasks,
+    project = project,
+    relativeModulesPath = "library",
+    relativeDemosPath = "demo"
+)

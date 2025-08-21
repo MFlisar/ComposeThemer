@@ -1,7 +1,9 @@
 import org.gradle.kotlin.dsl.support.unzipTo
-import com.michaelflisar.kmpgradletools.BuildFilePlugin
-import com.michaelflisar.kmpgradletools.Target
-import com.michaelflisar.kmpgradletools.Targets
+import com.michaelflisar.kmplibrary.BuildFilePlugin
+import com.michaelflisar.kmplibrary.dependencyOf
+import com.michaelflisar.kmplibrary.dependencyOfAll
+import com.michaelflisar.kmplibrary.Target
+import com.michaelflisar.kmplibrary.Targets
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,7 +12,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.gradle.maven.publish.plugin)
     alias(libs.plugins.binary.compatibility.validator)
-    alias(deps.plugins.kmp.gradle.tools.gradle.plugin)
+    alias(deps.plugins.kmplibrary.buildplugin)
 }
 
 // get build file plugin
@@ -52,27 +54,16 @@ kotlin {
     sourceSets {
 
         // ---------------------
-        // custom shared sources
+        // custom source sets
         // ---------------------
 
-        val notAndroidMain by creating {
-            dependsOn(commonMain.get())
-        }
+        // --
+        // e.g.:
+        // val nativeMain by creating { dependsOn(commonMain.get()) }
+        // nativeMain.dependencyOf(sourceSets, buildTargets, listOf(Target.IOS, Target.MACOS))
 
-        // ---------------------
-        // target sources
-        // ---------------------
-
-        buildTargets.updateSourceSetDependencies(sourceSets) { groupMain, target ->
-            when (target) {
-                Target.ANDROID -> {
-                    //
-                }
-                else -> {
-                    groupMain.dependsOn(notAndroidMain)
-                }
-            }
-        }
+        val notAndroidMain by creating { dependsOn(commonMain.get()) }
+        notAndroidMain.dependencyOfAll(sourceSets, buildTargets, exclusions = listOf(Target.ANDROID))
 
         // ---------------------
         // dependencies
@@ -169,10 +160,10 @@ tasks.register("create_themes") {
             val themeDatas = themeZipFiles.map {
                 val partsOfName = it.nameWithoutExtension.split("_")
                 println("zipFileName = ${it.nameWithoutExtension}")
-                val themeName = partsOfName[0]
+                val name = partsOfName[0]
                 val variant = partsOfName[1]
                 ThemeData(
-                    name = themeName,
+                    name = name,
                     variant = variant,
                     file = it
                 )
