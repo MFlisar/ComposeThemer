@@ -51,6 +51,16 @@ kotlin {
 
     sourceSets {
 
+        // ---------------------
+        // custom source sets
+        // ---------------------
+
+        // --
+
+        // ---------------------
+        // dependencies
+        // ---------------------
+
         commonMain.dependencies {
 
             // Kotlin
