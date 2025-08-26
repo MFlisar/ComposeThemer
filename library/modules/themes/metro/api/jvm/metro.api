@@ -212,6 +212,35 @@ public final class com/michaelflisar/composethemer/themes/ThemeMetroGreen$Triade
 	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroGreen$Triade;
 }
 
+public final class com/michaelflisar/composethemer/themes/ThemeMetroIndigo : com/michaelflisar/composethemer/ComposeTheme$Group {
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndigo;
+	public synthetic fun getCollection ()Lcom/michaelflisar/composethemer/ComposeTheme$Collection;
+	public fun getCollection ()Lcom/michaelflisar/composethemer/MetroThemes;
+	public fun getFullName ()Ljava/lang/String;
+	public fun getGroupKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getId ()Ljava/lang/String;
+	public fun getKey ()Lcom/michaelflisar/composethemer/ComposeTheme$Key;
+	public fun getName ()Ljava/lang/String;
+	public fun getThemes ()Ljava/util/List;
+	public fun getVariantIds ()Ljava/util/List;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeMetroIndigo$Analogic : com/michaelflisar/composethemer/base/BaseTheme {
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndigo$Analogic;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeMetroIndigo$Mono : com/michaelflisar/composethemer/base/BaseTheme {
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndigo$Mono;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeMetroIndigo$Tetrade : com/michaelflisar/composethemer/base/BaseTheme {
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndigo$Tetrade;
+}
+
+public final class com/michaelflisar/composethemer/themes/ThemeMetroIndigo$Triade : com/michaelflisar/composethemer/base/BaseTheme {
+	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndigo$Triade;
+}
+
 public final class com/michaelflisar/composethemer/themes/ThemeMetroIndogo : com/michaelflisar/composethemer/ComposeTheme$Group {
 	public static final field INSTANCE Lcom/michaelflisar/composethemer/themes/ThemeMetroIndogo;
 	public synthetic fun getCollection ()Lcom/michaelflisar/composethemer/ComposeTheme$Collection;

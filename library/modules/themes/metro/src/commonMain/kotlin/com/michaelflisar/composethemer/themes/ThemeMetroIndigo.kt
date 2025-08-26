@@ -5,9 +5,35 @@ import com.michaelflisar.composethemer.ComposeThemeColors
 import com.michaelflisar.composethemer.*
 import com.michaelflisar.composethemer.base.BaseTheme
 
+/**
+ * Note: do never use [ThemeMetroIndigo] and the deprecated [ThemeMetroIndogo] in the same project as they do use the same key!
+ */
+object ThemeMetroIndigo : ComposeTheme.Group {
+
+    // themes begin
+    object Analogic : BaseTheme(ComposeTheme.Key("analogic", "Analogic"), this, ThemeMetroIndogo.Colors.Analogic)
+    object Mono : BaseTheme(ComposeTheme.Key("mono", "Mono"), this, ThemeMetroIndogo.Colors.Mono)
+    object Tetrade : BaseTheme(ComposeTheme.Key("tetrade", "Tetrade"), this, ThemeMetroIndogo.Colors.Tetrade)
+    object Triade : BaseTheme(ComposeTheme.Key("triade", "Triade"), this, ThemeMetroIndogo.Colors.Triade)
+    // themes end
+
+    override val collection = MetroThemes
+    override val groupKey = ComposeTheme.Key("indogo", "Indigo") // key must stay the same for full compatibility!
+    override val themes by lazy {
+        listOf(Analogic, Mono, Tetrade, Triade)
+    }
+}
+
+/**
+ * Note: do never use [ThemeMetroIndigo] and the deprecated [ThemeMetroIndogo] in the same project as they do use the same key!
+ */
+@Deprecated(
+    "Spelling mistake old name, use [ThemeMetroIndigo] instead.",
+    replaceWith = ReplaceWith("ThemeMetroIndigo")
+)
 object ThemeMetroIndogo : ComposeTheme.Group {
 
-    private object Colors {
+    internal object Colors {
         // colors begin
         object Analogic : ComposeThemeColors {
             override val primaryLight = Color(0xFF65558F)

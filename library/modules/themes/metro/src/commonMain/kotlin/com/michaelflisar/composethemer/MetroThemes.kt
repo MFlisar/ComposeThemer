@@ -19,7 +19,7 @@ object MetroThemes : ComposeTheme.Collection {
             ThemeMetroCyan,
             ThemeMetroEmerald,
             ThemeMetroGreen,
-            ThemeMetroIndogo,
+            ThemeMetroIndigo,
             ThemeMetroLime,
             ThemeMetroMagenta,
             ThemeMetroMauve,
