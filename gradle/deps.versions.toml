@@ -1,7 +1,7 @@
 [versions]
 
 # mflisar
-kmp-library =               "1.9.7"
+kmp-library =               "2.2.5"
 
 [plugins]
 
