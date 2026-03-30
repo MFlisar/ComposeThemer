@@ -1,0 +1,37 @@
+# Github Library
+github:
+  name: ComposeThemer
+  release: 2021
+  namespace: com.michaelflisar.composethemer
+  license:
+    name: Apache License 2.0
+    path: blob/main/LICENSE
+
+# Maven
+maven:
+  group-id: io.github.mflisar.composethemer
+  primary-artifact-id: core # used to detect latest release version of the library (dynamically on the published homepage)
+
+# Modules - list of modules [artifact-id, description, path]
+modules:
+  - artifact-id: core
+    description: provides all the basic ComposeThemer classes to use and apply Themes
+    path: library/core
+  - artifact-id: modules-picker
+    description: provides states and composables to create a theme picker UI
+    path: library/modules/picker
+  - artifact-id: modules-defaultpicker
+    description: provides a default theme picker UI
+    path: library/modules/defaultpicker
+  - artifact-id: themes-flatui
+    description: provides a list of themes based on the 20 flatui colors (each one in 5 variations)
+    path: library/modules/themes/flatui
+  - artifact-id: themes-material500
+    description: provides a list of themes based on the 19 material500 colors (each one in 5 variations)
+    path: library/modules/themes/material500
+  - artifact-id: themes-metro
+    description: provides a list of themes based on the 20 metro colors (each one in 5 variations)
+    path: library/modules/themes/metro
+
+# XCFrameworks [name, path, targets (ios, macos)]
+xcframeworks: [ ]

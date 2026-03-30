@@ -1,76 +1,60 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.michaelflisar.kmpdevtools.BuildFileUtil
+import com.michaelflisar.kmpdevtools.configs.app.AndroidAppConfig
+import com.michaelflisar.kmpdevtools.core.configs.AppConfig
+import com.michaelflisar.kmpdevtools.core.configs.Config
+import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
 
 plugins {
+    // kmp + app/library
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.kotlin.compose)
+    // org.jetbrains.kotlin
+    alias(libs.plugins.jetbrains.kotlin.compose)
+    // org.jetbrains.compose
+    // --
+    // docs, publishing, validation
+    // --
+    // build tools
+    alias(deps.plugins.kmpdevtools.buildplugin)
+    // others
+    // ...
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_17)
-    }
-}
+// ------------------------
+// Setup
+// ------------------------
+
+val config = Config.read(rootProject)
+val libraryConfig = LibraryConfig.read(rootProject)
+val appConfig = AppConfig.read(rootProject)
+
+val androidConfig = AndroidAppConfig(
+    compileSdk = app.versions.compileSdk,
+    minSdk = app.versions.minSdk,
+    targetSdk = app.versions.targetSdk
+)
+
+// -------------------
+// Configurations
+// -------------------
 
 android {
 
-    namespace = "com.michaelflisar.composethemer.demo"
-
-    compileSdk = app.versions.compileSdk.get().toInt()
-
-    buildFeatures {
-        compose = true
-    }
-
-    defaultConfig {
-        minSdk = app.versions.minSdk.get().toInt()
-        targetSdk = app.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-
-    // eventually use local custom signing
-    val debugKeyStore = providers.gradleProperty("debugKeyStore").orNull
-    if (debugKeyStore != null) {
-        signingConfigs {
-            getByName("debug") {
-                keyAlias = "androiddebugkey"
-                keyPassword = "android"
-                storeFile = File(debugKeyStore)
-                storePassword = "android"
-            }
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    BuildFileUtil.setupAndroidApp(
+        project = project,
+        config = config,
+        appConfig = appConfig,
+        androidAppConfig = androidConfig,
+        generateResAppName = true,
+        buildConfig = true,
+        checkDebugKeyStoreProperty = true,
+        setupBuildTypesDebugAndRelease = true
+    )
 }
 
 dependencies {
 
-    // ------------------------
-    // AndroidX
-    // ------------------------
+    implementation(libs.androidx.activity.compose)
 
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material.icons.core)
-    implementation(libs.compose.material.icons.extended)
-
-    implementation(androidx.activity.compose)
-
-    // ------------------------
-    // Libraries
-    // ------------------------
-
-    implementation(project(":composethemer:core"))
-    implementation(project(":composethemer:modules:picker"))
-    implementation(project(":composethemer:modules:defaultpicker"))
-    implementation(project(":composethemer:modules:themes:metro"))
-    implementation(project(":composethemer:modules:themes:flatui"))
-    implementation(project(":composethemer:modules:themes:material500"))
-
-    implementation(project(":demo:shared"))
+    // Library
+    implementation(project(":demo:app:compose"))
 }

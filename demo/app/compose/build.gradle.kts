@@ -1,10 +1,12 @@
-import com.michaelflisar.kmpdevtools.BuildFileUtil
 import com.michaelflisar.kmpdevtools.Targets
-import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.BuildFileUtil
 import com.michaelflisar.kmpdevtools.core.Platform
+import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.configs.app.DesktopAppConfig
+import com.michaelflisar.kmpdevtools.configs.app.WasmAppConfig
+import com.michaelflisar.kmpdevtools.core.configs.AppConfig
 import com.michaelflisar.kmpdevtools.core.configs.Config
 import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
-import com.michaelflisar.kmpdevtools.setupDependencies
 
 plugins {
     // kmp + app/library
@@ -15,13 +17,11 @@ plugins {
     // org.jetbrains.compose
     alias(libs.plugins.jetbrains.compose)
     // docs, publishing, validation
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.vanniktech.maven.publish.base)
-    alias(libs.plugins.binary.compatibility.validator)
+    // --
     // build tools
     alias(deps.plugins.kmpdevtools.buildplugin)
     // others
-    // ...
+    // --
 }
 
 // ------------------------
@@ -30,22 +30,34 @@ plugins {
 
 val config = Config.read(rootProject)
 val libraryConfig = LibraryConfig.read(rootProject)
+val appConfig = AppConfig.read(rootProject)
 
 val buildTargets = Targets(
     // mobile
     android = true,
-    iOS = true,
+    //iOS = true,
     // desktop
     windows = true,
-    macOS = true,
+    //macOS = true,
     // web
     wasm = true
 )
 
-val androidConfig = AndroidLibraryConfig.create(
+val androidConfig = AndroidLibraryConfig.createManualNamespace(
     compileSdk = app.versions.compileSdk,
     minSdk = app.versions.minSdk,
-    enableAndroidResources = false
+    enableAndroidResources = true,
+    namespaceAddon = "demo.app.compose"
+)
+
+val desktopConfig = DesktopAppConfig(
+    mainClass = "com.michaelflisar.demo.MainKt",
+    ico = "icon.ico"
+)
+
+val wasmConfig = WasmAppConfig(
+    moduleName = "demo",
+    outputFileName = "demo.js"
 )
 
 // -------------------
@@ -58,7 +70,7 @@ kotlin {
     // Targets
     //-------------
 
-    buildTargets.setupTargetsLibrary(project)
+    buildTargets.setupTargetsApp(project, wasmAppConfig = wasmConfig)
     android {
         buildTargets.setupTargetsAndroidLibrary(project, config, libraryConfig, androidConfig, this)
     }
@@ -81,23 +93,33 @@ kotlin {
 
         commonMain.dependencies {
 
-            // kotlinx
-            implementation(libs.jetbrains.kotlinx.coroutines.core)
+            api(project(":demo:shared"))
 
-            // Compose + AndroidX
-            implementation(libs.jetbrains.compose.material3)
+        }
 
-            // Library
-            implementation(project(":composethemer:core"))
+        jvmMain.dependencies {
+
+            implementation(compose.desktop.currentOs) {
+                exclude(group = "org.jetbrains.compose.material", module = "material")
+            }
 
         }
     }
 }
 
 // -------------------
-// Publish
+// Configurations
 // -------------------
 
-// maven publish configuration
-if (BuildFileUtil.checkGradleProperty(project, "publishToMaven") != false)
-    BuildFileUtil.setupMavenPublish(project, config, libraryConfig)
+// windows configuration
+compose.desktop {
+    application {
+        BuildFileUtil.setupWindowsApp(
+            project = project,
+            config = config,
+            application = this,
+            appConfig = appConfig,
+            desktopAppConfig = desktopConfig
+        )
+    }
+}

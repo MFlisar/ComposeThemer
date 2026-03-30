@@ -1,18 +1,36 @@
-import com.michaelflisar.kmplibrary.BuildFilePlugin
-import com.michaelflisar.kmplibrary.setupDependencies
-import com.michaelflisar.kmplibrary.Target
-import com.michaelflisar.kmplibrary.Targets
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
+import com.michaelflisar.kmpdevtools.Targets
+import com.michaelflisar.kmpdevtools.configs.library.AndroidLibraryConfig
+import com.michaelflisar.kmpdevtools.core.Platform
+import com.michaelflisar.kmpdevtools.core.configs.AppConfig
+import com.michaelflisar.kmpdevtools.core.configs.Config
+import com.michaelflisar.kmpdevtools.core.configs.LibraryConfig
+import com.michaelflisar.kmpdevtools.setupDependencies
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    // kmp + app/library
+    alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.compose)
-    alias(deps.plugins.kmplibrary.buildplugin)
+    // org.jetbrains.kotlin
+    alias(libs.plugins.jetbrains.kotlin.compose)
+    // org.jetbrains.compose
+    alias(libs.plugins.jetbrains.compose)
+    // docs, publishing, validation
+    // --
+    // build tools
+    alias(deps.plugins.kmpdevtools.buildplugin)
+    alias(libs.plugins.buildkonfig)
+    // others
+    // ...
 }
 
-// get build logic plugin
-val buildFilePlugin = project.plugins.getPlugin(BuildFilePlugin::class.java)
+// ------------------------
+// Setup
+// ------------------------
+
+val config = Config.read(rootProject)
+val libraryConfig = LibraryConfig.read(rootProject)
+val appConfig = AppConfig.read(rootProject)
 
 // targets
 val buildTargets = Targets(
@@ -26,11 +44,27 @@ val buildTargets = Targets(
     wasm = true
 )
 
-val androidNamespace = "com.michaelflisar.composethemer.demo.shared"
+val androidConfig = AndroidLibraryConfig.createManualNamespace(
+    compileSdk = app.versions.compileSdk,
+    minSdk = app.versions.minSdk,
+    enableAndroidResources = true,
+    namespaceAddon = "demo.shared"
+)
 
-// -------------------
-// Setup
-// -------------------
+// ------------------------
+// Kotlin
+// ------------------------
+
+buildkonfig {
+    packageName = appConfig.packageName
+    exposeObjectWithName = "BuildKonfig"
+    defaultConfigs {
+        buildConfigField(Type.STRING, "versionName", appConfig.versionName)
+        buildConfigField(Type.INT, "versionCode", appConfig.versionCode.toString())
+        buildConfigField(Type.STRING, "packageName", appConfig.packageName)
+        buildConfigField(Type.STRING, "appName", appConfig.name)
+    }
+}
 
 kotlin {
 
@@ -38,7 +72,10 @@ kotlin {
     // Targets
     //-------------
 
-    buildFilePlugin.setupTargetsLibrary(buildTargets)
+    buildTargets.setupTargetsLibrary(project)
+    android {
+        buildTargets.setupTargetsAndroidLibrary(project, config, libraryConfig, androidConfig, this)
+    }
 
     // -------
     // Sources
@@ -50,42 +87,22 @@ kotlin {
         commonMain.dependencies {
 
             // Kotlin
-            implementation(kotlinx.coroutines.core)
+            api(libs.jetbrains.kotlinx.coroutines.core)
 
             // Compose
-            implementation(libs.compose.material3)
-            implementation(libs.compose.material.icons.core)
-            implementation(libs.compose.material.icons.extended)
+            api(libs.jetbrains.compose.ui)
+            api(libs.jetbrains.compose.material3)
+            api(libs.jetbrains.compose.material.icons.core)
+            api(libs.jetbrains.compose.material.icons.extended)
 
             // library
-            implementation(project(":composethemer:core"))
-            implementation(project(":composethemer:modules:picker"))
-            implementation(project(":composethemer:modules:defaultpicker"))
-            implementation(project(":composethemer:modules:themes:metro"))
-            implementation(project(":composethemer:modules:themes:flatui"))
-            implementation(project(":composethemer:modules:themes:material500"))
-
-            //implementation(deps.kmp.template.open.source.demo)
+            api(project(":composethemer:core"))
+            api(project(":composethemer:modules:picker"))
+            api(project(":composethemer:modules:defaultpicker"))
+            api(project(":composethemer:modules:themes:metro"))
+            api(project(":composethemer:modules:themes:flatui"))
+            api(project(":composethemer:modules:themes:material500"))
 
         }
     }
 }
-
-// -------------------
-// Configurations
-// -------------------
-
-// android configuration
-android {
-    buildFilePlugin.setupAndroidLibrary(
-        androidNamespace = androidNamespace,
-        compileSdk = app.versions.compileSdk,
-        minSdk = app.versions.minSdk,
-        buildConfig = false
-    )
-}
-
-
-
-
-
