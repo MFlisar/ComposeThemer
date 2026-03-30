@@ -1,7 +1,3 @@
----
-icon: material/puzzle
----
-
 I took all 20 colors from the [Flat UI color palette](https://materialui.co/flatuicolors) and created themes based on them.
 
 With the help of [this homepage](https://colors.muz.li/) I generated matching colors of following types:

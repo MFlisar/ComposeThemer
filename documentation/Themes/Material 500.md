@@ -1,7 +1,3 @@
----
-icon: material/puzzle
----
-
 I took all 19 500 colors from the [Material 500 color palette](https://materialui.co/colors) and created themes based on them.
 
 With the help of [this homepage](https://colors.muz.li/) I generated matching colors of following types:
