@@ -37,7 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.michaelflisar.composechangelog.demo.BuildKonfig
+import com.michaelflisar.composethemer.demo.BuildKonfig
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.picker.DefaultThemePicker
 

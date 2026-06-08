@@ -1,14 +1,11 @@
 [versions]
 
-# mflisar
-kmpdevtools =               "7.4.2" # change via "updateDevToolsVersion" gradle task!
+# --
 
 [plugins]
 
-# mflisar
-kmpdevtools-buildplugin =           { id = "io.github.mflisar.kmpdevtools.plugins-build-gradle",        version.ref = "kmpdevtools" }
+# --
 
 [libraries]
 
-# mflisar
 # --

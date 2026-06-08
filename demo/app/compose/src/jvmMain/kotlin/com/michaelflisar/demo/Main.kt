@@ -8,7 +8,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.michaelflisar.composechangelog.demo.BuildKonfig
+import com.michaelflisar.composethemer.demo.BuildKonfig
 import com.michaelflisar.composethemer.ComposeTheme
 import com.michaelflisar.composethemer.themes.ThemeDefault
 

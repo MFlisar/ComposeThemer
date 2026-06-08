@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     // org.jetbrains.kotlin
-    alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.jetbrains.kotlin.parcelize) apply false
@@ -17,15 +16,9 @@ plugins {
     alias(libs.plugins.vanniktech.maven.publish.base) apply false
     alias(libs.plugins.binary.compatibility.validator) apply false
     // build tools
-    alias(deps.plugins.kmpdevtools.buildplugin)
+    alias(mflisar.plugins.kmpicon.plugin) apply false
+    alias(mflisar.plugins.kmpdevtools.buildplugin) // apply, because this plugin does register gradle tasks in the root project!
     alias(libs.plugins.buildkonfig) apply false
     // others
-    alias(libs.plugins.launch4j) apply false
-}
-
-// TODO: nur vorerst, solange die compose libs noch das alte parcelize nutzen
-allprojects {
-    configurations.configureEach {
-        exclude(group = "io.github.mflisar.parcelize", module = "library")
-    }
+    // --
 }

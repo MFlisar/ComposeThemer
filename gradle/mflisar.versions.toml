@@ -1,0 +1,22 @@
+[versions]
+
+# general (local snapshot: "LOCAL-SNAPSHOT")
+# --
+
+# plugins only
+kmpicon-plugin =            "1.0.0"
+kmpdevtools =               "7.9.7" # use the "devTools" task to change the version
+
+# demos
+# --
+
+[plugins]
+
+# plugins only
+kmpdevtools-buildplugin =           { id = "io.github.mflisar.kmpdevtools.plugins-build-gradle",        version.ref = "kmpdevtools" }
+kmpicon-plugin =                    { id = "io.github.mflisar.kmpicon.plugin",                          version.ref = "kmpicon-plugin" }
+
+[libraries]
+
+# demos
+# --
