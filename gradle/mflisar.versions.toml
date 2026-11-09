@@ -5,7 +5,7 @@
 
 # plugins only
 kmpicon =                   "1.0.0"
-kmpdevtools =               "9.3.0" # use the "devTools" task to change the version
+kmpdevtools =               "9.3.1" # use the "devTools" task to change the version
 
 # demos
 # --
