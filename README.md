@@ -1,6 +1,6 @@
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.composethemer/core?style=for-the-badge&color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.composethemer/core) ![API](https://img.shields.io/badge/api-24%2B-brightgreen.svg?style=for-the-badge) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/ComposeThemer.svg?style=for-the-badge&amp;color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?style=for-the-badge&amp;label=Kotlin)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mflisar.composethemer/core?color=blue)](https://central.sonatype.com/artifact/io.github.mflisar.composethemer/core) ![API](https://img.shields.io/badge/api-24%2B-brightgreen.svg) ![Kotlin](https://img.shields.io/github/languages/top/MFlisar/ComposeThemer.svg?color=blueviolet) ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin_Multiplatform-blue?label=Kotlin)
 # ComposeThemer
-![Platforms](https://img.shields.io/badge/PLATFORMS-black?style=for-the-badge) ![Android](https://img.shields.io/badge/android-3DDC84?style=for-the-badge) ![iOS](https://img.shields.io/badge/ios-A2AAAD?style=for-the-badge) ![Windows](https://img.shields.io/badge/windows-5382A1?style=for-the-badge) ![macOS](https://img.shields.io/badge/macos-B0B0B0?style=for-the-badge) ![WebAssembly](https://img.shields.io/badge/wasm-624DE7?style=for-the-badge)
+![Platforms](https://img.shields.io/badge/PLATFORMS-black?style=for-the-badge)
 
 This library provides following main features:
 
@@ -18,39 +18,31 @@ This library provides following main features:
 > [!NOTE]
 > All features are splitted into separate modules, just include the modules you want to use!
 
+> [!TIP]
+> Try the interactive demo:
+> 
+> [![Open Interactive Demo](https://img.shields.io/badge/ComposeThemer_Demo-2962FF?style=for-the-badge&logo=googlechrome&logoColor=white)](https://mflisar.github.io/ComposeThemer/demo/)
+
 # Table of Contents
 
-- [Screenshots](#camera-screenshots)
 - [Supported Platforms](#computer-supported-platforms)
 - [Versions](#arrow_right-versions)
 - [Setup](#wrench-setup)
 - [Usage](#rocket-usage)
-- [Modules](#file_folder-modules)
 - [Demo](#sparkles-demo)
-- [More](#information_source-more)
 - [API](#books-api)
 - [Other Libraries](#bulb-other-libraries)
 
-# :camera: Screenshots
-
-### defaultpicker
-
-|  |  |  |
-|---|---|---|
-| ![android1](documentation/screenshots/defaultpicker/android1.png) | ![android2](documentation/screenshots/defaultpicker/android2.png) | ![android3](documentation/screenshots/defaultpicker/android3.png) |
-| ![android4](documentation/screenshots/defaultpicker/android4.png) | ![desktop1](documentation/screenshots/defaultpicker/desktop1.png) | ![desktop2](documentation/screenshots/defaultpicker/desktop2.png) |
-| ![desktop3](documentation/screenshots/defaultpicker/desktop3.png) | ![desktop4](documentation/screenshots/defaultpicker/desktop4.png) | ![desktop5](documentation/screenshots/defaultpicker/desktop5.png) |
-
 # :computer: Supported Platforms
 
-| Module | android | iOS | windows | macOS | wasm | Notes |
-|---|---|---|---|---|---|---|
-| core | ✅ | ✅ | ✅ | ✅ | ✅ | provides all the basic ComposeThemer classes to use and apply Themes |
-| modules-picker | ✅ | ✅ | ✅ | ✅ | ✅ | provides states and composables to create a theme picker UI |
-| modules-defaultpicker | ✅ | ✅ | ✅ | ✅ | ✅ | provides a default theme picker UI |
-| themes-flatui | ✅ | ✅ | ✅ | ✅ | ✅ | provides a list of themes based on the 20 flatui colors (each one in 5 variations) |
-| themes-material500 | ✅ | ✅ | ✅ | ✅ | ✅ | provides a list of themes based on the 19 material500 colors (each one in 5 variations) |
-| themes-metro | ✅ | ✅ | ✅ | ✅ | ✅ | provides a list of themes based on the 20 metro colors (each one in 5 variations) |
+| Module | Notes |
+|---|---|
+| core | provides all the basic ComposeThemer classes to use and apply Themes |
+| modules-picker | provides states and composables to create a theme picker UI |
+| modules-defaultpicker | provides a default theme picker UI |
+| themes-flatui | provides a list of themes based on the 20 flatui colors (each one in 5 variations) |
+| themes-material500 | provides a list of themes based on the 19 material500 colors (each one in 5 variations) |
+| themes-metro | provides a list of themes based on the 20 metro colors (each one in 5 variations) |
 
 # :arrow_right: Versions
 
@@ -183,26 +175,18 @@ ComposeTheme(
 }
 ```
 
-# :file_folder: Modules
-
-- [Default Picker](documentation/Modules/Default%20Picker.md)
-- [Picker](documentation/Modules/Picker.md)
-
 # :sparkles: Demo
 
-A full [demo](/demo) is included inside the demo module, it shows nearly every usage with working examples.
-
-# :information_source: More
-
-- Themes
-  - [Flat UI](documentation/Themes/Flat%20UI.md)
-  - [Material 500](documentation/Themes/Material%20500.md)
-  - [Metro](documentation/Themes/Metro.md)
+A [demo project](demo) is included.
 
 # :books: API
 
-Check out the [API documentation](https://MFlisar.github.io/ComposeThemer/).
+Check out the [API documentation](https://MFlisar.github.io/ComposeThemer/api/).
 
 # :bulb: Other Libraries
 
-You can find more libraries (all multiplatform) of mine that all do work together nicely [here](https://mflisar.github.io/Libraries/).
+You can find more of my multiplatform libraries that work well together [here](https://mflisar.github.io/Libraries/).
+
+# :twisted_rightwards_arrows: Compatibility
+
+When combining my libraries, you can find compatibility information [here](https://mflisar.github.io/Libraries/compatibilities/).
