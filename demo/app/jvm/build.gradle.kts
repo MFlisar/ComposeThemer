@@ -1,13 +1,12 @@
-import com.michaelflisar.kmpdevtools.Targets
 import com.michaelflisar.kmpdevtools.BuildFileUtil
-import com.michaelflisar.kmpdevtools.core.Platform
-import com.michaelflisar.kmpdevtools.configs.*
-import com.michaelflisar.kmpdevtools.setupDependencies
+import com.michaelflisar.kmpdevtools.Targets
+import com.michaelflisar.kmpdevtools.configs.AppModuleConfig
+import com.michaelflisar.kmpdevtools.configs.DesktopAppConfig
+import com.michaelflisar.kmpdevtools.core.Target
 
 plugins {
     // kmp + app/library
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
     // org.jetbrains.kotlin
     alias(libs.plugins.jetbrains.kotlin.compose)
     // org.jetbrains.compose
@@ -16,42 +15,20 @@ plugins {
     // --
     // build tools
     alias(mflisar.plugins.kmpdevtools.buildplugin)
-    // others
-    // --
+    alias(mflisar.plugins.kmpicon.plugin)
+    alias(libs.plugins.launch4j)
 }
 
 // ------------------------
 // Setup
 // ------------------------
 
-val module = AppModuleConfig.readManual(project)
-
-val buildTargets = Targets(
-    // mobile
-    android = true,
-    //iOS = true,
-    // desktop
-    windows = true,
-    //macOS = true,
-    // web
-    wasm = true
-)
-
-val androidConfig = AndroidLibraryConfig.createFromPath(
-    appModuleConfig = module,
-    compileSdk = app.versions.compileSdk,
-    minSdk = app.versions.minSdk,
-    enableAndroidResources = true
-)
+val module = AppModuleConfig.read(project)
+val buildTargets = Targets(Target.JVM)
 
 val desktopConfig = DesktopAppConfig(
     mainClass = "com.michaelflisar.demo.MainKt",
     ico = "icon.ico"
-)
-
-val wasmConfig = WasmAppConfig(
-    moduleName = "demo",
-    outputFileName = "demo.js"
 )
 
 // -------------------
@@ -64,10 +41,7 @@ kotlin {
     // Targets
     //-------------
 
-    buildTargets.setupTargetsApp(module, wasmAppConfig = wasmConfig)
-    android {
-        buildTargets.setupTargetsAndroidLibrary(module, androidConfig, this)
-    }
+    buildTargets.setupTargetsApp(module)
 
     // -------
     // Sources
@@ -76,27 +50,17 @@ kotlin {
     sourceSets {
 
         // ---------------------
-        // custom source sets
-        // ---------------------
-
-        // --
-
-        // ---------------------
         // dependencies
         // ---------------------
 
         commonMain.dependencies {
-
-            api(project(":demo:shared"))
-
+            implementation(project(":demo:shared"))
         }
 
         jvmMain.dependencies {
-
             implementation(compose.desktop.currentOs) {
                 exclude(group = "org.jetbrains.compose.material", module = "material")
             }
-
         }
     }
 }
@@ -105,7 +69,16 @@ kotlin {
 // Configurations
 // -------------------
 
-// windows configuration
+kmpIcon {
+    setup {
+        sourceModule = "demo/app/android"
+        sourceFile = "src/main/ic_launcher-playstore.png"
+    }
+    generateIco {
+        file = "icon.ico"
+    }
+}
+
 compose.desktop {
     application {
         BuildFileUtil.setupWindowsApp(
@@ -115,3 +88,8 @@ compose.desktop {
         )
     }
 }
+
+BuildFileUtil.registerLaunch4JTask(
+    appModuleConfig = module,
+    desktopAppConfig = desktopConfig
+)

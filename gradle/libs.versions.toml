@@ -25,6 +25,7 @@ jetbrains-kotlinx-coroutines =          "1.11.0"
 
 # others
 buildkonfig =                           "0.21.2"
+launch4j =                              "3.0.7"
 
 [plugins]
 
@@ -53,6 +54,7 @@ jetbrains-compose-hotreload =                       { id = "org.jetbrains.compos
 
 # others
 buildkonfig =                                       { id = "com.codingfeline.buildkonfig",              version.ref = "buildkonfig" }
+launch4j =                                          { id = "edu.sc.seis.launch4j",                      version.ref = "launch4j" }
 
 [libraries]
 
